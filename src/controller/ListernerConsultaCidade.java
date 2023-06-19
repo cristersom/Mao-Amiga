@@ -111,20 +111,14 @@ public class ListernerConsultaCidade implements ActionListener {
 						.parseInt(pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))[0];
 				
 				try {
-					try {
-						pFormulario.cadCep.setSelected(true);
-						pFormulario.cadCep.txtCidade.setText(this.pFormulario.cidBO.getCidade());
-						pFormulario.cadCep.txtUf.setText(this.pFormulario.cidBO.getUf());
-					}
-                    catch (NullPointerException en) {
-                        pFormulario.cadBairro.setSelected(true);
-                        pFormulario.cadBairro.codCidade = this.pFormulario.cidBO.getCodigo();
-                        pFormulario.cadBairro.txtCidade.setText(this.pFormulario.cidBO.getCidade());
-                        pFormulario.cadBairro.txtUf.setText(this.pFormulario.cidBO.getUf());
-                    }
+					pFormulario.cadCep.setSelected(true);
 				} catch (PropertyVetoException e1) {
 					e1.printStackTrace();
 				}
+				pFormulario.cadCep.txtCodigo.setText(String.valueOf(pFormulario.cidBO.getCodigo()));
+				pFormulario.cadCep.txtCidade.setText(pFormulario.cidBO.getCidade());
+				pFormulario.cadCep.txtUf.setText(pFormulario.cidBO.getUf());
+				//pFormulario.cadCep.txtCodigo.setEditable(false);
 				pFormulario.dispose();
 			} else
 				JOptionPane.showMessageDialog(pFormulario, "Escolha um registro!", "Mensagem",

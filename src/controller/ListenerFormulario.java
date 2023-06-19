@@ -9,9 +9,7 @@ import view.FrameCadastroCidade;
 import view.FrameCadastroResponsavel;
 import view.FrameCadastroTurma;
 import view.FrameConsultaAluno;
-import view.FrameConsultaBairro;
 import view.FrameCadastroAluno;
-import view.FrameCadastroBairro;
 import view.FrameConsultaCEP;
 import view.FrameConsultaCidade;
 import view.FrameConsultaResponsavel;
@@ -112,27 +110,6 @@ public class ListenerFormulario implements ActionListener {
 			} catch (PropertyVetoException exc) {
 			}
 			fr.txtTurma.requestFocus();
-
-		} else if (origem == pFormulario.itemConsultaBairro || origem == pFormulario.btnBairro) {
-			FrameConsultaBairro fr = new FrameConsultaBairro();
-			fr.setVisible(true);
-			fr.btnSelecionar.setVisible(false);
-			pFormulario.DPane.add(fr);
-			try {
-				fr.setSelected(true);
-			} catch (PropertyVetoException exc) {
-			}
-			fr.txtConsulta.requestFocus();
-
-		} else if (origem == pFormulario.itemCadastroBairro) {
-			FrameCadastroBairro fr = new FrameCadastroBairro();
-			fr.setVisible(true);
-			pFormulario.DPane.add(fr);
-			try {
-				fr.setSelected(true);
-			} catch (PropertyVetoException exc) {
-			}
-			fr.txtBairro.requestFocus();
 
 		} else if (origem == pFormulario.itemConsultaResponsavel || origem == pFormulario.btnResponsavel) {
 			FrameConsultaResponsavel fr = new FrameConsultaResponsavel();

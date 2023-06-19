@@ -62,8 +62,7 @@ public class CepDao {
 			// faz a consulta
 			registros = sentenca
 					.executeQuery("SELECT codCep, cep, cidade, logradouro, bairro, uf, cep.codcidade as codcidade "
-							+ "FROM cep INNER JOIN cidade ON cep.codCidade = cidade.codCidade "
-							+ "INNER JOIN bairro on cep.codBairro = bairro.codBairro and bairro.codCidade = cidade.codCidade WHERE "+ sentencaSQL
+							+ "FROM cep INNER JOIN cidade ON cep.codCidade = cidade.codCidade WHERE " + sentencaSQL
 							+ " Order By " + ordem);
 
 			if (registros.next()) {
@@ -116,7 +115,7 @@ public class CepDao {
 
 	public boolean alterar(CepBO cepBO) {
 		try {
-			String sql = "UPDATE cep SET cep = ?, logradouro = UPPER(?), bairro = UPPER(?), codcidade = ?"
+			String sql = "UPDATE cep SET cep = ?, logradouro = UPPER(?), bairro = UPPER(?), codcidade = ? "
 					+ "WHERE codCep = " + cepBO.getCodigo();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, cepBO.getCep());
@@ -129,7 +128,7 @@ public class CepDao {
 		} catch (SQLException eSQL) {
 			eSQL.printStackTrace();
 			JOptionPane.showMessageDialog(null,
-					"Não foi possível realizar a operação!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
+					"Não foi possíver realizar a operação!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}

@@ -19,17 +19,11 @@ public class FrameConsultaCidade extends FrameConsulta {
 	public ModeloTabela modelo;
 	public CidadeBO cidBO;
 	public FrameCadastroCEP cadCep = null;
-	public FrameCadastroBairro cadBairro = null;
-	
+
 	
 	public FrameConsultaCidade(FrameCadastroCEP cadCep) {
 		this(); // invoca o construtor principal
 		this.cadCep = cadCep;
-	}
-	
-	public FrameConsultaCidade(FrameCadastroBairro cadBairro){
-		this();
-		this.cadBairro = cadBairro;
 	}
 	
 	public FrameConsultaCidade() {

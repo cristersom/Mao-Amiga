@@ -15,7 +15,6 @@ import model.dao.CidadeDao;
 import model.exceptions.CepInvalidoException;
 import model.exceptions.StringVaziaException;
 import view.FrameCadastroCEP;
-import view.FrameConsultaBairro;
 import view.FrameConsultaCidade;
 
 public class ListenerCadastroCEP implements ActionListener, KeyListener, FocusListener {
@@ -42,15 +41,6 @@ public class ListenerCadastroCEP implements ActionListener, KeyListener, FocusLi
 			} catch (PropertyVetoException e1) {
 				e1.printStackTrace();
 			}
-		} else if (origem == pFormulario.btnBuscaBairro) {
-			FrameConsultaBairro fr = new FrameConsultaBairro(this.pFormulario);
-			fr.setVisible(true);
-			pFormulario.getDesktopPane().add(fr);
-			try {
-				fr.setSelected(true);
-			} catch (PropertyVetoException e1) {
-				e1.printStackTrace();
-			}
 		} else if (origem == pFormulario.btnOk) {
 
 			try {
@@ -64,7 +54,7 @@ public class ListenerCadastroCEP implements ActionListener, KeyListener, FocusLi
 				return;
 			}
 
-			/*try {
+			try {
 				cepBO.cidade.setCodigo(Integer.parseInt(pFormulario.txtCodigo.getText()));
 			} catch (NumberFormatException e1) {
 				JOptionPane.showMessageDialog(pFormulario, "Código deve ser numérico", "Mensagem",
@@ -72,7 +62,7 @@ public class ListenerCadastroCEP implements ActionListener, KeyListener, FocusLi
 				pFormulario.txtCodigo.selectAll();
 				pFormulario.txtCodigo.requestFocus();
 				return;
-			}*/
+			}
 			cepBO.setCodigo(pFormulario.codCep);
 			cepBO.setLogradouro(pFormulario.txtLogradouro.getText());
 			cepBO.setBairro(pFormulario.txtBairro.getText());

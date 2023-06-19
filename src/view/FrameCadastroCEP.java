@@ -20,7 +20,6 @@ public class FrameCadastroCEP extends FrameCadastro {
 	public int codCep;
 	public JTextField txtUf, txtCodigo, txtCidade, txtCep, txtLogradouro, txtBairro;
 	public JButton btnBuscaCidades;
-	public JButton btnBuscaBairro;
 	public FrameConsultaCEP consCep = null;
 	public FrameConsultaCidade consCid = null;
 	public CidadeBO cidBO;
@@ -56,7 +55,10 @@ public class FrameCadastroCEP extends FrameCadastro {
 		pnlCenter.add(lblCep, gbc_lblCep);
 
 		txtCep = new JTextField();
-		txtCep.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET); // para capturara ação do TAB
+		txtCep.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET); // para
+																											// capturar
+																											// a ação do
+																											// TAB
 
 		txtCep.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_txtCep = new GridBagConstraints();
@@ -66,6 +68,25 @@ public class FrameCadastroCEP extends FrameCadastro {
 		gbc_txtCep.gridy = 0;
 		pnlCenter.add(txtCep, gbc_txtCep);
 		txtCep.setColumns(10);
+
+		JLabel lblUf = new JLabel("UF:");
+		GridBagConstraints gbc_lblUf = new GridBagConstraints();
+		gbc_lblUf.anchor = GridBagConstraints.EAST;
+		gbc_lblUf.insets = new Insets(5, 5, 5, 5);
+		gbc_lblUf.gridx = 2;
+		gbc_lblUf.gridy = 0;
+		pnlCenter.add(lblUf, gbc_lblUf);
+
+		txtUf = new JTextField();
+		txtUf.setEditable(false);
+		GridBagConstraints gbc_txtUf = new GridBagConstraints();
+		gbc_txtUf.gridwidth = 2;
+		gbc_txtUf.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtUf.insets = new Insets(5, 5, 5, 5);
+		gbc_txtUf.gridx = 3;
+		gbc_txtUf.gridy = 0;
+		pnlCenter.add(txtUf, gbc_txtUf);
+		txtUf.setColumns(5);
 
 		JLabel lblCidade = new JLabel("Cidade:");
 		lblCidade.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -87,33 +108,51 @@ public class FrameCadastroCEP extends FrameCadastro {
 		pnlCenter.add(txtCidade, gbc_txtCidade);
 		txtCidade.setColumns(15);
 
+		JLabel lblCodigo = new JLabel("Código:");
+		GridBagConstraints gbc_lblCodigo = new GridBagConstraints();
+		gbc_lblCodigo.anchor = GridBagConstraints.EAST;
+		gbc_lblCodigo.insets = new Insets(5, 5, 5, 5);
+		gbc_lblCodigo.gridx = 2;
+		gbc_lblCodigo.gridy = 1;
+		pnlCenter.add(lblCodigo, gbc_lblCodigo);
+
+		txtCodigo = new JTextField();
+		GridBagConstraints gbc_txtCodigo = new GridBagConstraints();
+		gbc_txtCodigo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtCodigo.insets = new Insets(5, 5, 5, 5);
+		gbc_txtCodigo.gridx = 3;
+		gbc_txtCodigo.gridy = 1;
+		pnlCenter.add(txtCodigo, gbc_txtCodigo);
+		txtCodigo.setColumns(5);
+
 		btnBuscaCidades = new JButton("");
 		btnBuscaCidades.setIcon(new ImageIcon("buscar.png"));
 		GridBagConstraints gbc_btnBuscaCidades = new GridBagConstraints();
 		gbc_btnBuscaCidades.anchor = GridBagConstraints.WEST;
 		gbc_btnBuscaCidades.insets = new Insets(5, 5, 5, 5);
-		gbc_btnBuscaCidades.gridx = 3;
+		gbc_btnBuscaCidades.gridx = 4;
 		gbc_btnBuscaCidades.gridy = 1;
 		pnlCenter.add(btnBuscaCidades, gbc_btnBuscaCidades);
 
-		JLabel lblUf = new JLabel("UF:");
-		GridBagConstraints gbc_lblUf = new GridBagConstraints();
-		gbc_lblUf.anchor = GridBagConstraints.EAST;
-		gbc_lblUf.insets = new Insets(5, 5, 5, 5);
-		gbc_lblUf.gridx = 4;
-		gbc_lblUf.gridy = 1;
-		pnlCenter.add(lblUf, gbc_lblUf);
+		JLabel lblLogradouro = new JLabel("Logradouro:");
+		lblLogradouro.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		GridBagConstraints gbc_lblLogradouro = new GridBagConstraints();
+		gbc_lblLogradouro.insets = new Insets(5, 5, 5, 5);
+		gbc_lblLogradouro.anchor = GridBagConstraints.EAST;
+		gbc_lblLogradouro.gridx = 0;
+		gbc_lblLogradouro.gridy = 2;
+		pnlCenter.add(lblLogradouro, gbc_lblLogradouro);
 
-		txtUf = new JTextField();
-		txtUf.setEditable(false);
-		GridBagConstraints gbc_txtUf = new GridBagConstraints();
-		gbc_txtUf.gridwidth = 2;
-		gbc_txtUf.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtUf.insets = new Insets(5, 5, 5, 5);
-		gbc_txtUf.gridx = 5;
-		gbc_txtUf.gridy = 1;
-		pnlCenter.add(txtUf, gbc_txtUf);
-		txtUf.setColumns(5);
+		txtLogradouro = new JTextField();
+		txtLogradouro.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		GridBagConstraints gbc_txtLogradouro = new GridBagConstraints();
+		gbc_txtLogradouro.gridwidth = 4;
+		gbc_txtLogradouro.insets = new Insets(5, 5, 5, 5);
+		gbc_txtLogradouro.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLogradouro.gridx = 1;
+		gbc_txtLogradouro.gridy = 2;
+		pnlCenter.add(txtLogradouro, gbc_txtLogradouro);
+		txtLogradouro.setColumns(10);
 
 		JLabel lblBairro = new JLabel("Bairro:");
 		lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -121,7 +160,7 @@ public class FrameCadastroCEP extends FrameCadastro {
 		gbc_lblBairro.insets = new Insets(5, 5, 5, 5);
 		gbc_lblBairro.anchor = GridBagConstraints.EAST;
 		gbc_lblBairro.gridx = 0;
-		gbc_lblBairro.gridy = 2;
+		gbc_lblBairro.gridy = 3;
 		pnlCenter.add(lblBairro, gbc_lblBairro);
 
 		txtBairro = new JTextField();
@@ -132,50 +171,19 @@ public class FrameCadastroCEP extends FrameCadastro {
 		gbc_txtBairro.insets = new Insets(5, 5, 5, 5);
 		gbc_txtBairro.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtBairro.gridx = 1;
-		gbc_txtBairro.gridy = 2;
+		gbc_txtBairro.gridy = 3;
 		pnlCenter.add(txtBairro, gbc_txtBairro);
-		txtBairro.setColumns(5);
-
-		btnBuscaBairro = new JButton("");
-		btnBuscaBairro.setIcon(new ImageIcon("buscar.png"));
-		GridBagConstraints gbc_btnBuscaBairro = new GridBagConstraints();
-		gbc_btnBuscaBairro.anchor = GridBagConstraints.WEST;
-		gbc_btnBuscaBairro.insets = new Insets(5, 5, 5, 5);
-		gbc_btnBuscaBairro.gridx = 5;
-		gbc_btnBuscaBairro.gridy = 2;
-		pnlCenter.add(btnBuscaBairro, gbc_btnBuscaBairro);
-
-		JLabel lblLogradouro = new JLabel("Logradouro:");
-		lblLogradouro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		GridBagConstraints gbc_lblLogradouro = new GridBagConstraints();
-		gbc_lblLogradouro.insets = new Insets(5, 5, 5, 5);
-		gbc_lblLogradouro.anchor = GridBagConstraints.EAST;
-		gbc_lblLogradouro.gridx = 0;
-		gbc_lblLogradouro.gridy = 3;
-		pnlCenter.add(lblLogradouro, gbc_lblLogradouro);
-
-		txtLogradouro = new JTextField();
-		txtLogradouro.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		GridBagConstraints gbc_txtLogradouro = new GridBagConstraints();
-		gbc_txtLogradouro.gridwidth = 6;
-		gbc_txtLogradouro.insets = new Insets(5, 5, 5, 5);
-		gbc_txtLogradouro.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtLogradouro.gridx = 1;
-		gbc_txtLogradouro.gridy = 3;
-		pnlCenter.add(txtLogradouro, gbc_txtLogradouro);
-		txtLogradouro.setColumns(10);
-
+		txtBairro.setColumns(10);
 
 		// aqui é setado o controller desse frame
 		ListenerCadastroCEP listener = new ListenerCadastroCEP(this);
 		btnCancelar.addActionListener(listener);
 		btnBuscaCidades.addActionListener(listener);
-		btnBuscaBairro.addActionListener(listener);
 		btnOk.addActionListener(listener);
 		txtCep.addKeyListener(listener);
 		txtCep.addFocusListener(listener);
-		//txtCodigo.addKeyListener(listener);
-		//txtCodigo.addFocusListener(listener);
+		txtCodigo.addKeyListener(listener);
+		txtCodigo.addFocusListener(listener);
 
 	}
 
