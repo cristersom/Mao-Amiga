@@ -20,7 +20,7 @@ public class Conexao {
 			//Conexão MySql
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/my_Sql", "root", "123456");
-			//conexao = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/mao_amiga", "maoamiga", "123456789");
+			conexao = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/mao_amiga", "maoamiga", "123456789");
 			
 			
 		} catch (SQLException eSQL) {
