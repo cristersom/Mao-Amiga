@@ -39,29 +39,16 @@ import javax.swing.JInternalFrame;
 
 public class FrameCadastroTurma extends JInternalFrame
 {
-    private JPanel pnlTurma;
-    private JPanel pnlAlunos;
+    private JPanel pnlTurma, pnlAlunos;
     protected JPanel pnlCenter;
-    public JButton btnCancelar;
-    public JButton btnOk;
-    public JTextField txtTurma;
-    public JTextField txtDescricao;
-    public JTextField txtDataIni;
-    public JTextField txtDataFim;
+    public JButton btnCancelar, btnOk, btnSelecionar;
+    public JTextField txtTurma, txtDescricao, txtDataIni, txtDataFim;
     public JComboBox<Integer> jcbAno;
     public JComboBox<String> jcbCurso;
     public int codTurma;
     int i;
-    private JLabel lblCurso;
-    private JLabel lblTurma;
-    private JLabel lblDataIni;
-    private JLabel lblDataFim;
-    protected JButton btnConsultar;
-    protected JButton btnIncluir;
-    protected JButton btnAlterar;
-    protected JButton btnExlcuir;
-    protected JButton btnSair;
-    public JButton btnSelecionar;
+    private JLabel lblCurso, lblTurma, lblDataIni, lblDataFim;
+    protected JButton btnConsultar, btnIncluir, btnAlterar, btnExlcuir, btnSair;
     public JTable tabela;
     public ModeloTabela modelo;
     public TurmaBO turmaBO;

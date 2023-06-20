@@ -29,32 +29,15 @@ import javax.swing.JFrame;
 public class SistemaMatricula extends JFrame
 {
     public JDesktopPane DPane;
-    public JButton btnAluno, btnCidade, btnResponsavel, btnCep, btnTurma, btnColaborador, btnAutorizado, btnBairro, btnCurso, btnFrequencia;
+    public JButton btnAluno, btnCidade, btnResponsavel, btnCep, btnTurma, btnColaborador, btnAutorizado, btnCurso, btnFrequencia;
     private JMenuBar menuBar;
     private JMenu menuConsulta, menuCadastro, menuSistema;
     private JToolBar toolBar;
     private JButton btnSair;
-    public JMenuItem itemSair;
-    public JMenuItem itemConsultaAluno;
-    public JMenuItem itemConsultaCidade;
-    public JMenuItem itemConsultaResponsavel;
-    public JMenuItem itemConsultaCep;
-    public JMenuItem itemCadastroAluno;
-    public JMenuItem itemCadastroResponsavel;
-    public JMenuItem itemCadastroCidade;
-    public JMenuItem itemCadastroCep;
-    public JMenuItem itemCadastroTurma;
-    public JMenuItem itemConsultaTurma;
-    public JMenuItem itemConsultaAutorizado;
-    public JMenuItem itemCadastroAutorizado;
-    public JMenuItem itemConsultaColaborador;
-    public JMenuItem itemCadastroColaborador;
-    public JMenuItem itemConsultaBairro;
-    public JMenuItem itemCadastroBairro;
-    public JMenuItem itemConsultaCurso;
-    public JMenuItem itemCadastroCurso;
-    public JMenuItem itemConsultaFrequencia;
-    public JMenuItem itemCadastroFrequencia;
+    public JMenuItem itemSair, itemConsultaAluno, itemConsultaCidade, itemConsultaResponsavel, itemConsultaCep, itemCadastroAluno
+         	       , itemCadastroResponsavel, itemCadastroCidade, itemCadastroCep, itemCadastroTurma, itemConsultaTurma
+         	       , itemConsultaAutorizado, itemCadastroAutorizado, itemConsultaColaborador, itemCadastroColaborador, itemConsultaCurso
+         	       , itemCadastroCurso, itemConsultaFrequencia, itemCadastroFrequencia;
     
     public SistemaMatricula() {
     	
@@ -141,11 +124,6 @@ public class SistemaMatricula extends JFrame
         (itemConsultaCep = new JMenuItem("CEP")).setIcon(imgCep);
         menuConsulta.add(itemConsultaCep);
         
-        ImageIcon imgBairro = new ImageIcon("bairro.png");
-        imgBairro.setImage(imgBairro.getImage().getScaledInstance(width, height, hints));
-        (itemConsultaBairro = new JMenuItem("Bairro")).setIcon(imgBairro);
-        menuConsulta.add(itemConsultaBairro);
-        
         ImageIcon imgCidade = new ImageIcon("cidade.png");
         imgCidade.setImage(imgCidade.getImage().getScaledInstance(width, height, hints));
         (itemConsultaCidade = new JMenuItem("Cidade")).setIcon(imgCidade);
@@ -172,8 +150,6 @@ public class SistemaMatricula extends JFrame
         menuCadastro.add(itemCadastroColaborador);
         (itemCadastroCep = new JMenuItem("CEP")).setIcon(imgCep);
         menuCadastro.add(itemCadastroCep);
-        (itemCadastroBairro = new JMenuItem("Bairro")).setIcon(imgBairro);
-        menuCadastro.add(itemCadastroBairro);
         (itemCadastroCidade = new JMenuItem("Cidade")).setIcon(imgCidade);
         menuCadastro.add(itemCadastroCidade);
         
@@ -205,9 +181,6 @@ public class SistemaMatricula extends JFrame
         (btnCep = new JButton()).setToolTipText("Consulta CEP");
         btnCep.setIcon(new ImageIcon("cep.png"));
         toolBar.add(btnCep);
-        (btnBairro = new JButton()).setToolTipText("Consulta Bairro");
-        btnBairro.setIcon(new ImageIcon("bairro.png"));
-        toolBar.add(btnBairro);
         (btnCidade = new JButton()).setToolTipText("Consulta Cidade");
         btnCidade.setIcon(new ImageIcon("cidade.png"));
         toolBar.add(btnCidade);
@@ -255,9 +228,6 @@ public class SistemaMatricula extends JFrame
         btnCep.addActionListener((ActionListener)listener);
         itemConsultaCep.addActionListener((ActionListener)listener);
         itemCadastroCep.addActionListener((ActionListener)listener);
-        btnBairro.addActionListener((ActionListener)listener);
-        itemConsultaBairro.addActionListener((ActionListener)listener);
-        itemCadastroBairro.addActionListener((ActionListener)listener);
         btnCidade.addActionListener((ActionListener)listener);
         itemConsultaCidade.addActionListener((ActionListener)listener);
         itemCadastroCidade.addActionListener((ActionListener)listener);

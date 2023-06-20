@@ -6,12 +6,14 @@ import java.beans.PropertyVetoException;
 import javax.swing.JOptionPane;
 import view.FrameCadastroCEP;
 import view.FrameCadastroCidade;
+import view.FrameCadastroCurso;
 import view.FrameCadastroResponsavel;
 import view.FrameCadastroTurma;
 import view.FrameConsultaAluno;
 import view.FrameCadastroAluno;
 import view.FrameConsultaCEP;
 import view.FrameConsultaCidade;
+import view.FrameConsultaCurso;
 import view.FrameConsultaResponsavel;
 import view.FrameConsultaTurma;
 import view.SistemaMatricula;
@@ -110,6 +112,27 @@ public class ListenerFormulario implements ActionListener {
 			} catch (PropertyVetoException exc) {
 			}
 			fr.txtTurma.requestFocus();
+			
+		} else if (origem == pFormulario.itemConsultaCurso || origem == pFormulario.btnCurso) {
+			FrameConsultaCurso fr = new FrameConsultaCurso();
+			fr.setVisible(true);
+			fr.btnSelecionar.setVisible(false);
+			pFormulario.DPane.add(fr);
+			try {
+				fr.setSelected(true);
+			} catch (PropertyVetoException exc) {
+			}
+			fr.txtConsulta.requestFocus();
+
+		} else if (origem == pFormulario.itemCadastroCurso) {
+			FrameCadastroCurso fr = new FrameCadastroCurso();
+			fr.setVisible(true);
+			pFormulario.DPane.add(fr);
+			try {
+				fr.setSelected(true);
+			} catch (PropertyVetoException exc) {
+			}
+			fr.txtCurso.requestFocus();
 
 		} else if (origem == pFormulario.itemConsultaResponsavel || origem == pFormulario.btnResponsavel) {
 			FrameConsultaResponsavel fr = new FrameConsultaResponsavel();

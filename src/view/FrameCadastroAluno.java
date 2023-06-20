@@ -57,7 +57,7 @@ public class FrameCadastroAluno extends FrameCadastro {
         pnlAluno.jcbTipo.setEnabled(false);
         tabbedPane.addTab("Aluno", null, pnlAluno, null);
         (pnlEndereco = new AbaEndereco()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        tabbedPane.addTab("Endere\u00e7o", null, pnlEndereco, null);
+        tabbedPane.addTab("Endereço", null, pnlEndereco, null);
         (pnlAnexos = new AbaAnexos()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Anexos", null, pnlAnexos, null);
         AbaAutorizadores pnlAutorizados = new AbaAutorizadores();
