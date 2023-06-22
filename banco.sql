@@ -7,6 +7,7 @@ CONSTRAINT pk_Curso PRIMARY KEY (codCurso)
 
 CREATE TABLE turma(
 codTurma integer NOT NULL AUTO_INCREMENT,
+codCurso integer NOT NULL,
 turma varchar(10) NOT NULL,
 descricao varchar(80),
 ano integer NOT NULL,
