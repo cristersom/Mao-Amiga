@@ -11,27 +11,21 @@ public class Conexao {
 	public static Connection conectaBanco() {
 		Connection conexao = null;
 		try {
-			//Conexão PostgreSql
-			/*Class.forName("org.postgresql.Driver");
-			
-			conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres",
-					"123456");*/
-			
-			//Conexão MySql
+
+			// Conexão MySql
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/my_Sql", "root", "123456");
-			conexao = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/mao_amiga", "maoamiga", "123456789");
-			
-			
+			// conexao = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/mao_amiga", "maoamiga", "123456789");
+
 		} catch (SQLException eSQL) {
 			// exceções de SQL
 			eSQL.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Falha na conexão com o banco!\n" + "Mensagem: " + eSQL.getMessage(),
+			JOptionPane.showMessageDialog(null, "Falha na conexï¿½o com o banco!\n" + "Mensagem: " + eSQL.getMessage(),
 					"Erro", JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			// demais exceções
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Falha na conexão com o banco!\n" + "Mensagem: " + e.getMessage(),
+			JOptionPane.showMessageDialog(null, "Falha na conexï¿½o com o banco!\n" + "Mensagem: " + e.getMessage(),
 					"Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		return conexao;
@@ -44,7 +38,7 @@ public class Conexao {
 			// exceções de SQL
 			eSQL.printStackTrace();
 			JOptionPane.showMessageDialog(null,
-					"Não foi possível desconectar o banco!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
+					"Nï¿½o foi possï¿½vel desconectar o banco!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}

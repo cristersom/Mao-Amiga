@@ -1,26 +1,32 @@
 package model.bo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import model.exceptions.StringVaziaException;
 
 public class TurmaBO
 {
-    private int ano;
-    private int codTurma;
-    private String turma;
-    private String descricao;
+    private int ano, codTurma;
+    private String turma, descricao;
+    private Calendar dataInicio, dataFim;
+    public CursoBO curso;
     
     public TurmaBO() {
         this.codTurma = 0;
         this.turma = "";
         this.ano = 1900;
         this.descricao = "";
+        this.dataInicio = Calendar.getInstance();
+        this.dataFim = Calendar.getInstance();
+        this.curso = new CursoBO();
     }
     
     public int getCodigo() {
         return this.codTurma;
     }
     
-    public void setCodigo(final int codTurma) {
+    public void setCodigo(int codTurma) {
         this.codTurma = codTurma;
     }
     
@@ -28,7 +34,7 @@ public class TurmaBO
         return this.ano;
     }
     
-    public void setAno(final int ano) {
+    public void setAno(int ano) {
         this.ano = ano;
     }
     
@@ -36,7 +42,7 @@ public class TurmaBO
         return this.turma;
     }
     
-    public void setTurma(final String turma) throws StringVaziaException {
+    public void setTurma(String turma) throws StringVaziaException {
         if (turma.trim().equals("")) {
             throw new StringVaziaException();
         }
@@ -47,7 +53,33 @@ public class TurmaBO
         return this.descricao;
     }
     
-    public void setDescricao(final String descricao) {
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+    
+    public Calendar getDataInicio() {
+    	return this.dataInicio;
+    }
+    
+	public void setDataInicio(Calendar dataInicio)  {
+		this.dataInicio = dataInicio;
+	}
+        
+	public void setDataInicio(String dataInicio) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
+		this.dataInicio.setTime(sdf.parse(dataInicio));
+	}
+    
+    public Calendar getDataFim() {
+    	return this.dataFim;
+    }
+    
+	public void setDataFim(Calendar dataFim)  {
+		this.dataFim = dataFim;
+	}
+        
+	public void setDataFim(String dataFim) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
+		this.dataFim.setTime(sdf.parse(dataFim));
+	}
 }

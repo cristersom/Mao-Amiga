@@ -16,7 +16,13 @@ public class FrameConsultaTurma extends FrameConsulta
 {
     public JTable tabela;
     public ModeloTabela modelo;
-    public TurmaBO turmaBO;
+    public TurmaBO turmaBO = null;
+    public FrameCadastroTurma cadTurma = null;
+    
+	public FrameConsultaTurma(FrameCadastroTurma cadTurma){
+		this();
+		this.cadTurma = cadTurma;
+	}
     
     public FrameConsultaTurma() {
     	

@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.sql.Date;
 
 import javax.swing.JOptionPane;
 
@@ -57,12 +60,24 @@ public class TurmaDao {
 					TurmaBO turmaBO = new TurmaBO();
 			
 					turmaBO.setCodigo(Integer.parseInt(registros.getString("codTurma")));
-					turmaBO.setAno(Integer.parseInt(registros.getString("ano")));
+					turmaBO.curso.setCodigo(Integer.parseInt(registros.getString("codCurso")));
 					try {
 						turmaBO.setTurma(registros.getString("turma"));
-					} catch (StringVaziaException e) {
-					}
+
+					} catch (StringVaziaException e) {}
 					turmaBO.setDescricao(registros.getString("descricao"));
+					turmaBO.setAno(Integer.parseInt(registros.getString("ano")));
+					
+					
+					Calendar data = Calendar.getInstance();
+					data.setTime(registros.getDate("data_inicio"));
+					turmaBO.setDataInicio(data);
+					
+					Calendar data2 = Calendar.getInstance();
+					data2.setTime(registros.getDate("data_fim"));
+					turmaBO.setDataFim(data2);
+					
+					
 					turmaBOList.add(turmaBO);
 				} while (registros.next());
 				return turmaBOList;
@@ -79,11 +94,14 @@ public class TurmaDao {
 
 	public boolean incluir(TurmaBO turmaBO) {
 		try {
-			String sql = "INSERT INTO turma (turma, ano, descricao) VALUES (UPPER(?),?,?)";
+			String sql = "INSERT INTO turma (codCurso, turma, ano, descricao, data_inicio, data_fim) VALUES (?,UPPER(?),?,?,?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1, turmaBO.getTurma());
-			stmt.setInt(2, turmaBO.getAno());
-			stmt.setString(3, turmaBO.getDescricao());
+			stmt.setInt(1, turmaBO.curso.getCodigo());
+			stmt.setString(2, turmaBO.getTurma());
+			stmt.setInt(3, turmaBO.getAno());
+			stmt.setString(4, turmaBO.getDescricao());
+			stmt.setDate(5, new Date(turmaBO.getDataInicio().getTimeInMillis()));
+			stmt.setDate(6, new Date(turmaBO.getDataFim().getTimeInMillis()));
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
 			return true;
@@ -98,14 +116,18 @@ public class TurmaDao {
 
 	public boolean alterar(TurmaBO turmaBO) {
 		try {
-			String sql = "UPDATE turma SET turma = UPPER(?), ano = ?, descricao = ?"
+			String sql = "UPDATE turma SET turma = UPPER(?), ano = ?, descricao = ?, codCurso = ?, data_inicio = ?, data_fim = ?"
 					+ "WHERE codTurma = " + turmaBO.getCodigo();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, turmaBO.getTurma());
 			stmt.setInt(2, turmaBO.getAno());
 			stmt.setString(3, turmaBO.getDescricao());
+			stmt.setInt(4, turmaBO.curso.getCodigo());
+			stmt.setDate(5, new Date(turmaBO.getDataInicio().getTimeInMillis()));
+			stmt.setDate(6, new Date(turmaBO.getDataFim().getTimeInMillis()));
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
+
 			return true;
 		} catch (SQLException eSQL) {
 			eSQL.printStackTrace();
