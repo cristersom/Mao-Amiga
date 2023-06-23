@@ -12,14 +12,21 @@ import model.dao.CursoDao;
 import model.dao.TurmaDao;
 import model.exceptions.StringVaziaException;
 import view.FrameCadastroTurma;
+import view.FrameConsultaAluno;
 
 public class ListenerCadastroTurma implements ActionListener {
 
 	private FrameCadastroTurma pFormulario;
+	private FrameConsultaAluno pFrameAluno;
+	
 	CursoDao cursoDao = new CursoDao();
 
 	public ListenerCadastroTurma(FrameCadastroTurma pFormulario) {
 		this.pFormulario = pFormulario;
+	}
+	
+	public ListenerCadastroTurma(FrameConsultaAluno pFrameAluno) {
+		this.pFrameAluno = pFrameAluno;
 	}
 
 	@Override
@@ -28,8 +35,21 @@ public class ListenerCadastroTurma implements ActionListener {
 		TurmaBO turmaBO = new TurmaBO();
 		TurmaDao turmaDao = new TurmaDao();;
 
-		if (origem == pFormulario.btnCancelar) { // para poder chamar o formulário por outro que não é o principal
+		if (origem == pFormulario.btnCancelar || origem == pFormulario.btnSair) { // para poder chamar o formulário por outro que não é o principal
 			this.pFormulario.dispose();
+		} else if (origem == pFormulario.btnIncluir) {
+			FrameConsultaAluno fr = new FrameConsultaAluno();
+			//this.pFormulario.setVisible(false);
+			fr.setVisible(true);
+			pFormulario.getDesktopPane().add(fr);
+			try {
+				fr.setSelected(true);
+			} catch (PropertyVetoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			fr.txtConsulta.requestFocus();
+			
 		} else {//botão ok
 
 			turmaBO.setCodigo(pFormulario.codTurma);
@@ -76,7 +96,7 @@ public class ListenerCadastroTurma implements ActionListener {
 					this.pFormulario.dispose();
 				}
 			} else if (turmaDao.incluir(turmaBO)) {
-				JOptionPane.showMessageDialog(pFormulario, "Registro incluido!", "Mensagem",
+				JOptionPane.showMessageDialog(pFormulario, "Registros incluido!", "Mensagem",
 						JOptionPane.WARNING_MESSAGE);
 				this.pFormulario.dispose();
 			}

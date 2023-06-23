@@ -8,14 +8,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import controller.ListenerFormulario;
-import java.awt.LayoutManager;
 import java.awt.BorderLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import java.awt.Component;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import java.awt.event.WindowListener;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
