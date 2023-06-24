@@ -24,6 +24,18 @@ CONSTRAINT pk_Contrato PRIMARY KEY (codContrato),
 CONSTRAINT fk_Turma FOREIGN KEY (codTurma) REFERENCES turma(codTurma)
 );
 
+CREATE TABLE aluno(
+codAluno integer NOT NULL AUTO_INCREMENT,
+cpf varchar(12) NOT NULL,
+nome varchar(80) NOT NULL,
+dataNascimento date NOT NULL,
+codCep integer NOT NULL,
+numero integer NOT NULL,
+complemento varchar(80),
+CONSTRAINT pk_Aluno PRIMARY KEY (codAluno),
+CONSTRAINT uk_Aluno UNIQUE (cpf),
+CONSTRAINT fk_Cep FOREIGN KEY (codCep) REFERENCES cep(codCep)
+);
 
 CREATE TABLE cidade(
 codCidade integer NOT NULL AUTO_INCREMENT,
