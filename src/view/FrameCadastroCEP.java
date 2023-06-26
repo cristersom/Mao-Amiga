@@ -43,7 +43,7 @@ public class FrameCadastroCEP extends FrameCadastro {
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0 };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0 };
 
 		JLabel lblCep = new JLabel("CEP:");
 		lblCep.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -55,10 +55,7 @@ public class FrameCadastroCEP extends FrameCadastro {
 		pnlCenter.add(lblCep, gbc_lblCep);
 
 		txtCep = new JTextField();
-		txtCep.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET); // para
-																											// capturar
-																											// a ação do
-																											// TAB
+		txtCep.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET); //captura o TAB
 
 		txtCep.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_txtCep = new GridBagConstraints();

@@ -46,7 +46,7 @@ public class FrameCadastroTurma extends JInternalFrame
     private JPanel pnlTurma;
     protected JPanel pnlCenter;
     public JPanel pnlPessoas;
-    public JButton btnCancelar, btnOk, btnConsultar, btnIncluirAluno, btnExlcuir, btnSair;
+    public JButton btnCancelar, btnOk, btnConsultar, btnIncluirAluno, btnExlcuir, btnSair, btnIncluirColaborador;
     public JTextField txtTurma, txtDescricao, txtDataIni, txtDataFim;
     public JComboBox<Integer> jcbAno;
     public JComboBox<String> jcbCurso;
@@ -278,6 +278,7 @@ public class FrameCadastroTurma extends JInternalFrame
         pnlBottom = new JPanel();
         pnlBottom.setBorder(BorderFactory.createBevelBorder(1));
         pnlBottom.add(btnIncluirAluno = new JButton("Incluir Aluno"));
+        pnlBottom.add(btnIncluirColaborador = new JButton("Incluir Colaborador"));
         pnlBottom.add(btnExlcuir = new JButton("Excluir"));
         pnlBottom.add(btnSair = new JButton("Cancelar"));
         pnlPessoas.add(pnlBottom, "South");
@@ -287,6 +288,7 @@ public class FrameCadastroTurma extends JInternalFrame
         btnCancelar.addActionListener((ActionListener)listener);
         btnSair.addActionListener((ActionListener)listener);
         btnIncluirAluno.addActionListener((ActionListener)listener);
+        btnIncluirColaborador.addActionListener((ActionListener)listener);
         btnExlcuir.addActionListener((ActionListener)listener);
         tabbedPane.addChangeListener((ChangeListener)listener);
         //jcbCurso.addActionListener((ActionListener)listener);

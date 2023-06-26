@@ -19,6 +19,7 @@ public class FrameConsultaCEP extends FrameConsulta {
 	public CepBO cepBO;
 	public FrameCadastroCEP cadCep = null;
 	public FrameCadastroAluno cadAluno = null;
+	public FrameCadastroColaborador cadColaborador = null;
 
 	public FrameConsultaCEP(FrameCadastroCEP cadCep){
 		this();
@@ -30,6 +31,11 @@ public class FrameConsultaCEP extends FrameConsulta {
 		this.cadAluno = cadAluno;
 	}
 
+	public FrameConsultaCEP(FrameCadastroColaborador cadColaborador) {
+		this();
+		this.cadColaborador = cadColaborador;
+	}
+	
 	public FrameConsultaCEP() {
 		jcbconsultaPor.setModel(
 				new DefaultComboBoxModel<String>(new String[] { "Cidade", "CEP", "Logradouro", "Bairro", "UF" }));
@@ -78,5 +84,4 @@ public class FrameConsultaCEP extends FrameConsulta {
 		btnIncluir.addActionListener(listener);
 		btnExlcuir.addActionListener(listener);
 	}
-
 }

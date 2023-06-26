@@ -25,7 +25,8 @@ public class AbaEndereco extends JPanel {
     
     public AbaEndereco() {
         this.setLayout(new BorderLayout());
-        
+        //this.add(this, BorderLayout.NORTH);
+                
         final GridBagLayout gbl_this = new GridBagLayout();
         gbl_this.columnWidths = new int[2];
         gbl_this.rowHeights = new int[2];

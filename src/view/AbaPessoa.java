@@ -37,6 +37,7 @@ public class AbaPessoa extends JPanel {
     public JComboBox<String> jcbMes;
     public JComboBox<String> jcbTipo;
     public JComboBox<String> jcbSexo;
+    protected JLabel lblFichaSaude, lblInfEducacao, lblObservacoes;
     private int i;
     
     public AbaPessoa() {
@@ -118,8 +119,8 @@ public class AbaPessoa extends JPanel {
 		GridBagConstraints gbc_jcbAno = new GridBagConstraints();
 		gbc_jcbAno.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jcbAno.insets = new Insets(5, 5, 5, 5);
-		gbc_jcbAno.gridx = 5;
-		gbc_jcbAno.gridy = 2;
+		gbc_jcbAno.gridx = 8;
+		gbc_jcbAno.gridy = 0;
 		this.add(jcbAno, gbc_jcbAno);
 		for (i = 1900; i < 2100; i++)
 			jcbAno.addItem(i);
@@ -234,7 +235,7 @@ public class AbaPessoa extends JPanel {
         gbc_txtNacionalidade.gridy = 3;
         this.add(this.txtNacionalidade, gbc_txtNacionalidade);
         
-        JLabel lblCertNascimento = new JLabel("NÂ° Cert. Nascimento:");
+        JLabel lblCertNascimento = new JLabel("N° Cert. Nascimento:");
         GridBagConstraints gbc_lblCertNascimento = new GridBagConstraints();
         gbc_lblCertNascimento.anchor = GridBagConstraints.EAST;
         gbc_lblCertNascimento.insets = new Insets(5, 5, 5, 5);
@@ -284,7 +285,7 @@ public class AbaPessoa extends JPanel {
         gbc_txtIdiomaMaterno.gridy = 4;
         this.add(txtIdiomaMaterno, gbc_txtIdiomaMaterno);
         
-        JLabel lblFichaSaude = new JLabel("Ficha de Saúde:");
+        lblFichaSaude = new JLabel("Ficha de Saúde:");
         GridBagConstraints gbc_lblFichaSaude = new GridBagConstraints();
         gbc_lblFichaSaude.anchor = GridBagConstraints.EAST;
         gbc_lblFichaSaude.insets = new Insets(5, 5, 5, 5);
@@ -302,7 +303,7 @@ public class AbaPessoa extends JPanel {
         gbc_txtFichaSaude.fill = 1;
         this.add(this.txtFichaSaude, gbc_txtFichaSaude);
         
-        JLabel lblInfEducacao = new JLabel("<html>Informações sobre<br>Educação Prévia:<html>");
+        lblInfEducacao = new JLabel("<html>Informações sobre<br>Educação Prévia:<html>");
         GridBagConstraints gbc_lblInfEducacao = new GridBagConstraints();
         gbc_lblInfEducacao.anchor = GridBagConstraints.EAST;
         gbc_lblInfEducacao.insets = new Insets(5, 5, 5, 5);
@@ -320,7 +321,7 @@ public class AbaPessoa extends JPanel {
         gbc_txtInfEducacao.fill = 1;
         this.add(this.txtInfEducacao, gbc_txtInfEducacao);
         
-        JLabel lblObservacoes = new JLabel("Observa\u00e7\u00f5es:");
+        lblObservacoes = new JLabel("Observa\u00e7\u00f5es:");
         GridBagConstraints gbc_lblObservacoes = new GridBagConstraints();
         gbc_lblObservacoes.anchor = GridBagConstraints.EAST;
         gbc_lblObservacoes.insets = new Insets(5, 5, 5, 5);

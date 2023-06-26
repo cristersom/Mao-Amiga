@@ -50,6 +50,18 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 				e1.printStackTrace();
 			}
 			fr.txtConsulta.requestFocus();
+		} else if (origem == pFormulario.btnIncluirColaborador) {
+			FrameConsultaAluno fr = new FrameConsultaAluno(this.pFormulario);
+			//this.pFormulario.setVisible(false);
+			fr.setVisible(true);
+			pFormulario.getDesktopPane().add(fr);
+			try {
+				fr.setSelected(true);
+			} catch (PropertyVetoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			fr.txtConsulta.requestFocus();
 		} else if (origem == pFormulario.btnExlcuir) {
 			if (pFormulario.tabela.getSelectedRow() >= 0) {
 				if (JOptionPane.showConfirmDialog(pFormulario, "Confirma exclusão?", "Confirmacao",

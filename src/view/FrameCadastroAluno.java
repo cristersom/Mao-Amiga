@@ -45,21 +45,26 @@ public class FrameCadastroAluno extends FrameCadastro {
         gridBagLayout.rowWeights = new double[] { 1.0 };
         gridBagLayout.columnWidths = new int[1];
         gridBagLayout.columnWeights = new double[] { 1.0 };
+        
         JTabbedPane tabbedPane = new JTabbedPane(1);
         GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
         gbc_tabbedPane.fill = 1;
         gbc_tabbedPane.gridx = 0;
         gbc_tabbedPane.gridy = 0;
         pnlCenter.add(tabbedPane, gbc_tabbedPane);
+        
         AbaPessoa pnlAluno = new AbaPessoa();
         pnlAluno.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         pnlAluno.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { "Aluno" }));
         pnlAluno.jcbTipo.setEnabled(false);
         tabbedPane.addTab("Aluno", null, pnlAluno, null);
+        
         (pnlEndereco = new AbaEndereco()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Endereço", null, pnlEndereco, null);
+        
         (pnlAnexos = new AbaAnexos()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Anexos", null, pnlAnexos, null);
+        
         AbaAutorizadores pnlAutorizados = new AbaAutorizadores();
         pnlAutorizados.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Autorizados", null, pnlAutorizados, null);

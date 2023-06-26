@@ -41,6 +41,21 @@ CONSTRAINT uk_Aluno UNIQUE (cpf),
 CONSTRAINT fk_Cep FOREIGN KEY (codCep) REFERENCES cep(codCep)
 );
 
+CREATE TABLE colaborador(
+codColaborador integer NOT NULL AUTO_INCREMENT,
+cpf varchar(12) NOT NULL,
+nome varchar(80) NOT NULL,
+dataNascimento date NOT NULL,
+codCep integer NOT NULL,
+numero integer NOT NULL,
+complemento varchar(80),
+tipo varchar(10) NOT NULL,
+CONSTRAINT pk_Colaborador PRIMARY KEY (codColaborador),
+CONSTRAINT uk_Colaborador UNIQUE (cpf, tipo),
+CONSTRAINT fk_CepColaborador FOREIGN KEY (codCep) REFERENCES cep(codCep)
+);
+
+
 CREATE TABLE cidade(
 codCidade integer NOT NULL AUTO_INCREMENT,
 cidade varchar(80) NOT NULL,

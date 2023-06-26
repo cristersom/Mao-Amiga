@@ -106,18 +106,34 @@ public class ListenerConsultaCEP implements ActionListener {
 						.consultaPorCodigo(Integer.parseInt(
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 5).toString()))
 						.get(0);
-
-				try {
-					pFormulario.cadAluno.setSelected(true);
-				} catch (PropertyVetoException e1) {
-					e1.printStackTrace();
+				if(pFormulario.cadAluno != null) {
+					try {
+						pFormulario.cadAluno.setSelected(true);
+					} catch (PropertyVetoException e1) {
+						e1.printStackTrace();
+					}
+					pFormulario.cadAluno.codCep = pFormulario.cepBO.getCodigo();
+					pFormulario.cadAluno.pnlEndereco.txtCep.setText(pFormulario.cepBO.getCep());
+					pFormulario.cadAluno.pnlEndereco.txtCidade.setText(pFormulario.cepBO.cidade.getCidade());
+					pFormulario.cadAluno.pnlEndereco.txtEndereco.setText(pFormulario.cepBO.getLogradouro());
+					pFormulario.cadAluno.pnlEndereco.txtBairro.setText(pFormulario.cepBO.getBairro());
+					pFormulario.dispose();
 				}
-				pFormulario.cadAluno.codCep = pFormulario.cepBO.getCodigo();
-				pFormulario.cadAluno.pnlEndereco.txtCep.setText(pFormulario.cepBO.getCep());
-				pFormulario.cadAluno.pnlEndereco.txtCidade.setText(pFormulario.cepBO.cidade.getCidade());
-				pFormulario.cadAluno.pnlEndereco.txtEndereco.setText(pFormulario.cepBO.getLogradouro());
-				pFormulario.cadAluno.pnlEndereco.txtBairro.setText(pFormulario.cepBO.getBairro());
-				pFormulario.dispose();
+				
+				if(pFormulario.cadColaborador != null) {
+					try {
+						pFormulario.cadColaborador.setSelected(true);
+					} catch (PropertyVetoException e1) {
+						e1.printStackTrace();
+					}
+					pFormulario.cadColaborador.codCep = pFormulario.cepBO.getCodigo();
+					pFormulario.cadColaborador.txtCep.setText(pFormulario.cepBO.getCep());
+					pFormulario.cadColaborador.txtCidade.setText(pFormulario.cepBO.cidade.getCidade());
+					pFormulario.cadColaborador.txtLogradouro.setText(pFormulario.cepBO.getLogradouro());
+					pFormulario.cadColaborador.txtBairro.setText(pFormulario.cepBO.getBairro());
+					pFormulario.dispose();
+				}
+
 			} else
 				JOptionPane.showMessageDialog(pFormulario, "Escolha um registro!", "Mensagem",
 						JOptionPane.WARNING_MESSAGE);
