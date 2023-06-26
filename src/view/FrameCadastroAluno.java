@@ -33,7 +33,7 @@ public class FrameCadastroAluno extends FrameCadastro {
         this.pnlAluno.jcbAno.setSelectedIndex(consAluno.alunoBO.getDataNascimento().getTime().getYear());
         this.pnlEndereco.txtCidade.setText(consAluno.alunoBO.cep.cidade.getCidade());
         this.pnlEndereco.txtCep.setText(consAluno.alunoBO.cep.getCep());
-        this.pnlEndereco.txtEndereco.setText(consAluno.alunoBO.cep.getLogradouro());
+        this.pnlEndereco.txtLogradouro.setText(consAluno.alunoBO.cep.getLogradouro());
         this.pnlEndereco.txtBairro.setText(consAluno.alunoBO.cep.getBairro());
         this.pnlEndereco.txtNumero.setText(String.valueOf(consAluno.alunoBO.getNumero()));
         this.pnlEndereco.txtComplemento.setText(consAluno.alunoBO.getComplemento());

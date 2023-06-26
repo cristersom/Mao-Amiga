@@ -33,4 +33,10 @@ public class Utils {
 			return value;
 		}
 	}
+	
+	public static enum Tipo {
+		ALUNO,
+		MONITOR,
+		PROFESSOR
+	}
 }

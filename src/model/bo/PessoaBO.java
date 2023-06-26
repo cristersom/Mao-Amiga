@@ -13,7 +13,7 @@ import view.Utils;
 
 public class PessoaBO {
 	private int codPessoa, numero;
-	private String nome, cpf, nascimento, complemento; // endereço e bairro não são obrigatórios no caso de CEP geral
+	private String nome, cpf, nascimento, complemento, nomeMae; // endereço e bairro não são obrigatórios no caso de CEP geral
 	public Calendar dataNascimento;
 	public CepBO cep;
 
@@ -24,6 +24,7 @@ public class PessoaBO {
 		this.numero = 0;
 		this.complemento = "";
 		this.dataNascimento = Calendar.getInstance();
+		this.nomeMae = "";
 		this.cep = new CepBO();
 	}
 
@@ -97,6 +98,16 @@ public class PessoaBO {
 		return nascimento;
 	}
 
+	public String getNomeMae() {
+		return nomeMae;
+	}
+	
+	public void setNomeMae(String nomeMae) throws StringVaziaException {
+		if (nomeMae.trim().equals(""))
+			throw new StringVaziaException();
+		this.nomeMae = nomeMae;
+	}
+	
 	public void setNascimento(int dia, int mes, int ano)
 			throws DiaInvalidoException, MesInvalidoException, AnoInvalidoException {
 		if (dia == 31 && mes != 1 && mes != 3 && mes != 5 && mes != 7 && mes != 8 && mes != 10 && mes != 12)

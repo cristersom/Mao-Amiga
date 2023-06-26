@@ -115,7 +115,7 @@ public class ListenerConsultaCEP implements ActionListener {
 					pFormulario.cadAluno.codCep = pFormulario.cepBO.getCodigo();
 					pFormulario.cadAluno.pnlEndereco.txtCep.setText(pFormulario.cepBO.getCep());
 					pFormulario.cadAluno.pnlEndereco.txtCidade.setText(pFormulario.cepBO.cidade.getCidade());
-					pFormulario.cadAluno.pnlEndereco.txtEndereco.setText(pFormulario.cepBO.getLogradouro());
+					pFormulario.cadAluno.pnlEndereco.txtLogradouro.setText(pFormulario.cepBO.getLogradouro());
 					pFormulario.cadAluno.pnlEndereco.txtBairro.setText(pFormulario.cepBO.getBairro());
 					pFormulario.dispose();
 				}

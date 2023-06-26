@@ -37,16 +37,22 @@ public class FrameCadastroColaborador extends FrameCadastro {
 		this.codCep = consColaborador.colaboradorBO.cep.getCodigo();
 		this.txtNome.setText(consColaborador.colaboradorBO.getNome());
 		this.pnlColaborador.txtCpf.setText(consColaborador.colaboradorBO.getCpf());
-		this.txtCidade.setText(consColaborador.colaboradorBO.cep.cidade.getCidade());
-		this.txtCep.setText(consColaborador.colaboradorBO.cep.getCep());
-		this.txtLogradouro.setText(consColaborador.colaboradorBO.cep.getLogradouro());
-		this.txtBairro.setText(consColaborador.colaboradorBO.cep.getBairro());
-		this.txtNumero.setText(String.valueOf(consColaborador.colaboradorBO.getNumero()));
-		this.txtComplemento.setText(consColaborador.colaboradorBO.getComplemento());
-
+		
 		this.jcbDia.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getDate() - 1);
 		this.jcbMes.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getMonth());
 		this.jcbAno.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getYear());
+		
+		this.pnlEndereco.txtCep.setText(consColaborador.colaboradorBO.cep.getCep());
+		this.pnlEndereco.txtCidade.setText(consColaborador.colaboradorBO.cep.cidade.getCidade());
+		this.pnlEndereco.txtBairro.setText(consColaborador.colaboradorBO.cep.getBairro());
+		this.pnlEndereco.txtLogradouro.setText(consColaborador.colaboradorBO.cep.getLogradouro());
+		this.pnlEndereco.txtNumero.setText(String.valueOf(consColaborador.colaboradorBO.getNumero()));
+		this.pnlEndereco.txtComplemento.setText(consColaborador.colaboradorBO.getComplemento());
+		//this.pnlEndereco.txtCelular.setText(consColaborador.colaboradorBO.get);
+		//FALTA COISA AQUI
+		
+		
+
 
 	}
 
@@ -68,13 +74,13 @@ public class FrameCadastroColaborador extends FrameCadastro {
 		
         pnlColaborador = new AbaPessoa();
         pnlColaborador.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnlColaborador.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { "Monitor", "Professor" }));
+        pnlColaborador.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.MONITOR.toString(), "Professor" }));
         pnlColaborador.lblInfEducacao.setVisible(false);
         pnlColaborador.txtInfEducacao.setVisible(false);
         pnlColaborador.lblFichaSaude.setVisible(false);
         pnlColaborador.txtFichaSaude.setVisible(false);
+        pnlColaborador.lblObservacoes.setVisible(false);
         pnlColaborador.txtObservacoes.setVisible(false);
-        pnlColaborador.txtInfEducacao.setVisible(false);
         tabbedPane.addTab("Colaborador", null, pnlColaborador, null);
 
         pnlEndereco = new AbaEndereco();
