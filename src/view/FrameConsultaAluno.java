@@ -17,13 +17,19 @@ public class FrameConsultaAluno extends FrameConsulta {
 	public JTable tabela;
 	public ModeloTabela modelo;
 	public AlunoBO alunoBO;
+	public FrameCadastroTurma cadTurma = null;
+	
+	public FrameConsultaAluno(FrameCadastroTurma cadTurma) {
+		this();
+		this.cadTurma = cadTurma;
+	}
 	
 	public FrameConsultaAluno() {
 		jcbconsultaPor.setModel(new DefaultComboBoxModel(new String[] { "Nome", "CPF", "Código" }));
 		setTitle("Consulta Alunos");
 		
 		ArrayList dados = new ArrayList();
-		String[] colunas = new String[] { "Código", "Nome", "CPF", "Nascimento", "Tipo", "Endereço" };
+		String[] colunas = new String[] { "Código", "Nome", "CPF", "Nascimento", /*"Tipo",*/ "Endereço" };
 		boolean[] edicao = { true, true, true, true, true };
 
 		modelo = new ModeloTabela(dados, colunas, edicao);
@@ -45,6 +51,8 @@ public class FrameConsultaAluno extends FrameConsulta {
 		tabela.getColumnModel().getColumn(3).setResizable(true);
 		tabela.getColumnModel().getColumn(4).setPreferredWidth(40);
 		tabela.getColumnModel().getColumn(4).setResizable(true);
+		//tabela.getColumnModel().getColumn(5).setPreferredWidth(100);
+		//tabela.getColumnModel().getColumn(5).setResizable(true);
 		tabela.getTableHeader().setReorderingAllowed(false);
 		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -3,7 +3,6 @@ package view;
 import java.awt.event.ActionListener;
 import controller.ListenerCadastroTurma;
 import javax.swing.JScrollPane;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import javax.swing.table.TableModel;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 
 import java.awt.Font;
 import javax.swing.border.BevelBorder;
@@ -24,34 +22,31 @@ import java.awt.Insets;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeListener;
 import java.awt.Color;
-import javax.swing.Icon;
-import java.awt.Component;
 import javax.swing.JTabbedPane;
-import java.awt.LayoutManager;
 import java.awt.BorderLayout;
-import java.awt.Container;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.beans.PropertyVetoException;
-
+import model.bo.AlunoBO;
 import model.bo.CursoBO;
 import model.bo.TurmaBO;
 import model.dao.CursoDao;
-
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JInternalFrame;
 
 public class FrameCadastroTurma extends JInternalFrame
 {
-    private JPanel pnlTurma, pnlAlunos;
+    private JPanel pnlTurma;
     protected JPanel pnlCenter;
-    public JButton btnCancelar, btnOk, btnConsultar, btnIncluir, btnAlterar, btnExlcuir, btnSair;
+    public JPanel pnlPessoas;
+    public JButton btnCancelar, btnOk, btnConsultar, btnIncluirAluno, btnExlcuir, btnSair;
     public JTextField txtTurma, txtDescricao, txtDataIni, txtDataFim;
     public JComboBox<Integer> jcbAno;
     public JComboBox<String> jcbCurso;
@@ -61,7 +56,9 @@ public class FrameCadastroTurma extends JInternalFrame
     private JLabel lblCurso, lblTurma, lblDataIni, lblDataFim;
     public JTable tabela;
     public ModeloTabela modelo;
+    public JTabbedPane tabbedPane;
     
+    //public AlunoBO alunoBO;
     public TurmaBO turmaBO;
     public FrameConsultaTurma consTurma = null;
     
@@ -81,16 +78,14 @@ public class FrameCadastroTurma extends JInternalFrame
         CursoDao cursoDao = new CursoDao();
         List<CursoBO> list = cursoDao.consultaPorDescricao("");
         for (i = 0; i < list.size(); i++) {
-        	if(list.get(i).getCodigo() == consTurma.turmaBO.curso.getCodigo())
+        	if(list.get(i).getCodigo() == consTurma.turmaBO.cursoBO.getCodigo())
         	break;
         }
         this.jcbCurso.setSelectedIndex(i);
-        
     }
     
     public FrameCadastroTurma() {
         super("Cadastro de Turma", true, true, true, true);
-        this.consTurma = null;
         try {
             this.setMaximum(true);
         }
@@ -104,7 +99,7 @@ public class FrameCadastroTurma extends JInternalFrame
         setContentPane(pnlMain);
         pnlMain.setLayout(new BorderLayout(0, 5));
         
-        JTabbedPane tabbedPane = new JTabbedPane(1);
+        tabbedPane = new JTabbedPane(1);
         pnlMain.add(tabbedPane, "Center");
         
         (pnlTurma = new JPanel()).setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -253,51 +248,49 @@ public class FrameCadastroTurma extends JInternalFrame
         (btnCancelar = new JButton("Cancelar")).setFont(new Font("Tahoma", 0, 12));
         pnlBottom.add(btnCancelar);
         
-        (pnlAlunos = new JPanel(new BorderLayout())).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        tabbedPane.addTab("Alunos", null, pnlAlunos, null);
+        (pnlPessoas = new JPanel(new BorderLayout())).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        tabbedPane.addTab("Integrantes", null, pnlPessoas, null);
         
         ArrayList dados = new ArrayList();
-        String[] colunas = { "Código", "Nome", "CPF", "Nascimento", "Tipo", "Endereço" };
+        String[] colunas = { "Código", "Nome", "Tipo", "CPF", "Nascimento", "Nome da Mãe" };
         boolean[] edicao = { true, true, true, true };
         
         modelo = new ModeloTabela(dados, colunas, edicao);
-        (tabela = new JTable((TableModel)modelo)).addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    btnAlterar.doClick();
-                }
-            }
-        });
-        tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabela = new JTable(modelo);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
         tabela.getColumnModel().getColumn(0).setResizable(true);
-        tabela.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(200);
         tabela.getColumnModel().getColumn(1).setResizable(true);
-        tabela.getColumnModel().getColumn(2).setPreferredWidth(300);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(20);
         tabela.getColumnModel().getColumn(2).setResizable(true);
-        tabela.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(50);
         tabela.getColumnModel().getColumn(3).setResizable(true);
+        tabela.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tabela.getColumnModel().getColumn(4).setResizable(true);
+        tabela.getColumnModel().getColumn(5).setPreferredWidth(50);
+        tabela.getColumnModel().getColumn(5).setResizable(true);
         tabela.getTableHeader().setReorderingAllowed(false);
-        tabela.setAutoResizeMode(3);
-        tabela.setSelectionMode(0);
+	    tabela.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+	    tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane rolagemTabela = new JScrollPane(tabela);
         
-        pnlAlunos.add(rolagemTabela, "Center");
+        pnlPessoas.add(rolagemTabela, "Center");
         pnlBottom = new JPanel();
         pnlBottom.setBorder(BorderFactory.createBevelBorder(1));
-        pnlBottom.add(btnIncluir = new JButton("Incluir"));
-        pnlBottom.add(btnAlterar = new JButton("Alterar"));
+        pnlBottom.add(btnIncluirAluno = new JButton("Incluir Aluno"));
         pnlBottom.add(btnExlcuir = new JButton("Excluir"));
         pnlBottom.add(btnSair = new JButton("Cancelar"));
-        pnlAlunos.add(pnlBottom, "South");
+        pnlPessoas.add(pnlBottom, "South");
         
         ListenerCadastroTurma listener = new ListenerCadastroTurma(this);
         btnOk.addActionListener((ActionListener)listener);
         btnCancelar.addActionListener((ActionListener)listener);
-        btnAlterar.addActionListener((ActionListener)listener);
-        btnIncluir.addActionListener((ActionListener)listener);
+        btnSair.addActionListener((ActionListener)listener);
+        btnIncluirAluno.addActionListener((ActionListener)listener);
         btnExlcuir.addActionListener((ActionListener)listener);
+        tabbedPane.addChangeListener((ChangeListener)listener);
         //jcbCurso.addActionListener((ActionListener)listener);
+
     }
     
 }

@@ -14,13 +14,16 @@ ano integer NOT NULL,
 data_inicio date NOT NULL,
 data_fim date NOT NULL,
 CONSTRAINT pk_Turma PRIMARY KEY (codTurma),
+CONSTRAINT uk_Turma UNIQUE (turma, ano),
 CONSTRAINT fk_Curso FOREIGN KEY (codCurso) REFERENCES curso(codCurso)
 );
 
 CREATE TABLE contrato_matricula(
-codContrato integer NOT NULL AUTO_INCREMENT,
+codMatricula integer NOT NULL AUTO_INCREMENT,
 codTurma integer NOT NULL,
-CONSTRAINT pk_Contrato PRIMARY KEY (codContrato),
+codAluno integer NOT NULL,
+CONSTRAINT pk_Contrato PRIMARY KEY (codMatricula),
+CONSTRAINT uk_Contrato_Aluno UNIQUE (codTurma, codAluno),
 CONSTRAINT fk_Turma FOREIGN KEY (codTurma) REFERENCES turma(codTurma)
 );
 
@@ -28,6 +31,7 @@ CREATE TABLE aluno(
 codAluno integer NOT NULL AUTO_INCREMENT,
 cpf varchar(12) NOT NULL,
 nome varchar(80) NOT NULL,
+nomeMae varchar(80) NOT NULL,
 dataNascimento date NOT NULL,
 codCep integer NOT NULL,
 numero integer NOT NULL,

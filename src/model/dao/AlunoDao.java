@@ -46,7 +46,8 @@ public class AlunoDao {
 
 			// faz a consulta
 			registros = sentenca.executeQuery(
-					"SELECT codAluno, cpf, nome, dataNascimento, aluno.codCep, numero, complemento, cep, endereco, bairro, cep.codCidade, cidade, uf "
+					"SELECT codAluno, cpf, nome, dataNascimento, aluno.codCep, numero, complemento, cep, logradouro, bairro, cep.codCidade, cidade, uf, "
+							+ "nomeMae "
 							+ "FROM aluno INNER JOIN cep ON aluno.codCep = cep.codCep "
 							+ "INNER JOIN cidade ON cep.codCidade = cidade.codCidade" + " WHERE " + sentencaSQL
 							+ " Order By " + ordem);
@@ -73,9 +74,10 @@ public class AlunoDao {
 						alunoBO.cep.setCep(registros.getString("cep"));
 						alunoBO.cep.cidade.setCidade(registros.getString("cidade"));
 						alunoBO.setNumero(Integer.parseInt(registros.getString("numero")));
+						alunoBO.setNomeMae(registros.getString("nomeMae"));
 					} catch (StringVaziaException | CepInvalidoException e) {
 					}
-					alunoBO.cep.setLogradouro(registros.getString("endereco"));
+					alunoBO.cep.setLogradouro(registros.getString("logradouro"));
 					alunoBO.cep.setBairro(registros.getString("bairro"));
 					alunoBO.cep.cidade.setCodigo(Integer.parseInt(registros.getString("codCidade")));
 					alunoBO.cep.cidade.setUf(registros.getString("uf"));

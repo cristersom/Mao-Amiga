@@ -90,8 +90,9 @@ public class PessoaBO {
 	public void setDataNascimento(String dataNascimento) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
 		this.dataNascimento.setTime(sdf.parse(dataNascimento));
+		this.nascimento = String.valueOf(sdf.parse(dataNascimento));
 	}
-
+	
 	public String getNascimento() {
 		return nascimento;
 	}

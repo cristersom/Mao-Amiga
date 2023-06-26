@@ -12,6 +12,7 @@ import java.sql.Date;
 
 import javax.swing.JOptionPane;
 
+import model.bo.AlunoBO;
 import model.bo.TurmaBO;
 import model.exceptions.StringVaziaException;
 
@@ -28,7 +29,7 @@ public class TurmaDao {
 	}
 	
 	public ArrayList<TurmaBO> consultaPorTurma(String turma) {
-		ArrayList<TurmaBO> turmaBOList = consulta("turma = UPPER('" + turma + "') OR turma LIKE UPPER('%" + turma + "%')", "turma");
+		ArrayList<TurmaBO> turmaBOList = consulta("turma = UPPER('" + turma + "') OR turma LIKE UPPER('%" + turma + "%')", "codTurma");
 		return turmaBOList;
 	}
 	
@@ -41,6 +42,7 @@ public class TurmaDao {
 		ArrayList<TurmaBO> turmaBOList = consulta("descricao LIKE '%" + descricao + "%'", "descricao");
 		return turmaBOList;
 	}
+	
 	
 	private ArrayList<TurmaBO> consulta(String sentencaSQL, String ordem) {
 		Statement sentenca;
@@ -60,7 +62,7 @@ public class TurmaDao {
 					TurmaBO turmaBO = new TurmaBO();
 			
 					turmaBO.setCodigo(Integer.parseInt(registros.getString("codTurma")));
-					turmaBO.curso.setCodigo(Integer.parseInt(registros.getString("codCurso")));
+					turmaBO.cursoBO.setCodigo(Integer.parseInt(registros.getString("codCurso")));
 					try {
 						turmaBO.setTurma(registros.getString("turma"));
 
@@ -92,11 +94,34 @@ public class TurmaDao {
 		return null;
 	}
 
+	public int consultaPorTurmaAno(String turma, int ano) {
+		Statement sentenca;
+		ResultSet registros;
+		int codTurma = 0;
+		
+		try {
+			sentenca = con.createStatement();
+			registros = sentenca
+					.executeQuery("SELECT codTurma FROM turma " + 
+							"WHERE turma = UPPER('" + turma + "') OR turma LIKE UPPER('%" + turma + "%') and ano = " + ano);
+			registros.next();
+			codTurma = Integer.parseInt(registros.getString("codTurma"));
+		
+			sentenca.close();
+		} catch (SQLException eSQL) {
+			eSQL.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"Não foi possível carregar os dados!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return codTurma;
+	}
+	
 	public boolean incluir(TurmaBO turmaBO) {
 		try {
 			String sql = "INSERT INTO turma (codCurso, turma, ano, descricao, data_inicio, data_fim) VALUES (?,UPPER(?),?,?,?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, turmaBO.curso.getCodigo());
+			stmt.setInt(1, turmaBO.cursoBO.getCodigo());
 			stmt.setString(2, turmaBO.getTurma());
 			stmt.setInt(3, turmaBO.getAno());
 			stmt.setString(4, turmaBO.getDescricao());
@@ -113,6 +138,11 @@ public class TurmaDao {
 			return false;
 		}
 	}
+	
+	public boolean incluirAluno(AlunoBO alunoBO, TurmaBO turmaBO) {
+		
+		return true;
+	}
 
 	public boolean alterar(TurmaBO turmaBO) {
 		try {
@@ -122,7 +152,7 @@ public class TurmaDao {
 			stmt.setString(1, turmaBO.getTurma());
 			stmt.setInt(2, turmaBO.getAno());
 			stmt.setString(3, turmaBO.getDescricao());
-			stmt.setInt(4, turmaBO.curso.getCodigo());
+			stmt.setInt(4, turmaBO.cursoBO.getCodigo());
 			stmt.setDate(5, new Date(turmaBO.getDataInicio().getTimeInMillis()));
 			stmt.setDate(6, new Date(turmaBO.getDataFim().getTimeInMillis()));
 			stmt.execute();

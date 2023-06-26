@@ -3,16 +3,19 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.bo.AlunoBO;
 import model.dao.AlunoDao;
+import model.dao.MatriculaDao;
 import view.FrameCadastroAluno;
 import view.FrameConsultaAluno;
 
 public class ListernerConsultaAluno implements ActionListener {
 
 	private FrameConsultaAluno pFormulario;
+	private AlunoDao alunoDao = new AlunoDao();
 
 	public ListernerConsultaAluno(FrameConsultaAluno pFormulario) {
 		this.pFormulario = pFormulario;
@@ -21,8 +24,7 @@ public class ListernerConsultaAluno implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		AlunoDao alunoDao = new AlunoDao();
-
+		
 		if (cmd.equals("Incluir")) {
 			FrameCadastroAluno fr = new FrameCadastroAluno();
 			fr.setVisible(true);
@@ -117,13 +119,32 @@ public class ListernerConsultaAluno implements ActionListener {
 						JOptionPane.WARNING_MESSAGE);
 
 		} else if (cmd.equals("Selecionar")) {
+			MatriculaDao matriculaDao = new MatriculaDao();
 			if (pFormulario.tabela.getSelectedRow() >= 0) {
 				pFormulario.alunoBO = alunoDao
 						.consultaPorCodigo(Integer.parseInt(
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
+								
+				//seta aluno				
+				pFormulario.cadTurma.turmaBO.alunoBO = pFormulario.alunoBO;
+				
+				if (matriculaDao.incluir(pFormulario.cadTurma.turmaBO)) {
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+					pFormulario.cadTurma.modelo.addRow(new Object[] {pFormulario.alunoBO.getCodigo(),  pFormulario.alunoBO.getNome(), "Aluno"
+							, pFormulario.alunoBO.getCpf(), sdf.format(pFormulario.alunoBO.getDataNascimento().getTime()), pFormulario.alunoBO.getNomeMae()
+					});
+					pFormulario.dispose();
 
-				pFormulario.dispose();
+					try {
+						pFormulario.cadTurma.setSelected(true);
+						
+					} catch (PropertyVetoException e1) {
+						e1.printStackTrace();
+					}
+				}
+				
 			} else
 				JOptionPane.showMessageDialog(pFormulario, "Escolha um registro!", "Mensagem",
 						JOptionPane.WARNING_MESSAGE);
