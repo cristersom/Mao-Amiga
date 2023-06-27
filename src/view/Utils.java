@@ -8,6 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.MaskFormatter;
 
+import model.exceptions.AnoInvalidoException;
+import model.exceptions.DiaInvalidoException;
+import model.exceptions.MesInvalidoException;
+
 public class Utils {
 	public static void addGridBag(JPanel pnl, JComponent component, int x, int y, GridBagConstraints gbc) {
 		gbc.gridx = x;
@@ -38,5 +42,19 @@ public class Utils {
 		ALUNO,
 		MONITOR,
 		PROFESSOR
+	}
+	
+	public void validaData(int dia, int mes, int ano)
+			throws DiaInvalidoException, MesInvalidoException, AnoInvalidoException {
+		if (dia == 31 && mes != 1 && mes != 3 && mes != 5 && mes != 7 && mes != 8 && mes != 10 && mes != 12)
+			throw new MesInvalidoException();
+
+		else if (dia == 30 && mes == 2)
+			throw new DiaInvalidoException();
+
+		else if (dia == 29 && mes == 2 && ano % 4 != 0)
+			throw new AnoInvalidoException();
+
+		//this.nascimento = String.valueOf(dia) + '/' + String.valueOf(mes) + '/' + String.valueOf(ano);
 	}
 }

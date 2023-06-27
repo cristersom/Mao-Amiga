@@ -74,7 +74,7 @@ public class FrameCadastroColaborador extends FrameCadastro {
 		
         pnlColaborador = new AbaPessoa();
         pnlColaborador.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnlColaborador.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.MONITOR.toString(), "Professor" }));
+        pnlColaborador.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.MONITOR.toString(), Utils.Tipo.PROFESSOR.toString() }));
         pnlColaborador.lblInfEducacao.setVisible(false);
         pnlColaborador.txtInfEducacao.setVisible(false);
         pnlColaborador.lblFichaSaude.setVisible(false);

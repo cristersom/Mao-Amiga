@@ -1,31 +1,40 @@
 package model.bo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import model.exceptions.AnoInvalidoException;
 import model.exceptions.CpfInvalidoException;
-import model.exceptions.DiaInvalidoException;
-import model.exceptions.MesInvalidoException;
 import model.exceptions.StringVaziaException;
 import view.Utils;
 
 public class PessoaBO {
-	private int codPessoa, numero;
-	private String nome, cpf, nascimento, complemento, nomeMae; // endereço e bairro não são obrigatórios no caso de CEP geral
+	private int codPessoa, tipo, autorImagem, sexo, numero;
+	private String nome, cpf, complemento, nomeMae, celular, foneComercial, eMail, localTrabalho // endereço e bairro não são obrigatórios no caso de CEP geral
+		  , rg, nomePai, nacionalidade, certNascimento, idiomaMaterno;
 	public Calendar dataNascimento;
 	public CepBO cep;
 
 	public PessoaBO() {
 		this.codPessoa = 0;
-		this.cpf = "";
+		this.tipo = 0;
+		this.autorImagem = 0;
+		this.dataNascimento = Calendar.getInstance();
 		this.nome = "";
+		this.cpf = "";
+		this.nomeMae = "";
+		this.rg = "";
+		this.nomePai = "";
+		this.nacionalidade = "";
+		this.certNascimento = "";
+		this.sexo = 0;
+		this.idiomaMaterno = "";
+		
+		this.cep = new CepBO();
 		this.numero = 0;
 		this.complemento = "";
-		this.dataNascimento = Calendar.getInstance();
-		this.nomeMae = "";
-		this.cep = new CepBO();
+		this.celular = "";
+		this.foneComercial = "";
+		this.eMail = "";
+		this.localTrabalho = "";
 	}
 
 	public int getCodigo() {
@@ -80,22 +89,44 @@ public class PessoaBO {
 		this.complemento = complemento;
 	}
 	
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+	
+	public String getFoneComercial() {
+		return foneComercial;
+	}
+
+	public void setFoneComercial(String foneComercial) {
+		this.foneComercial = foneComercial;
+	}
+	
+	public String getEmail() {
+		return eMail;
+	}
+
+	public void setEmail(String eMail) {
+		this.eMail = eMail;
+	}
+	
+	public String getLocalTrabalho() {
+		return localTrabalho;
+	}
+
+	public void setLocalTrabalho(String localTrabalho) {
+		this.localTrabalho = localTrabalho;
+	}
+	
 	public Calendar getDataNascimento() {
 		return this.dataNascimento;
 	}
 
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}
-
-	public void setDataNascimento(String dataNascimento) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
-		this.dataNascimento.setTime(sdf.parse(dataNascimento));
-		this.nascimento = String.valueOf(sdf.parse(dataNascimento));
-	}
-	
-	public String getNascimento() {
-		return nascimento;
 	}
 
 	public String getNomeMae() {
@@ -108,20 +139,6 @@ public class PessoaBO {
 		this.nomeMae = nomeMae;
 	}
 	
-	public void setNascimento(int dia, int mes, int ano)
-			throws DiaInvalidoException, MesInvalidoException, AnoInvalidoException {
-		if (dia == 31 && mes != 1 && mes != 3 && mes != 5 && mes != 7 && mes != 8 && mes != 10 && mes != 12)
-			throw new MesInvalidoException();
-
-		else if (dia == 30 && mes == 2)
-			throw new DiaInvalidoException();
-
-		else if (dia == 29 && mes == 2 && ano % 4 != 0)
-			throw new AnoInvalidoException();
-
-		this.nascimento = String.valueOf(dia) + '/' + String.valueOf(mes) + '/' + String.valueOf(ano);
-	}
-
 	public boolean validaCpf(String cpf) {
 		int i, resultado, soma, digito1, digito2;
 
