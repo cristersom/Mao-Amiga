@@ -17,27 +17,13 @@ import javax.swing.JTextField;
 import javax.swing.JPanel;
 
 public class AbaPessoa extends JPanel {
-    public JTextField txtNome;
-    public JTextField txtCpf;
-    public JTextField txtRG;
-    public JTextField txtCertNascimento;
-    public JTextField txtNomePai;
-    public JTextField txtNomeMae;
-    public JTextField txtNacionalidade;
-    public JTextField txtIdiomaMaterno;
-    public JTextField txtEmail;
-    public JTextField txtCelular;
-    public JTextField txtFoneComercial;
-    public JTextField txtLocalTrabalho;
-    public TextArea txtFichaSaude;
-    public TextArea txtInfEducacao;
-    public TextArea txtObservacoes;
-    public JComboBox<Integer> jcbDia;
-    public JComboBox<Integer> jcbAno;
-    public JComboBox<String> jcbMes;
-    public JComboBox<String> jcbTipo;
-    public JComboBox<String> jcbSexo;
-    protected JLabel lblFichaSaude, lblInfEducacao, lblObservacoes;
+    public JTextField txtNome, txtCpf, txtRG, txtCertNascimento, txtNomePai, txtNomeMae, txtNacionalidade, txtIdiomaMaterno
+    	 , txtEmail, txtCelular, txtFoneComercial, txtLocalTrabalho;
+    public TextArea txtFichaSaude, txtInfEducacao, txtObservacoes;
+    public JComboBox<Integer> jcbDia, jcbAno;
+    public JComboBox<String> jcbMes, jcbTipo, jcbSexo;
+    public JCheckBox checkboxAutorImatem;
+    protected JLabel lblIdiomaMaterno, lblFichaSaude, lblInfEducacao, lblObservacoes;
     private int i;
     
     public AbaPessoa() {
@@ -75,7 +61,7 @@ public class AbaPessoa extends JPanel {
         gbc_lblAutorImagem.gridy = 0;
         this.add(lblAutorImagem, gbc_lblAutorImagem);
         
-        JCheckBox checkboxAutorImatem = new JCheckBox("");
+        checkboxAutorImatem = new JCheckBox("");
         GridBagConstraints gbc_checkboxAutorImatem = new GridBagConstraints();
         gbc_checkboxAutorImatem.anchor = GridBagConstraints.WEST;
         gbc_checkboxAutorImatem.insets = new Insets(5, 5, 5, 5);
@@ -268,7 +254,7 @@ public class AbaPessoa extends JPanel {
         gbc_jcbSexo.gridy = 4;
         this.add(jcbSexo, gbc_jcbSexo);
         
-        JLabel lblIdiomaMaterno = new JLabel("Idioma Materno:");
+        lblIdiomaMaterno = new JLabel("Idioma Materno:");
         GridBagConstraints gbc_lblIdiomaMaterno = new GridBagConstraints();
         gbc_lblIdiomaMaterno.anchor = GridBagConstraints.EAST;
         gbc_lblIdiomaMaterno.insets = new Insets(5, 5, 5, 5);

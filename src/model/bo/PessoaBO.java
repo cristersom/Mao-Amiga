@@ -1,5 +1,7 @@
 package model.bo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import model.exceptions.CpfInvalidoException;
@@ -7,16 +9,16 @@ import model.exceptions.StringVaziaException;
 import view.Utils;
 
 public class PessoaBO {
-	private int codPessoa, tipo, autorImagem, sexo, numero;
+	private int codPessoa, autorUsoImagem, numero;
 	private String nome, cpf, complemento, nomeMae, celular, foneComercial, eMail, localTrabalho // endereço e bairro não são obrigatórios no caso de CEP geral
-		  , rg, nomePai, nacionalidade, certNascimento, idiomaMaterno;
+		  , rg, nomePai, nacionalidade, certNascimento, idiomaMaterno, tipo, sexo;
 	public Calendar dataNascimento;
 	public CepBO cep;
 
 	public PessoaBO() {
 		this.codPessoa = 0;
-		this.tipo = 0;
-		this.autorImagem = 0;
+		this.tipo = "";
+		this.autorUsoImagem = 0;
 		this.dataNascimento = Calendar.getInstance();
 		this.nome = "";
 		this.cpf = "";
@@ -25,7 +27,7 @@ public class PessoaBO {
 		this.nomePai = "";
 		this.nacionalidade = "";
 		this.certNascimento = "";
-		this.sexo = 0;
+		this.sexo = "";
 		this.idiomaMaterno = "";
 		
 		this.cep = new CepBO();
@@ -45,6 +47,31 @@ public class PessoaBO {
 		this.codPessoa = codPessoa;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
+	public int getAutorUsoImagem() {
+		return autorUsoImagem;
+	}
+
+	public void setAutorUsoImagem(int autorUsoImagem) {
+		this.autorUsoImagem = autorUsoImagem;
+	}
+	
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	
+	
 	public String getNome() {
 		return nome;
 	}
@@ -121,12 +148,57 @@ public class PessoaBO {
 		this.localTrabalho = localTrabalho;
 	}
 	
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+	
+	public String getNomePai() {
+		return nomePai;
+	}
+
+	public void setNomePai(String nomePai) {
+		this.nomePai = nomePai;
+	}
+	
+	public String getNacionalidade() {
+		return nacionalidade;
+	}
+
+	public void setNacionalidade(String nacionalidade) {
+		this.nacionalidade = nacionalidade;
+	}
+
+	public String getCertNascimento() {
+		return certNascimento;
+	}
+
+	public void setCertNascimento(String certNascimento) {
+		this.certNascimento = certNascimento;
+	}
+	
+	public String getIdiomaMaterno() {
+		return idiomaMaterno;
+	}
+
+	public void setIdiomaMaterno(String idiomaMaterno) {
+		this.idiomaMaterno = idiomaMaterno;
+	}
+	
 	public Calendar getDataNascimento() {
 		return this.dataNascimento;
 	}
 
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+	
+	public void setDataNascimento(String dataNascimento) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
+		this.dataNascimento.setTime(sdf.parse(dataNascimento));
 	}
 
 	public String getNomeMae() {

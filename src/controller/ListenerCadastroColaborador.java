@@ -11,7 +11,6 @@ import model.bo.ColaboradorBO;
 import model.dao.ColaboradorDao;
 import model.exceptions.CpfInvalidoException;
 import model.exceptions.StringVaziaException;
-import view.AbaPessoa;
 import view.FrameCadastroColaborador;
 import view.FrameConsultaCEP;
 
@@ -36,13 +35,16 @@ public class ListenerCadastroColaborador implements ActionListener, KeyListener 
 			pFormulario.getDesktopPane().add(fr);
 
 		} else if (origem == pFormulario.btnOk) {
-
+			
+			colaboradorBO.setTipo(pFormulario.pnlColaborador.jcbTipo.getSelectedItem().toString());
+			colaboradorBO.setAutorUsoImagem(pFormulario.pnlColaborador.checkboxAutorImatem.isSelected() ? 1 : 0);		
+			
 			dia = String.valueOf(pFormulario.pnlColaborador.jcbDia.getSelectedIndex() + 1);
 			mes = String.valueOf(pFormulario.pnlColaborador.jcbMes.getSelectedIndex() + 1);
 			ano = String.valueOf(pFormulario.pnlColaborador.jcbAno.getSelectedIndex() + 1900);
 
 			dataNasc = dia + '/' + mes + '/' + ano;
-
+			
 			try {
 				colaboradorBO.setDataNascimento(dataNasc);
 			} catch (ParseException e1) {
@@ -51,12 +53,12 @@ public class ListenerCadastroColaborador implements ActionListener, KeyListener 
 			}
 
 			try {
-				colaboradorBO.setNome(pFormulario.txtNome.getText());
+				colaboradorBO.setNome(pFormulario.pnlColaborador.txtNome.getText());
 			} catch (StringVaziaException e1) {
 				JOptionPane.showMessageDialog(pFormulario, "Nome" + e1.toString(), "Mensagem",
 						JOptionPane.WARNING_MESSAGE);
-				pFormulario.txtNome.selectAll();
-				pFormulario.txtNome.requestFocus();
+				pFormulario.pnlColaborador.txtNome.selectAll();
+				pFormulario.pnlColaborador.txtNome.requestFocus();
 				return;
 			}
 
@@ -80,7 +82,17 @@ public class ListenerCadastroColaborador implements ActionListener, KeyListener 
 				return;
 			}
 
-			pFormulario.pnlColaborador.txtCpf.setText(colaboradorBO.getCpf());
+			//pFormulario.pnlColaborador.txtCpf.setText(colaboradorBO.getCpf());
+			
+			try {
+				colaboradorBO.setNomeMae(pFormulario.pnlColaborador.txtNomeMae.getText());
+			} catch (StringVaziaException e1) {
+			}
+			colaboradorBO.setRg(pFormulario.pnlColaborador.txtRG.getText());
+			colaboradorBO.setNomePai(pFormulario.pnlColaborador.txtNomePai.getText());
+			colaboradorBO.setNacionalidade(pFormulario.pnlColaborador.txtNacionalidade.getText());
+			colaboradorBO.setCertNascimento(pFormulario.pnlColaborador.txtCertNascimento.getText());
+			colaboradorBO.setSexo(pFormulario.pnlColaborador.jcbSexo.getSelectedItem().toString());
 
 			if (pFormulario.codCep > 0)
 				colaboradorBO.cep.setCodigo(pFormulario.codCep);
@@ -90,20 +102,20 @@ public class ListenerCadastroColaborador implements ActionListener, KeyListener 
 			}
 
 			try {
-				colaboradorBO.setNumero(Integer.parseInt(pFormulario.txtNumero.getText()));
+				colaboradorBO.setNumero(Integer.parseInt(pFormulario.pnlEndereco.txtNumero.getText()));
 			} catch (NumberFormatException e1) {
 				JOptionPane.showMessageDialog(pFormulario, "Campo \"Número\" deve ser numérico!", "Mensagem",
 						JOptionPane.WARNING_MESSAGE);
-				pFormulario.txtNumero.selectAll();
-				pFormulario.txtNumero.requestFocus();
+				pFormulario.pnlEndereco.txtNumero.selectAll();
+				pFormulario.pnlEndereco.txtNumero.requestFocus();
 				return;
 			}
 
-			colaboradorBO.setComplemento(pFormulario.txtComplemento.getText());
+			colaboradorBO.setComplemento(pFormulario.pnlEndereco.txtComplemento.getText());
 			colaboradorBO.setCodigo(pFormulario.codColaborador);
 
 			// acesso ao dao
-			if (colaboradorBO.getCodigo() > 0) { // Neste caso a Chapa deve ser alterada e não incluída
+			if (colaboradorBO.getCodigo() > 0) { // Neste o colaborador deve ser alterado e não incluído
 				if (colaboradorDao.alterar(colaboradorBO)) {
 					colaboradorBO = colaboradorDao.consultaPorCodigo(colaboradorBO.getCodigo()).get(0);
 

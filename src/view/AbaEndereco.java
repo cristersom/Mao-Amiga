@@ -21,6 +21,7 @@ public class AbaEndereco extends JPanel {
     public JTextField txtFoneComercial;
     public JTextField txtEmail;
     public JTextField txtLocalTrabalho;
+    public JLabel lblLocalTrabalho;
     public JButton btnBuscaCep;
     
     public AbaEndereco() {
@@ -170,7 +171,7 @@ public class AbaEndereco extends JPanel {
         gbc_txtEmail.gridy = 5;
         this.add(this.txtEmail, gbc_txtEmail);
         
-        final JLabel lblLocalTrabalho = new JLabel("Local de Trabalho:");
+        lblLocalTrabalho = new JLabel("Local de Trabalho:");
         final GridBagConstraints gbc_lblLocalTrabalho = new GridBagConstraints();
         gbc_lblLocalTrabalho.insets = new Insets(5, 5, 5, 5);
         gbc_lblLocalTrabalho.gridx = 3;

@@ -2,26 +2,14 @@ package view;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import controller.ListenerCadastroColaborador;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.KeyboardFocusManager;
-import java.util.Collections;
-
 import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
 
 public class FrameCadastroColaborador extends FrameCadastro {
 	public int codColaborador, codCep;
-	public JTextField txtNome, txtCidade, txtCep, txtLogradouro, txtBairro, txtNumero, txtComplemento;
 	public JComboBox<Integer> jcbDia, jcbAno;
 	public JComboBox<String> jcbMes;
 	private int i;
@@ -34,26 +22,33 @@ public class FrameCadastroColaborador extends FrameCadastro {
 		this();
 		this.consColaborador = consColaborador;
 		this.codColaborador = consColaborador.colaboradorBO.getCodigo();
-		this.codCep = consColaborador.colaboradorBO.cep.getCodigo();
-		this.txtNome.setText(consColaborador.colaboradorBO.getNome());
+		
+		this.pnlColaborador.jcbTipo.setSelectedItem(consColaborador.colaboradorBO.getTipo());;
+		this.pnlColaborador.checkboxAutorImatem.setText(String.valueOf(consColaborador.colaboradorBO.getAutorUsoImagem()));
+		this.pnlColaborador.jcbDia.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getDate() - 1);
+		this.pnlColaborador.jcbMes.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getMonth());
+		this.pnlColaborador.jcbAno.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getYear());
+		this.pnlColaborador.txtNome.setText(consColaborador.colaboradorBO.getNome());
 		this.pnlColaborador.txtCpf.setText(consColaborador.colaboradorBO.getCpf());
+		this.pnlColaborador.txtNomeMae.setText(consColaborador.colaboradorBO.getNomeMae());
+		this.pnlColaborador.txtRG.setText(consColaborador.colaboradorBO.getRg());
+		this.pnlColaborador.txtNomePai.setText(consColaborador.colaboradorBO.getNomePai());
+		this.pnlColaborador.txtNacionalidade.setText(consColaborador.colaboradorBO.getNacionalidade());
+		this.pnlColaborador.txtCertNascimento.setText(consColaborador.colaboradorBO.getCertNascimento());
+		this.pnlColaborador.jcbSexo.setSelectedItem(consColaborador.colaboradorBO.getSexo());
+		//this.pnlColaborador.txtIdiomaMaterno.setText(consColaborador.colaboradorBO.getIdiomaMaterno());
 		
-		this.jcbDia.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getDate() - 1);
-		this.jcbMes.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getMonth());
-		this.jcbAno.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getYear());
-		
+		this.codCep = consColaborador.colaboradorBO.cep.getCodigo();
 		this.pnlEndereco.txtCep.setText(consColaborador.colaboradorBO.cep.getCep());
 		this.pnlEndereco.txtCidade.setText(consColaborador.colaboradorBO.cep.cidade.getCidade());
 		this.pnlEndereco.txtBairro.setText(consColaborador.colaboradorBO.cep.getBairro());
 		this.pnlEndereco.txtLogradouro.setText(consColaborador.colaboradorBO.cep.getLogradouro());
 		this.pnlEndereco.txtNumero.setText(String.valueOf(consColaborador.colaboradorBO.getNumero()));
 		this.pnlEndereco.txtComplemento.setText(consColaborador.colaboradorBO.getComplemento());
-		//this.pnlEndereco.txtCelular.setText(consColaborador.colaboradorBO.get);
-		//FALTA COISA AQUI
-		
-		
-
-
+		this.pnlEndereco.txtCelular.setText(consColaborador.colaboradorBO.getCelular());
+		this.pnlEndereco.txtFoneComercial.setText(consColaborador.colaboradorBO.getFoneComercial());
+		this.pnlEndereco.txtEmail.setText(consColaborador.colaboradorBO.getEmail());
+		//this.pnlEndereco.txtLocalTrabalho.setText(consColaborador.colaboradorBO.getLocalTrabalho());
 	}
 
 	public FrameCadastroColaborador() {
@@ -81,11 +76,17 @@ public class FrameCadastroColaborador extends FrameCadastro {
         pnlColaborador.txtFichaSaude.setVisible(false);
         pnlColaborador.lblObservacoes.setVisible(false);
         pnlColaborador.txtObservacoes.setVisible(false);
+        pnlColaborador.lblIdiomaMaterno.setVisible(false);
+        pnlColaborador.txtIdiomaMaterno.setVisible(false);
+
+        
         tabbedPane.addTab("Colaborador", null, pnlColaborador, null);
 
         pnlEndereco = new AbaEndereco();
         pnlEndereco.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Endereço", null, pnlEndereco, null);
+        pnlEndereco.lblLocalTrabalho.setVisible(false);
+        pnlEndereco.txtLocalTrabalho.setVisible(false);
 
 
 		// aqui é setado o controller desse frame
