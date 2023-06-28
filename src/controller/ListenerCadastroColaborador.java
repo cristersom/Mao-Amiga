@@ -112,6 +112,9 @@ public class ListenerCadastroColaborador implements ActionListener, KeyListener 
 			}
 
 			colaboradorBO.setComplemento(pFormulario.pnlEndereco.txtComplemento.getText());
+			colaboradorBO.setCelular(pFormulario.pnlEndereco.txtCelular.getText());
+			colaboradorBO.setFoneComercial(pFormulario.pnlEndereco.txtFoneComercial.getText());
+			colaboradorBO.setEmail(pFormulario.pnlEndereco.txtEmail.getText());
 			colaboradorBO.setCodigo(pFormulario.codColaborador);
 
 			// acesso ao dao
@@ -161,7 +164,7 @@ public class ListenerCadastroColaborador implements ActionListener, KeyListener 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_TAB)
-			pFormulario.jcbDia.requestFocus();
+			pFormulario.pnlColaborador.jcbDia.requestFocus();
 	}
 
 	@Override

@@ -246,7 +246,7 @@ public class AbaPessoa extends JPanel {
         this.add(lblSexo, gbc_lblSexo);
         
         (jcbSexo = new JComboBox<String>()).setToolTipText("");
-        jcbSexo.setModel(new DefaultComboBoxModel<String>(new String[] { "Masculino", "Feminino" }));
+        jcbSexo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Sexo.Masculino.toString(), Utils.Sexo.Feminino.toString() }));
         GridBagConstraints gbc_jcbSexo = new GridBagConstraints();
         gbc_jcbSexo.anchor = GridBagConstraints.WEST;
         gbc_jcbSexo.insets = new Insets(5, 5, 5, 5);

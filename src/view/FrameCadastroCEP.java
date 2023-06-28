@@ -3,6 +3,7 @@ package view;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import controller.ListenerCadastroCEP;
 import model.bo.CidadeBO;
@@ -10,8 +11,10 @@ import model.bo.CidadeBO;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.KeyboardFocusManager;
+import java.text.ParseException;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.ImageIcon;
 
 import java.util.Collections;
@@ -54,7 +57,12 @@ public class FrameCadastroCEP extends FrameCadastro {
 		gbc_lblCep.gridy = 0;
 		pnlCenter.add(lblCep, gbc_lblCep);
 
-		txtCep = new JTextField();
+        try {
+        	txtCep = new JFormattedTextField(new MaskFormatter("#####-###"));
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
 		txtCep.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET); //captura o TAB
 
 		txtCep.setFont(new Font("Tahoma", Font.PLAIN, 12));

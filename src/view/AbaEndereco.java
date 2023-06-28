@@ -2,12 +2,16 @@ package view;
 
 import javax.swing.ImageIcon;
 import java.awt.Insets;
+import java.text.ParseException;
+import java.util.Collections;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JPanel;
 
 public class AbaEndereco extends JPanel {
@@ -133,7 +137,14 @@ public class AbaEndereco extends JPanel {
         gbc_lblCelular.gridx = 0;
         gbc_lblCelular.gridy = 4;
         this.add(lblCelular, gbc_lblCelular);
-        this.txtCelular = new JTextField();
+        //this.txtCelular = new JTextField();
+        try {
+        	txtCelular = new JFormattedTextField(new MaskFormatter("(##)# ####-####"));
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //txtCelular.setFocusTraversalKeys(0, Collections.emptySet());
         final GridBagConstraints gbc_txtCelular = new GridBagConstraints();
         gbc_txtCelular.gridwidth = 2;
         gbc_txtCelular.fill = 2;
@@ -147,7 +158,13 @@ public class AbaEndereco extends JPanel {
         gbc_lblFoneComercial.gridx = 3;
         gbc_lblFoneComercial.gridy = 4;
         this.add(lblFoneComercial, gbc_lblFoneComercial);
-        this.txtFoneComercial = new JTextField();
+        
+        try {
+        	txtFoneComercial = new JFormattedTextField(new MaskFormatter("(##)####-####"));
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
         final GridBagConstraints gbc_txtFoneComercial = new GridBagConstraints();
         gbc_txtFoneComercial.gridwidth = 2;
         gbc_txtFoneComercial.fill = 2;

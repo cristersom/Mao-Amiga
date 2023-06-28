@@ -39,9 +39,14 @@ public class Utils {
 	}
 	
 	public static enum Tipo {
-		ALUNO,
-		MONITOR,
-		PROFESSOR
+		Aluno,
+		Monitor,
+		Professor
+	}
+	
+	public static enum Sexo {
+		Masculino,
+		Feminino
 	}
 	
 	public void validaData(int dia, int mes, int ano)

@@ -2,7 +2,6 @@ package view;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import controller.ListenerCadastroColaborador;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,9 +9,6 @@ import javax.swing.JTabbedPane;
 
 public class FrameCadastroColaborador extends FrameCadastro {
 	public int codColaborador, codCep;
-	public JComboBox<Integer> jcbDia, jcbAno;
-	public JComboBox<String> jcbMes;
-	private int i;
 	public AbaPessoa pnlColaborador;
 	public AbaEndereco pnlEndereco;
 	public FrameConsultaColaborador consColaborador = null;
@@ -24,7 +20,7 @@ public class FrameCadastroColaborador extends FrameCadastro {
 		this.codColaborador = consColaborador.colaboradorBO.getCodigo();
 		
 		this.pnlColaborador.jcbTipo.setSelectedItem(consColaborador.colaboradorBO.getTipo());;
-		this.pnlColaborador.checkboxAutorImatem.setText(String.valueOf(consColaborador.colaboradorBO.getAutorUsoImagem()));
+		this.pnlColaborador.checkboxAutorImatem.setSelected(consColaborador.colaboradorBO.getAutorUsoImagem() == 1 ? true : false);
 		this.pnlColaborador.jcbDia.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getDate() - 1);
 		this.pnlColaborador.jcbMes.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getMonth());
 		this.pnlColaborador.jcbAno.setSelectedIndex(consColaborador.colaboradorBO.getDataNascimento().getTime().getYear());
@@ -69,7 +65,7 @@ public class FrameCadastroColaborador extends FrameCadastro {
 		
         pnlColaborador = new AbaPessoa();
         pnlColaborador.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnlColaborador.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.MONITOR.toString(), Utils.Tipo.PROFESSOR.toString() }));
+        pnlColaborador.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.Monitor.toString(), Utils.Tipo.Professor.toString() }));
         pnlColaborador.lblInfEducacao.setVisible(false);
         pnlColaborador.txtInfEducacao.setVisible(false);
         pnlColaborador.lblFichaSaude.setVisible(false);

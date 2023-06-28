@@ -46,7 +46,8 @@ public class ColaboradorDao {
 
 			// faz a consulta
 			registros = sentenca.executeQuery(
-					"SELECT codColaborador, cpf, nome, dataNascimento, colaborador.codCep, numero, complemento, cep, logradouro, bairro, cep.codCidade, cidade, uf "
+					"SELECT codColaborador, cpf, nome, rg, certNascimento, sexo, nomeMae, nomePai, nacionalidade, dataNascimento, celular, foneComercial"
+					+ ", eMail, tipo, autorUsoImagem, colaborador.codCep, numero, complemento, cep, logradouro, bairro, cep.codCidade, cidade, uf "
 							+ "FROM colaborador INNER JOIN cep ON colaborador.codCep = cep.codCep "
 							+ "INNER JOIN cidade ON cep.codCidade = cidade.codCidade" + " WHERE " + sentencaSQL
 							+ " Order By " + ordem);
@@ -57,12 +58,24 @@ public class ColaboradorDao {
 					ColaboradorBO colaboradorBO = new ColaboradorBO();
 
 					colaboradorBO.setCodigo(Integer.parseInt(registros.getString("codColaborador")));
+					colaboradorBO.setAutorUsoImagem(Integer.parseInt(registros.getString("autorUsoImagem")));
 					
 					try {
 						colaboradorBO.setCpf(registros.getString("cpf"));
-						colaboradorBO.setNome(registros.getString("nome"));	
+						colaboradorBO.setNome(registros.getString("nome"));
+						colaboradorBO.setNomeMae(registros.getString("nomeMae"));
 					} catch (StringVaziaException | CpfInvalidoException e1) {
 					}
+					colaboradorBO.setRg(registros.getString("rg"));
+					colaboradorBO.setCertNascimento(registros.getString("certNascimento"));
+					colaboradorBO.setSexo(registros.getString("sexo"));
+					colaboradorBO.setNomePai(registros.getString("nomePai"));
+					colaboradorBO.setNacionalidade(registros.getString("nacionalidade"));
+					colaboradorBO.setCelular(registros.getString("celular"));
+					colaboradorBO.setFoneComercial(registros.getString("foneComercial"));
+					colaboradorBO.setEmail(registros.getString("eMail"));
+					colaboradorBO.setTipo(registros.getString("tipo"));
+
 					
 					colaboradorBO.cep.setCodigo(Integer.parseInt(registros.getString("codCep")));
 					Calendar data = Calendar.getInstance();
@@ -96,14 +109,27 @@ public class ColaboradorDao {
 
 	public boolean incluir(ColaboradorBO colaboradorBO) {
 		try {
-			String sql = "INSERT INTO colaborador (cpf, nome, dataNascimento, codCep, numero, complemento) VALUES (?,INITCAP(?),?,?,?,?)";
+			String sql = "INSERT INTO colaborador (cpf, nome, rg, certNascimento, sexo, nomeMae, nomePai, nacionalidade"
+					+ ", dataNascimento, codCep, numero, complemento, celular, foneComercial, eMail, tipo, autorUsoImagem)"
+					+ "VALUES (?, UPPER(?), ?, ?, ?, UPPER(?), UPPER(?), UPPER(?), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, colaboradorBO.getCpf());
 			stmt.setString(2, colaboradorBO.getNome());
-			stmt.setDate(3, new Date(colaboradorBO.getDataNascimento().getTimeInMillis()));
-			stmt.setInt(4, colaboradorBO.cep.getCodigo());
-			stmt.setInt(5, colaboradorBO.getNumero());
-			stmt.setString(6, colaboradorBO.getComplemento());
+			stmt.setString(3, colaboradorBO.getRg());
+			stmt.setString(4, colaboradorBO.getCertNascimento());
+			stmt.setString(5, colaboradorBO.getSexo());
+			stmt.setString(6, colaboradorBO.getNomeMae());
+			stmt.setString(7, colaboradorBO.getNomePai());
+			stmt.setString(8, colaboradorBO.getNacionalidade());
+			stmt.setDate(9, new Date(colaboradorBO.getDataNascimento().getTimeInMillis()));
+			stmt.setInt(10, colaboradorBO.cep.getCodigo());
+			stmt.setInt(11, colaboradorBO.getNumero());
+			stmt.setString(12, colaboradorBO.getComplemento());
+			stmt.setString(13, colaboradorBO.getCelular());
+			stmt.setString(14, colaboradorBO.getFoneComercial());
+			stmt.setString(15, colaboradorBO.getEmail());
+			stmt.setString(16, colaboradorBO.getTipo());
+			stmt.setInt(17, colaboradorBO.getAutorUsoImagem());
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
 			return true;
@@ -119,15 +145,27 @@ public class ColaboradorDao {
 	public boolean alterar(ColaboradorBO colaboradorBO) {
 		try {
 			
-			String sql = "UPDATE colaborador SET cpf = ?, nome = ?, dataNascimento = ?, codCep = ?, numero = ?, complemento = ?"
-					+ "WHERE codColaborador = " + colaboradorBO.getCodigo();
+			String sql = "UPDATE colaborador SET cpf = ?, nome = UPPER(?), rg = ?, certNascimento = ?, sexo = ?, nomeMae = UPPER(?), nomePai = UPPER(?), nacionalidade = UPPER(?)"
+					+ ", dataNascimento = ?, codCep = ?, numero = ?, complemento = ?, celular = ?, foneComercial = ?, eMail = ?, tipo = ?, autorUsoImagem = ?"
+					+ " WHERE codColaborador = " + colaboradorBO.getCodigo();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, colaboradorBO.getCpf());
 			stmt.setString(2, colaboradorBO.getNome());
-			stmt.setDate(3, new Date(colaboradorBO.getDataNascimento().getTimeInMillis()));
-			stmt.setInt(4, colaboradorBO.cep.getCodigo());
-			stmt.setInt(5, colaboradorBO.getNumero());
-			stmt.setString(6, colaboradorBO.getComplemento());
+			stmt.setString(3, colaboradorBO.getRg());
+			stmt.setString(4, colaboradorBO.getCertNascimento());
+			stmt.setString(5, colaboradorBO.getSexo());
+			stmt.setString(6, colaboradorBO.getNomeMae());
+			stmt.setString(7, colaboradorBO.getNomePai());
+			stmt.setString(8, colaboradorBO.getNacionalidade());
+			stmt.setDate(9, new Date(colaboradorBO.getDataNascimento().getTimeInMillis()));
+			stmt.setInt(10, colaboradorBO.cep.getCodigo());
+			stmt.setInt(11, colaboradorBO.getNumero());
+			stmt.setString(12, colaboradorBO.getComplemento());
+			stmt.setString(13, colaboradorBO.getCelular());
+			stmt.setString(14, colaboradorBO.getFoneComercial());
+			stmt.setString(15, colaboradorBO.getEmail());
+			stmt.setString(16, colaboradorBO.getTipo());
+			stmt.setInt(17, colaboradorBO.getAutorUsoImagem());
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
 			return true;
