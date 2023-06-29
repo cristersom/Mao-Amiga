@@ -3,19 +3,22 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import model.bo.ColaboradorBO;
 import model.dao.ColaboradorDao;
+import model.dao.TurmaDao;
 import view.FrameCadastroColaborador;
 import view.FrameConsultaColaborador;
 
 public class ListernerConsultaColaborador implements ActionListener {
 
 	private FrameConsultaColaborador pFormulario;
-
+    private ColaboradorDao colaboradorDao = new ColaboradorDao();
+    
 	public ListernerConsultaColaborador(FrameConsultaColaborador pFormulario) {
 		this.pFormulario = pFormulario;
 	}
@@ -23,7 +26,6 @@ public class ListernerConsultaColaborador implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		ColaboradorDao colaboradorDao = new ColaboradorDao();
 
 		if (cmd.equals("Incluir")) {
 			FrameCadastroColaborador fr = new FrameCadastroColaborador();
@@ -124,15 +126,25 @@ public class ListernerConsultaColaborador implements ActionListener {
 						.consultaPorCodigo(Integer.parseInt(
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
-/*
-				try {
-					pFormulario.cadCandidato.setSelected(true);
-				} catch (PropertyVetoException e1) {
-					e1.printStackTrace();
+
+				if(colaboradorDao.incluirColaborador(pFormulario.cadTurma.codTurma, pFormulario.colaboradorBO.getCodigo())) {
+					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+					pFormulario.cadTurma.modelo.addRow(new Object[] {
+							pFormulario.colaboradorBO.getCodigo(),
+							pFormulario.colaboradorBO.getNome(),
+							pFormulario.colaboradorBO.getTipo(),
+							pFormulario.colaboradorBO.getCpf(),
+							sdf.format(pFormulario.colaboradorBO.getDataNascimento().getTime()),
+							pFormulario.colaboradorBO.getNomeMae()
+					});
+					pFormulario.dispose();
+					try {
+						pFormulario.cadTurma.setSelected(true);
+					} catch (PropertyVetoException e1) {
+						e1.printStackTrace();
+					}
 				}
-				pFormulario.cadCandidato.txtNome.setText(pFormulario.colaboradorBO.getNome());
-				pFormulario.cadCandidato.codColaborador = pFormulario.colaboradorBO.getCodigo();*/
-				pFormulario.dispose();
+				
 			} else
 				JOptionPane.showMessageDialog(pFormulario, "Escolha um registro!", "Mensagem",
 						JOptionPane.WARNING_MESSAGE);

@@ -6,19 +6,20 @@ import java.beans.PropertyVetoException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import model.bo.ColaboradorBO;
 import model.bo.MatriculaBO;
 import model.bo.TurmaBO;
-import model.dao.AlunoDao;
-import model.dao.CursoDao;
+import model.dao.ColaboradorDao;
 import model.dao.MatriculaDao;
 import model.dao.TurmaDao;
 import model.exceptions.StringVaziaException;
 import view.FrameCadastroTurma;
 import view.FrameConsultaAluno;
+import view.FrameConsultaColaborador;
+import view.Utils;
 
 public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 
@@ -26,7 +27,10 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 	private TurmaBO turmaBO = new TurmaBO();
 	private TurmaDao turmaDao = new TurmaDao();
 	private MatriculaDao matriculaDao = new MatriculaDao();
-	CursoDao cursoDao = new CursoDao();
+	private ColaboradorBO colaboradorBO = new ColaboradorBO();
+	private ColaboradorDao colaboradorDao = new ColaboradorDao();
+	
+	//CursoDao cursoDao = new CursoDao();
 
 	public ListenerCadastroTurma(FrameCadastroTurma pFormulario) {
 		this.pFormulario = pFormulario;
@@ -35,7 +39,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object origem = e.getSource();
-
+		
 		if (origem == pFormulario.btnCancelar || origem == pFormulario.btnSair) { // para poder chamar o formulário por outro que não é o principal
 			this.pFormulario.dispose();
 		} else if (origem == pFormulario.btnIncluirAluno) {
@@ -51,7 +55,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 			}
 			fr.txtConsulta.requestFocus();
 		} else if (origem == pFormulario.btnIncluirColaborador) {
-			FrameConsultaAluno fr = new FrameConsultaAluno(this.pFormulario);
+			FrameConsultaColaborador fr = new FrameConsultaColaborador(this.pFormulario);
 			//this.pFormulario.setVisible(false);
 			fr.setVisible(true);
 			pFormulario.getDesktopPane().add(fr);
@@ -66,9 +70,15 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 			if (pFormulario.tabela.getSelectedRow() >= 0) {
 				if (JOptionPane.showConfirmDialog(pFormulario, "Confirma exclusão?", "Confirmacao",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					if (matriculaDao.excluir(Integer.parseInt(
-							pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())) == true)
-						pFormulario.modelo.removeRow(pFormulario.tabela.getSelectedRow());
+					if (pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString() == Utils.Tipo.Aluno.toString()) {
+						if (matriculaDao.excluir(Integer.parseInt(
+								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())) == true)
+							pFormulario.modelo.removeRow(pFormulario.tabela.getSelectedRow());
+					} else {
+						if (colaboradorDao.excluirColaboradorTurma(Integer.parseInt(
+								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())) == true)
+							pFormulario.modelo.removeRow(pFormulario.tabela.getSelectedRow());
+					}
 				}
 			} else
 				JOptionPane.showMessageDialog(pFormulario, "Escolha um registro!", "Mensagem",
@@ -132,6 +142,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 	}
 	
 	    public void stateChanged(ChangeEvent e) {
+	    	
 	        if (pFormulario.tabbedPane.getSelectedComponent() == pFormulario.pnlPessoas) {
 	        	turmaBO.setCodigo(pFormulario.codTurma);
     			turmaBO.cursoBO.setCodigo(pFormulario.listCursoDao.get(pFormulario.jcbCurso.getSelectedIndex()).getCodigo());
@@ -153,29 +164,44 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
     			}
 	        		        	
 	        	if(pFormulario.turmaBO.getCodigo() > 0 ) {
-		        	ArrayList<MatriculaBO> matriculaBO = null;
-		        	matriculaBO = matriculaDao.consultaPorTurma(pFormulario.codTurma);
+		        	ArrayList<MatriculaBO> matriculaBOList = null;
+		        	ArrayList<ColaboradorBO> colaboradorBOList = null;
+		        	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
+		        	
+		        	matriculaBOList = matriculaDao.consultaPorTurma(pFormulario.codTurma);
+		        	colaboradorBOList = colaboradorDao.consultaPorTurma(pFormulario.codTurma);
 		        	
 					// apaga todas as linhas da tabela
 					for (int i = pFormulario.modelo.getRowCount() - 1; i >= 0; i--)
 						pFormulario.modelo.removeRow(i);
 					
 					int indice = 0;
-					
-			        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
 					do {
 						try {
-							pFormulario.modelo.addRow(new Object[] { matriculaBO.get(indice).getAluno()
-									, matriculaBO.get(indice).turmaBO.alunoBO.getNome(), "Aluno", matriculaBO.get(indice).turmaBO.alunoBO.getCpf()
-									, sdf.format(matriculaBO.get(indice).turmaBO.alunoBO.getDataNascimento().getTime())
-									, matriculaBO.get(indice).turmaBO.alunoBO.getNomeMae()
+							pFormulario.modelo.addRow(new Object[] { colaboradorBOList.get(indice).getCodigo()
+									, colaboradorBOList.get(indice).getNome(), colaboradorBOList.get(indice).getTipo()
+									, colaboradorBOList.get(indice).getCpf(), sdf.format(colaboradorBOList.get(indice).getDataNascimento().getTime())
+									, colaboradorBOList.get(indice).getNomeMae()
 							});
 						} catch (Exception e1) {
 							break;
 						}
-
 						indice++;
-					} while (indice < matriculaBO.size());
+					} while (indice < matriculaBOList.size());					
+					
+					indice = 0;
+					do {
+						try {
+							pFormulario.modelo.addRow(new Object[] { matriculaBOList.get(indice).getAluno()
+									, matriculaBOList.get(indice).turmaBO.alunoBO.getNome(), "Aluno", matriculaBOList.get(indice).turmaBO.alunoBO.getCpf()
+									, sdf.format(matriculaBOList.get(indice).turmaBO.alunoBO.getDataNascimento().getTime())
+									, matriculaBOList.get(indice).turmaBO.alunoBO.getNomeMae()
+							});
+						} catch (Exception e1) {
+							break;
+						}
+						indice++;
+					} while (indice < matriculaBOList.size());
 	        	} else {
 	    			if (turmaDao.incluir(turmaBO)) {
 	    				turmaBO.setCodigo(turmaDao.consultaPorTurmaAno(turmaBO.getTurma(), turmaBO.getAno()));

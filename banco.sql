@@ -65,6 +65,14 @@ CONSTRAINT uk_Colaborador UNIQUE (cpf, tipo),
 CONSTRAINT fk_CepColaborador FOREIGN KEY (codCep) REFERENCES cep(codCep)
 );
 
+-- Tabela de junção entre turma e colaborador (muitos para muitos)
+CREATE TABLE turma_colaborador (
+  codTurma integer NOT NULL,
+  codColaborador integer NOT NULL,
+  CONSTRAINT pk_Turma_Colaborador PRIMARY KEY (codTurma, codColaborador),
+  CONSTRAINT fk_Turma_TurmaColaborador FOREIGN KEY (codTurma) REFERENCES turma(codTurma),
+  CONSTRAINT fk_Colaborador_TurmaColaborador FOREIGN KEY (codColaborador) REFERENCES colaborador(codColaborador)
+);
 
 CREATE TABLE cidade(
 codCidade integer NOT NULL AUTO_INCREMENT,

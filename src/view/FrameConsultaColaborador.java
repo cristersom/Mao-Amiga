@@ -17,6 +17,12 @@ public class FrameConsultaColaborador extends FrameConsulta {
 	public JTable tabela;
 	public ModeloTabela modelo;
 	public ColaboradorBO colaboradorBO;
+	public FrameCadastroTurma cadTurma;
+	
+	public FrameConsultaColaborador(FrameCadastroTurma cadTurma) {
+		this();
+		this.cadTurma = cadTurma;
+	}
 	
 	public FrameConsultaColaborador() {
 		jcbconsultaPor.setModel(new DefaultComboBoxModel(new String[] { "Nome", "CPF", "Código" }));
@@ -59,5 +65,4 @@ public class FrameConsultaColaborador extends FrameConsulta {
 		btnIncluir.addActionListener(listener);
 		btnExlcuir.addActionListener(listener);
 	}
-
 }

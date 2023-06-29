@@ -12,6 +12,7 @@ public class TurmaBO
     private Calendar dataInicio, dataFim;
     public CursoBO cursoBO;
     public AlunoBO alunoBO;
+    public ColaboradorBO colaboradorBO;
     
     public TurmaBO() {
         this.codTurma = 0;
@@ -22,6 +23,7 @@ public class TurmaBO
         this.dataFim = Calendar.getInstance();
         this.cursoBO = new CursoBO();
         this.alunoBO = new AlunoBO();
+        this.colaboradorBO = new ColaboradorBO();
     }
     
     public int getCodigo() {

@@ -5,14 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
-
 import javax.swing.JOptionPane;
-
-import model.bo.AlunoBO;
 import model.bo.TurmaBO;
 import model.exceptions.StringVaziaException;
 
@@ -139,11 +135,6 @@ public class TurmaDao {
 		}
 	}
 	
-	public boolean incluirAluno(AlunoBO alunoBO, TurmaBO turmaBO) {
-		
-		return true;
-	}
-
 	public boolean alterar(TurmaBO turmaBO) {
 		try {
 			String sql = "UPDATE turma SET turma = UPPER(?), ano = ?, descricao = ?, codCurso = ?, data_inicio = ?, data_fim = ?"
@@ -183,5 +174,4 @@ public class TurmaDao {
 		}
 		return true;
 	}
-
 }
