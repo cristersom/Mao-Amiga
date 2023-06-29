@@ -20,6 +20,7 @@ public class FrameConsultaCEP extends FrameConsulta {
 	public FrameCadastroCEP cadCep = null;
 	public FrameCadastroAluno cadAluno = null;
 	public FrameCadastroColaborador cadColaborador = null;
+	public FrameCadastroResponsavel cadResponsavel = null;
 
 	public FrameConsultaCEP(FrameCadastroCEP cadCep){
 		this();
@@ -34,6 +35,11 @@ public class FrameConsultaCEP extends FrameConsulta {
 	public FrameConsultaCEP(FrameCadastroColaborador cadColaborador) {
 		this();
 		this.cadColaborador = cadColaborador;
+	}
+	
+	public FrameConsultaCEP(FrameCadastroResponsavel cadResponsavel) {
+		this();
+		this.cadResponsavel = cadResponsavel;
 	}
 	
 	public FrameConsultaCEP() {

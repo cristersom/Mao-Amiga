@@ -58,7 +58,7 @@ complemento varchar(80),
 celular varchar(15),
 foneComercial varchar(15),
 eMail varchar(80),
-tipo varchar(10) NOT NULL,
+tipo varchar(25) NOT NULL,
 autorUsoImagem integer,
 CONSTRAINT pk_Colaborador PRIMARY KEY (codColaborador),
 CONSTRAINT uk_Colaborador UNIQUE (cpf, tipo),
@@ -72,6 +72,31 @@ CREATE TABLE turma_colaborador (
   CONSTRAINT pk_Turma_Colaborador PRIMARY KEY (codTurma, codColaborador),
   CONSTRAINT fk_Turma_TurmaColaborador FOREIGN KEY (codTurma) REFERENCES turma(codTurma),
   CONSTRAINT fk_Colaborador_TurmaColaborador FOREIGN KEY (codColaborador) REFERENCES colaborador(codColaborador)
+);
+
+CREATE TABLE responsavel(
+codResponsavel integer NOT NULL AUTO_INCREMENT,
+cpf varchar(12) NOT NULL,
+nome varchar(80) NOT NULL,
+rg varchar(12),
+certNascimento varchar(32),
+sexo varchar(9),
+nomeMae varchar(80),
+nomePai varchar(80),
+nacionalidade varchar(50),
+dataNascimento date NOT NULL,
+codCep integer NOT NULL,
+numero integer NOT NULL,
+complemento varchar(80),
+celular varchar(15),
+foneComercial varchar(15),
+eMail varchar(80),
+localTrabalho varchar(50),
+tipo varchar(25) NOT NULL,
+autorUsoImagem integer,
+CONSTRAINT pk_Responsavel PRIMARY KEY (codResponsavel),
+CONSTRAINT uk_Responsavel UNIQUE (cpf, tipo),
+CONSTRAINT fk_Responsavel FOREIGN KEY (codCep) REFERENCES cep(codCep)
 );
 
 CREATE TABLE cidade(

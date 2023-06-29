@@ -5,29 +5,30 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
-import model.bo.AlunoBO;
-import model.dao.AlunoDao;
-import model.dao.MatriculaDao;
-import view.FrameCadastroAluno;
-import view.FrameConsultaAluno;
-import view.Utils;
 
-public class ListernerConsultaAluno implements ActionListener {
+import model.bo.ResponsavelBO;
+import model.dao.ResponsavelDao;
+import model.dao.TurmaDao;
+import view.FrameCadastroResponsavel;
+import view.FrameConsultaResponsavel;
 
-	private FrameConsultaAluno pFormulario;
-	private AlunoDao alunoDao = new AlunoDao();
+public class ListernerConsultaResponsavel implements ActionListener {
 
-	public ListernerConsultaAluno(FrameConsultaAluno pFormulario) {
+	private FrameConsultaResponsavel pFormulario;
+    private ResponsavelDao responsavelDao = new ResponsavelDao();
+    
+	public ListernerConsultaResponsavel(FrameConsultaResponsavel pFormulario) {
 		this.pFormulario = pFormulario;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		
+
 		if (cmd.equals("Incluir")) {
-			FrameCadastroAluno fr = new FrameCadastroAluno();
+			FrameCadastroResponsavel fr = new FrameCadastroResponsavel();
 			fr.setVisible(true);
 			pFormulario.getDesktopPane().add(fr);
 			try {
@@ -36,10 +37,10 @@ public class ListernerConsultaAluno implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			fr.pnlAluno.txtNome.requestFocus();
+			fr.pnlResponsavel.txtNome.requestFocus();
 
 		} else if (cmd.equals("Consultar")) {
-			ArrayList<AlunoBO> alunoBO = null;
+			ArrayList<ResponsavelBO> responsavelBO = null;
 
 			// apaga todas as linhas da tabela
 			for (int i = pFormulario.modelo.getRowCount() - 1; i >= 0; i--)
@@ -47,7 +48,7 @@ public class ListernerConsultaAluno implements ActionListener {
 
 			if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Código")) {
 				try {
-					alunoBO = alunoDao.consultaPorCodigo(Integer.parseInt(pFormulario.txtConsulta.getText()));
+					responsavelBO = responsavelDao.consultaPorCodigo(Integer.parseInt(pFormulario.txtConsulta.getText()));
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(pFormulario, "O código deve ser numérico", "Erro",
 							JOptionPane.ERROR_MESSAGE);
@@ -56,12 +57,12 @@ public class ListernerConsultaAluno implements ActionListener {
 					return;
 				}
 			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("CPF")) {
-				alunoBO = alunoDao.consultaPorCpf(pFormulario.txtConsulta.getText());
+				responsavelBO = responsavelDao.consultaPorCpf(pFormulario.txtConsulta.getText());
 			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Nome")) {
-				alunoBO = alunoDao.consultaPorNome(pFormulario.txtConsulta.getText());
+				responsavelBO = responsavelDao.consultaPorNome(pFormulario.txtConsulta.getText());
 			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Código")) {
 				try {
-					alunoBO = alunoDao.consultaPorCodigo(Integer.parseInt(pFormulario.txtConsulta.getText()));
+					responsavelBO = responsavelDao.consultaPorCodigo(Integer.parseInt(pFormulario.txtConsulta.getText()));
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(pFormulario, "O código deve ser numérico", "Erro",
 							JOptionPane.ERROR_MESSAGE);
@@ -74,12 +75,12 @@ public class ListernerConsultaAluno implements ActionListener {
 			int indice = 0;
 			do {
 				try {
-					pFormulario.modelo.addRow(new Object[] { alunoBO.get(indice).getCodigo(),
-							alunoBO.get(indice).getNome(), alunoBO.get(indice).getCpf(),
-							alunoBO.get(indice).cep.getLogradouro() + ", " + alunoBO.get(indice).getNumero() + ", "
-									+ alunoBO.get(indice).cep.getBairro() + ", "
-									+ alunoBO.get(indice).cep.cidade.getCidade(),
-							alunoBO.get(indice).cep.getCep() });
+					pFormulario.modelo.addRow(new Object[] { responsavelBO.get(indice).getCodigo(),
+							responsavelBO.get(indice).getNome(), responsavelBO.get(indice).getCpf(),
+							responsavelBO.get(indice).cep.getLogradouro() + ", " + responsavelBO.get(indice).getNumero() + ", "
+									+ responsavelBO.get(indice).cep.getBairro() + ", "
+									+ responsavelBO.get(indice).cep.cidade.getCidade(),
+							responsavelBO.get(indice).cep.getCep() });
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(pFormulario, "Nenhum registro foi encontrado!", "Mensagem",
 							JOptionPane.WARNING_MESSAGE);
@@ -87,18 +88,18 @@ public class ListernerConsultaAluno implements ActionListener {
 				}
 
 				indice++;
-			} while (indice < alunoBO.size());
+			} while (indice < responsavelBO.size());
 
 		} else if (cmd.equals("Alterar")) {
 			if (pFormulario.tabela.getSelectedRow() >= 0) {
 				// popular o cidBO com o registro que está selecionado na Jtable, buscando do
 				// banco
-				pFormulario.alunoBO = alunoDao
+				pFormulario.responsavelBO = responsavelDao
 						.consultaPorCodigo(Integer.parseInt(
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
 
-				FrameCadastroAluno fr = new FrameCadastroAluno(this.pFormulario);
+				FrameCadastroResponsavel fr = new FrameCadastroResponsavel(this.pFormulario);
 				fr.setVisible(true);
 				pFormulario.getDesktopPane().add(fr);
 				try {
@@ -111,7 +112,7 @@ public class ListernerConsultaAluno implements ActionListener {
 			if (pFormulario.tabela.getSelectedRow() >= 0) {
 				if (JOptionPane.showConfirmDialog(pFormulario, "Confirma exclusão?", "Confirmacao",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					if (alunoDao.excluir(Integer.parseInt(
+					if (responsavelDao.excluir(Integer.parseInt(
 							pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())) == true)
 						pFormulario.modelo.removeRow(pFormulario.tabela.getSelectedRow());
 				}
@@ -120,27 +121,25 @@ public class ListernerConsultaAluno implements ActionListener {
 						JOptionPane.WARNING_MESSAGE);
 
 		} else if (cmd.equals("Selecionar")) {
-			MatriculaDao matriculaDao = new MatriculaDao();
 			if (pFormulario.tabela.getSelectedRow() >= 0) {
-				pFormulario.alunoBO = alunoDao
+				pFormulario.responsavelBO = responsavelDao
 						.consultaPorCodigo(Integer.parseInt(
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
-								
-				//seta aluno				
-				pFormulario.cadTurma.turmaBO.alunoBO = pFormulario.alunoBO;
-				
-				if (matriculaDao.incluir(pFormulario.cadTurma.turmaBO)) {
-					
+
+				if(responsavelDao.incluirResponsavel(pFormulario.cadTurma.codTurma, pFormulario.responsavelBO.getCodigo())) {
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-					pFormulario.cadTurma.modelo.addRow(new Object[] {pFormulario.alunoBO.getCodigo(),  pFormulario.alunoBO.getNome(), Utils.Tipo.Aluno.toString()
-							, pFormulario.alunoBO.getCpf(), sdf.format(pFormulario.alunoBO.getDataNascimento().getTime()), pFormulario.alunoBO.getNomeMae()
+					pFormulario.cadTurma.modelo.addRow(new Object[] {
+							pFormulario.responsavelBO.getCodigo(),
+							pFormulario.responsavelBO.getNome(),
+							pFormulario.responsavelBO.getTipo(),
+							pFormulario.responsavelBO.getCpf(),
+							sdf.format(pFormulario.responsavelBO.getDataNascimento().getTime()),
+							pFormulario.responsavelBO.getNomeMae()
 					});
 					pFormulario.dispose();
-
 					try {
 						pFormulario.cadTurma.setSelected(true);
-						
 					} catch (PropertyVetoException e1) {
 						e1.printStackTrace();
 					}

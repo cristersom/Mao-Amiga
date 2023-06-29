@@ -41,7 +41,9 @@ public class Utils {
 	public static enum Tipo {
 		Aluno,
 		Monitor,
-		Professor
+		Professor,
+		Responsável_Pedagógico,
+		Responsável_Financeiro
 	}
 	
 	public static enum Sexo {
