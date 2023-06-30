@@ -55,7 +55,7 @@ public class ListenerCadastroCEP implements ActionListener, KeyListener, FocusLi
 			}
 
 			try {
-				cepBO.cidade.setCodigo(Integer.parseInt(pFormulario.txtCodigo.getText()));
+				cepBO.cidade.setId(Integer.parseInt(pFormulario.txtCodigo.getText()));
 			} catch (NumberFormatException e1) {
 				JOptionPane.showMessageDialog(pFormulario, "Código deve ser numérico", "Mensagem",
 						JOptionPane.WARNING_MESSAGE);
@@ -63,16 +63,16 @@ public class ListenerCadastroCEP implements ActionListener, KeyListener, FocusLi
 				pFormulario.txtCodigo.requestFocus();
 				return;
 			}
-			cepBO.setCodigo(pFormulario.codCep);
+			cepBO.setId(pFormulario.idCep);
 			cepBO.setLogradouro(pFormulario.txtLogradouro.getText());
 			cepBO.setBairro(pFormulario.txtBairro.getText());
 
 			// acesso ao dao
 			// objetoDao.incluir(cidade);
 
-			if (cepBO.getCodigo() > 0) { // Neste caso o CEP deve ser alterado e não incluído
+			if (cepBO.getId() > 0) { // Neste caso o CEP deve ser alterado e não incluído
 				if (cepDao.alterar(cepBO)) {
-					cepBO = cepDao.consultaPorCodigo(cepBO.getCodigo()).get(0);
+					cepBO = cepDao.consultaPorCodigo(cepBO.getId()).get(0);
 
 					int linha = pFormulario.consCep.tabela.getSelectedRow();
 					pFormulario.consCep.modelo.setValueAt(cepBO.getCep(), linha, 0);
@@ -160,7 +160,7 @@ public class ListenerCadastroCEP implements ActionListener, KeyListener, FocusLi
 		if (!pFormulario.txtCodigo.getText().equals(""))
 			try {
 				pFormulario.cidBO = cidDao.consultaPorCodigoUnico(Integer.parseInt(pFormulario.txtCodigo.getText()));
-				if (pFormulario.cidBO.getCodigo() != 0) {
+				if (pFormulario.cidBO.getId() != 0) {
 					pFormulario.txtUf.setText(pFormulario.cidBO.getUf());
 					pFormulario.txtCidade.setText(pFormulario.cidBO.getCidade());
 					pFormulario.txtLogradouro.requestFocus();

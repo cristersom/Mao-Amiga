@@ -8,7 +8,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JTabbedPane;
 
 public class FrameCadastroColaborador extends FrameCadastro {
-	public int codColaborador, codCep;
+	public int idColaborador, idCep;
 	public AbaPessoa pnlColaborador;
 	public AbaEndereco pnlEndereco;
 	public FrameConsultaColaborador consColaborador = null;
@@ -17,7 +17,7 @@ public class FrameCadastroColaborador extends FrameCadastro {
 	public FrameCadastroColaborador(FrameConsultaColaborador consColaborador) {
 		this();
 		this.consColaborador = consColaborador;
-		this.codColaborador = consColaborador.colaboradorBO.getCodigo();
+		this.idColaborador = consColaborador.colaboradorBO.getId();
 		
 		this.pnlColaborador.jcbTipo.setSelectedItem(consColaborador.colaboradorBO.getTipo());;
 		this.pnlColaborador.checkboxAutorImatem.setSelected(consColaborador.colaboradorBO.getAutorUsoImagem() == 1 ? true : false);
@@ -34,7 +34,7 @@ public class FrameCadastroColaborador extends FrameCadastro {
 		this.pnlColaborador.jcbSexo.setSelectedItem(consColaborador.colaboradorBO.getSexo());
 		//this.pnlColaborador.txtIdiomaMaterno.setText(consColaborador.colaboradorBO.getIdiomaMaterno());
 		
-		this.codCep = consColaborador.colaboradorBO.cep.getCodigo();
+		this.idCep = consColaborador.colaboradorBO.cep.getId();
 		this.pnlEndereco.txtCep.setText(consColaborador.colaboradorBO.cep.getCep());
 		this.pnlEndereco.txtCidade.setText(consColaborador.colaboradorBO.cep.cidade.getCidade());
 		this.pnlEndereco.txtBairro.setText(consColaborador.colaboradorBO.cep.getBairro());

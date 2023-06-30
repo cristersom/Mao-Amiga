@@ -74,7 +74,7 @@ public class ListernerConsultaAluno implements ActionListener {
 			int indice = 0;
 			do {
 				try {
-					pFormulario.modelo.addRow(new Object[] { alunoBO.get(indice).getCodigo(),
+					pFormulario.modelo.addRow(new Object[] { alunoBO.get(indice).getId(),
 							alunoBO.get(indice).getNome(), alunoBO.get(indice).getCpf(),
 							alunoBO.get(indice).cep.getLogradouro() + ", " + alunoBO.get(indice).getNumero() + ", "
 									+ alunoBO.get(indice).cep.getBairro() + ", "
@@ -133,7 +133,7 @@ public class ListernerConsultaAluno implements ActionListener {
 				if (matriculaDao.incluir(pFormulario.cadTurma.turmaBO)) {
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-					pFormulario.cadTurma.modelo.addRow(new Object[] {pFormulario.alunoBO.getCodigo(),  pFormulario.alunoBO.getNome(), Utils.Tipo.Aluno.toString()
+					pFormulario.cadTurma.modelo.addRow(new Object[] {pFormulario.alunoBO.getId(),  pFormulario.alunoBO.getNome(), Utils.Tipo.Aluno.toString()
 							, pFormulario.alunoBO.getCpf(), sdf.format(pFormulario.alunoBO.getDataNascimento().getTime()), pFormulario.alunoBO.getNomeMae()
 					});
 					pFormulario.dispose();

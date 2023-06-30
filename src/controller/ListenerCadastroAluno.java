@@ -81,8 +81,8 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener {
 
 			pFormulario.pnlAluno.txtCpf.setText(alunoBO.getCpf());
 
-			if (pFormulario.codCep > 0)
-				alunoBO.cep.setCodigo(pFormulario.codCep);
+			if (pFormulario.idCep > 0)
+				alunoBO.cep.setId(pFormulario.idCep);
 			else {
 				JOptionPane.showMessageDialog(pFormulario, "Informe um CEP!", "Mensagem", JOptionPane.WARNING_MESSAGE);
 				return;
@@ -99,15 +99,15 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener {
 			}
 
 			alunoBO.setComplemento(pFormulario.pnlEndereco.txtComplemento.getText());
-			alunoBO.setCodigo(pFormulario.codAluno);
+			alunoBO.setId(pFormulario.idAluno);
 
 			// acesso ao dao
-			if (alunoBO.getCodigo() > 0) { // Neste caso a Chapa deve ser alterada e não incluída
+			if (alunoBO.getId() > 0) { // Neste caso a Chapa deve ser alterada e não incluída
 				if (alunoDao.alterar(alunoBO)) {
-					alunoBO = alunoDao.consultaPorCodigo(alunoBO.getCodigo()).get(0);
+					alunoBO = alunoDao.consultaPorCodigo(alunoBO.getId()).get(0);
 
 					int linha = pFormulario.consAluno.tabela.getSelectedRow();
-					pFormulario.consAluno.modelo.setValueAt(alunoBO.getCodigo(), linha, 0);
+					pFormulario.consAluno.modelo.setValueAt(alunoBO.getId(), linha, 0);
 					pFormulario.consAluno.modelo.setValueAt(alunoBO.getNome(), linha, 1);
 					pFormulario.consAluno.modelo.setValueAt(alunoBO.getCpf(), linha, 2);
 					pFormulario.consAluno.modelo.setValueAt(alunoBO.cep.getLogradouro() + ", " + alunoBO.getNumero()

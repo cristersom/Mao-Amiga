@@ -50,7 +50,7 @@ public class FrameConsultaCEP extends FrameConsulta {
 		ArrayList dados = new ArrayList();
 
 		// criação de um arranjo para os títulos no cabeçalho
-		String[] colunas = new String[] { "CEP", "Cidade", "Logradouro", "Bairro", "UF", "Código"};
+		String[] colunas = new String[] { "CEP", "Cidade", "Logradouro", "Bairro", "UF", "ID"};
 
 		// criação de um arranjo para identificar se a célula é editável ou não
 		boolean[] edicao = { true, true, true, true, true };

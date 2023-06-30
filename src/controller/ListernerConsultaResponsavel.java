@@ -5,12 +5,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import model.bo.ResponsavelBO;
 import model.dao.ResponsavelDao;
-import model.dao.TurmaDao;
 import view.FrameCadastroResponsavel;
 import view.FrameConsultaResponsavel;
 
@@ -75,8 +72,8 @@ public class ListernerConsultaResponsavel implements ActionListener {
 			int indice = 0;
 			do {
 				try {
-					pFormulario.modelo.addRow(new Object[] { responsavelBO.get(indice).getCodigo(),
-							responsavelBO.get(indice).getNome(), responsavelBO.get(indice).getCpf(),
+					pFormulario.modelo.addRow(new Object[] { responsavelBO.get(indice).getId(),
+							responsavelBO.get(indice).getNome(), responsavelBO.get(indice).getTipo(), responsavelBO.get(indice).getCpf(),
 							responsavelBO.get(indice).cep.getLogradouro() + ", " + responsavelBO.get(indice).getNumero() + ", "
 									+ responsavelBO.get(indice).cep.getBairro() + ", "
 									+ responsavelBO.get(indice).cep.cidade.getCidade(),
@@ -127,10 +124,10 @@ public class ListernerConsultaResponsavel implements ActionListener {
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
 
-				if(responsavelDao.incluirResponsavel(pFormulario.cadTurma.codTurma, pFormulario.responsavelBO.getCodigo())) {
+				if(responsavelDao.incluirResponsavel(pFormulario.cadTurma.idTurma, pFormulario.responsavelBO.getId())) {
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 					pFormulario.cadTurma.modelo.addRow(new Object[] {
-							pFormulario.responsavelBO.getCodigo(),
+							pFormulario.responsavelBO.getId(),
 							pFormulario.responsavelBO.getNome(),
 							pFormulario.responsavelBO.getTipo(),
 							pFormulario.responsavelBO.getCpf(),

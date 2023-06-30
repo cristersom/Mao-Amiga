@@ -24,8 +24,8 @@ public class ColaboradorDao {
 		con = Conexao.conectaBanco();
 	}
 
-	public ArrayList<ColaboradorBO> consultaPorCodigo(int codColaborador) {
-		ArrayList<ColaboradorBO> colaboradorBOList = consulta("codColaborador = " + codColaborador, "codColaborador");
+	public ArrayList<ColaboradorBO> consultaPorCodigo(int idColaborador) {
+		ArrayList<ColaboradorBO> colaboradorBOList = consulta("idColaborador = " + idColaborador, "idColaborador");
 		return colaboradorBOList;
 	}
 
@@ -48,10 +48,10 @@ public class ColaboradorDao {
 
 			// faz a consulta
 			registros = sentenca.executeQuery(
-					"SELECT codColaborador, cpf, nome, rg, certNascimento, sexo, nomeMae, nomePai, nacionalidade, dataNascimento, celular, foneComercial"
-					+ ", eMail, tipo, autorUsoImagem, colaborador.codCep, numero, complemento, cep, logradouro, bairro, cep.codCidade, cidade, uf "
-							+ "FROM colaborador INNER JOIN cep ON colaborador.codCep = cep.codCep "
-							+ "INNER JOIN cidade ON cep.codCidade = cidade.codCidade" + " WHERE " + sentencaSQL
+					"SELECT idColaborador, cpf, nome, rg, certNascimento, sexo, nomeMae, nomePai, nacionalidade, dataNascimento, celular, foneComercial"
+					+ ", eMail, tipo, autorUsoImagem, colaborador.idCep, numero, complemento, cep, logradouro, bairro, cep.idCidade, cidade, uf "
+							+ "FROM colaborador INNER JOIN cep ON colaborador.idCep = cep.idCep "
+							+ "INNER JOIN cidade ON cep.idCidade = cidade.idCidade" + " WHERE " + sentencaSQL
 							+ " Order By " + ordem);
 
 			if (registros.next()) {
@@ -59,7 +59,7 @@ public class ColaboradorDao {
 				do {
 					ColaboradorBO colaboradorBO = new ColaboradorBO();
 
-					colaboradorBO.setCodigo(Integer.parseInt(registros.getString("codColaborador")));
+					colaboradorBO.setId(Integer.parseInt(registros.getString("idColaborador")));
 					colaboradorBO.setAutorUsoImagem(Integer.parseInt(registros.getString("autorUsoImagem")));
 					
 					try {
@@ -79,7 +79,7 @@ public class ColaboradorDao {
 					colaboradorBO.setTipo(registros.getString("tipo"));
 
 					
-					colaboradorBO.cep.setCodigo(Integer.parseInt(registros.getString("codCep")));
+					colaboradorBO.cep.setId(Integer.parseInt(registros.getString("idCep")));
 					Calendar data = Calendar.getInstance();
 					data.setTime(registros.getDate("dataNascimento"));
 					colaboradorBO.setDataNascimento(data);
@@ -92,7 +92,7 @@ public class ColaboradorDao {
 					}
 					colaboradorBO.cep.setLogradouro(registros.getString("logradouro"));
 					colaboradorBO.cep.setBairro(registros.getString("bairro"));
-					colaboradorBO.cep.cidade.setCodigo(Integer.parseInt(registros.getString("codCidade")));
+					colaboradorBO.cep.cidade.setId(Integer.parseInt(registros.getString("idCidade")));
 					colaboradorBO.cep.cidade.setUf(registros.getString("uf"));
 
 					colaboradorBOList.add(colaboradorBO);
@@ -112,7 +112,7 @@ public class ColaboradorDao {
 	public boolean incluir(ColaboradorBO colaboradorBO) {
 		try {
 			String sql = "INSERT INTO colaborador (cpf, nome, rg, certNascimento, sexo, nomeMae, nomePai, nacionalidade"
-					+ ", dataNascimento, codCep, numero, complemento, celular, foneComercial, eMail, tipo, autorUsoImagem)"
+					+ ", dataNascimento, idCep, numero, complemento, celular, foneComercial, eMail, tipo, autorUsoImagem)"
 					+ "VALUES (?, UPPER(?), ?, ?, ?, UPPER(?), UPPER(?), UPPER(?), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, colaboradorBO.getCpf());
@@ -124,7 +124,7 @@ public class ColaboradorDao {
 			stmt.setString(7, colaboradorBO.getNomePai());
 			stmt.setString(8, colaboradorBO.getNacionalidade());
 			stmt.setDate(9, new Date(colaboradorBO.getDataNascimento().getTimeInMillis()));
-			stmt.setInt(10, colaboradorBO.cep.getCodigo());
+			stmt.setInt(10, colaboradorBO.cep.getId());
 			stmt.setInt(11, colaboradorBO.getNumero());
 			stmt.setString(12, colaboradorBO.getComplemento());
 			stmt.setString(13, colaboradorBO.getCelular());
@@ -148,8 +148,8 @@ public class ColaboradorDao {
 		try {
 			
 			String sql = "UPDATE colaborador SET cpf = ?, nome = UPPER(?), rg = ?, certNascimento = ?, sexo = ?, nomeMae = UPPER(?), nomePai = UPPER(?), nacionalidade = UPPER(?)"
-					+ ", dataNascimento = ?, codCep = ?, numero = ?, complemento = ?, celular = ?, foneComercial = ?, eMail = ?, tipo = ?, autorUsoImagem = ?"
-					+ " WHERE codColaborador = " + colaboradorBO.getCodigo();
+					+ ", dataNascimento = ?, idCep = ?, numero = ?, complemento = ?, celular = ?, foneComercial = ?, eMail = ?, tipo = ?, autorUsoImagem = ?"
+					+ " WHERE idColaborador = " + colaboradorBO.getId();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, colaboradorBO.getCpf());
 			stmt.setString(2, colaboradorBO.getNome());
@@ -160,7 +160,7 @@ public class ColaboradorDao {
 			stmt.setString(7, colaboradorBO.getNomePai());
 			stmt.setString(8, colaboradorBO.getNacionalidade());
 			stmt.setDate(9, new Date(colaboradorBO.getDataNascimento().getTimeInMillis()));
-			stmt.setInt(10, colaboradorBO.cep.getCodigo());
+			stmt.setInt(10, colaboradorBO.cep.getId());
 			stmt.setInt(11, colaboradorBO.getNumero());
 			stmt.setString(12, colaboradorBO.getComplemento());
 			stmt.setString(13, colaboradorBO.getCelular());
@@ -180,9 +180,9 @@ public class ColaboradorDao {
 		}
 	}
 
-	public boolean excluir(int codColaborador) {
+	public boolean excluir(int idColaborador) {
 		try {
-			String sql = "DELETE FROM colaborador WHERE codColaborador= " + codColaborador;
+			String sql = "DELETE FROM colaborador WHERE idColaborador= " + idColaborador;
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {
@@ -197,12 +197,12 @@ public class ColaboradorDao {
 	}
 	
 	
-	public boolean incluirColaborador(int codTurma, int codColaborador) {
+	public boolean incluirColaborador(int idTurma, int idColaborador) {
 		try {
-			String sql = "INSERT INTO turma_colaborador (codTurma, codColaborador) VALUES (?,?)";
+			String sql = "INSERT INTO turma_colaborador (idTurma, idColaborador) VALUES (?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, codTurma);
-			stmt.setInt(2, codColaborador);
+			stmt.setInt(1, idTurma);
+			stmt.setInt(2, idColaborador);
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
 			return true;
@@ -221,9 +221,9 @@ public class ColaboradorDao {
 		}
 	}
 	
-	public boolean excluirColaboradorTurma(int codColaborador) {
+	public boolean excluirColaboradorTurma(int idColaborador) {
 		try {
-			String sql = "DELETE FROM turma_colaborador WHERE codColaborador= " + codColaborador;
+			String sql = "DELETE FROM turma_colaborador WHERE idColaborador= " + idColaborador;
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {
@@ -237,7 +237,7 @@ public class ColaboradorDao {
 		return true;
 	}
 	
-	public ArrayList<ColaboradorBO> consultaPorTurma(int codTurma) {
+	public ArrayList<ColaboradorBO> consultaPorTurma(int idTurma) {
 		Statement sentenca;
 		ResultSet registros;
 
@@ -246,9 +246,9 @@ public class ColaboradorDao {
 
 			// faz a consulta
 			registros = sentenca
-					.executeQuery("SELECT col.codColaborador, nome,  tipo, cpf, dataNascimento, nomeMae "
-							+ "FROM turma_colaborador INNER JOIN colaborador col on turma_colaborador.codColaborador = col.codColaborador "
-							+ "WHERE codTurma = " + codTurma
+					.executeQuery("SELECT col.idColaborador, nome,  tipo, cpf, dataNascimento, nomeMae "
+							+ "FROM turma_colaborador INNER JOIN colaborador col on turma_colaborador.idColaborador = col.idColaborador "
+							+ "WHERE idTurma = " + idTurma
 							+ " Order By tipo, nome");
 
 			if (registros.next()) {
@@ -256,7 +256,7 @@ public class ColaboradorDao {
 				do {
 					ColaboradorBO colaboradorBO = new ColaboradorBO();
 			
-					colaboradorBO.setCodigo(Integer.parseInt(registros.getString("codColaborador")));
+					colaboradorBO.setId(Integer.parseInt(registros.getString("idColaborador")));
 					colaboradorBO.setTipo(registros.getString("tipo"));	
 					try {
 						colaboradorBO.setNome(registros.getString("nome"));

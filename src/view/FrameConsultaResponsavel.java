@@ -23,11 +23,11 @@ public class FrameConsultaResponsavel extends FrameConsulta {
 	}
 	
 	public FrameConsultaResponsavel() {
-		jcbconsultaPor.setModel(new DefaultComboBoxModel(new String[] { "Nome", "CPF", "Código" }));
+		jcbconsultaPor.setModel(new DefaultComboBoxModel(new String[] { "Nome", "CPF", "ID" }));
 		setTitle("Consulta Responsaveles");
 		
 		ArrayList dados = new ArrayList();
-		String[] colunas = new String[] { "Código", "Nome", "CPF", "Endereço", "CEP" };
+		String[] colunas = new String[] { "ID", "Nome", "Tipo", "CPF", "Endereço", "CEP" };
 		boolean[] edicao = { true, true, true, true, true };
 
 		modelo = new ModeloTabela(dados, colunas, edicao);
@@ -40,15 +40,17 @@ public class FrameConsultaResponsavel extends FrameConsulta {
 			}
 		});
 		tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
-		tabela.getColumnModel().getColumn(0).setResizable(false);
+		tabela.getColumnModel().getColumn(0).setResizable(true);
 		tabela.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tabela.getColumnModel().getColumn(1).setResizable(false);
-		tabela.getColumnModel().getColumn(2).setPreferredWidth(50);
-		tabela.getColumnModel().getColumn(2).setResizable(false);
-		tabela.getColumnModel().getColumn(3).setPreferredWidth(300);
-		tabela.getColumnModel().getColumn(3).setResizable(false);
-		tabela.getColumnModel().getColumn(4).setPreferredWidth(40);
+		tabela.getColumnModel().getColumn(1).setResizable(true);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(80);
+		tabela.getColumnModel().getColumn(2).setResizable(true);
+		tabela.getColumnModel().getColumn(3).setPreferredWidth(50);
+		tabela.getColumnModel().getColumn(3).setResizable(true);
+		tabela.getColumnModel().getColumn(4).setPreferredWidth(300);
 		tabela.getColumnModel().getColumn(4).setResizable(true);
+		tabela.getColumnModel().getColumn(5).setPreferredWidth(40);
+		tabela.getColumnModel().getColumn(5).setResizable(true);
 		tabela.getTableHeader().setReorderingAllowed(false);
 		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -28,13 +28,13 @@ public class MatriculaDao {
 		con = Conexao.conectaBanco();
 	}
 	
-	public ArrayList<MatriculaBO> consultaPorMatricula(int codMatricula) {
-		ArrayList<MatriculaBO> matriculaBOList = consulta("codMatricula = " + codMatricula, "codMatricula");
+	public ArrayList<MatriculaBO> consultaPorMatricula(int idMatricula) {
+		ArrayList<MatriculaBO> matriculaBOList = consulta("idMatricula = " + idMatricula, "idMatricula");
 		return matriculaBOList;
 	}
 	
-	public ArrayList<MatriculaBO> consultaPorTurma(int codTurma) {
-		ArrayList<MatriculaBO> matriculaBOList = consulta("codTurma = " + codTurma, "codTurma");
+	public ArrayList<MatriculaBO> consultaPorTurma(int idTurma) {
+		ArrayList<MatriculaBO> matriculaBOList = consulta("idTurma = " + idTurma, "idTurma");
 		return matriculaBOList;
 	}
 	
@@ -47,8 +47,8 @@ public class MatriculaDao {
 
 			// faz a consulta
 			registros = sentenca
-					.executeQuery("SELECT codMatricula, codTurma, mat.codAluno, nome, cpf, dataNascimento, nomeMae "
-							+ "FROM contrato_matricula mat INNER JOIN aluno ON mat.codAluno = aluno.codAluno WHERE " + sentencaSQL
+					.executeQuery("SELECT idMatricula, idTurma, mat.idAluno, nome, cpf, dataNascimento, nomeMae "
+							+ "FROM contrato_matricula mat INNER JOIN aluno ON mat.idAluno = aluno.idAluno WHERE " + sentencaSQL
 							+ " Order By " + ordem);
 
 			if (registros.next()) {
@@ -56,9 +56,9 @@ public class MatriculaDao {
 				do {
 					MatriculaBO matriculaBO = new MatriculaBO();
 					
-					matriculaBO.setMatricula(Integer.parseInt(registros.getString("codMatricula")));
-					matriculaBO.setTurma(Integer.parseInt(registros.getString("codTurma")));
-					matriculaBO.setAluno(Integer.parseInt(registros.getString("codAluno")));
+					matriculaBO.setMatricula(Integer.parseInt(registros.getString("idMatricula")));
+					matriculaBO.setTurma(Integer.parseInt(registros.getString("idTurma")));
+					matriculaBO.setAluno(Integer.parseInt(registros.getString("idAluno")));
 					try {
 						matriculaBO.turmaBO.alunoBO.setNome(registros.getString("nome"));
 						matriculaBO.turmaBO.alunoBO.setCpf(registros.getString("cpf"));
@@ -90,10 +90,10 @@ public class MatriculaDao {
 	public boolean incluir(TurmaBO turmaBO) {
 		
 		try {
-			String sql = "INSERT INTO contrato_matricula (codTurma, codAluno) VALUES (?,?)";
+			String sql = "INSERT INTO contrato_matricula (idTurma, idAluno) VALUES (?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, turmaBO.getCodigo());
-			stmt.setInt(2, turmaBO.alunoBO.getCodigo());
+			stmt.setInt(1, turmaBO.getId());
+			stmt.setInt(2, turmaBO.alunoBO.getId());
 
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
@@ -101,7 +101,7 @@ public class MatriculaDao {
 		} catch (SQLIntegrityConstraintViolationException SQLError) {
 			SQLError.printStackTrace();
 			JOptionPane.showMessageDialog(null,
-					"Não foi possível incluir o aluno!\nAluno "+turmaBO.alunoBO.getNome()+" já cadastrado na turma "+turmaBO.getCodigo()+".\n" + "Mensagem: " + SQLError.getMessage(), "Erro",
+					"Não foi possível incluir o aluno!\nAluno "+turmaBO.alunoBO.getNome()+" já cadastrado na turma "+turmaBO.getId()+".\n" + "Mensagem: " + SQLError.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		} catch (SQLException eSQL) {
@@ -113,9 +113,9 @@ public class MatriculaDao {
 		}
 	}
 	
-	public boolean excluir(int codAluno) {
+	public boolean excluir(int idAluno) {
 		try {
-			String sql = "DELETE FROM contrato_matricula WHERE codAluno= " + codAluno;
+			String sql = "DELETE FROM contrato_matricula WHERE idAluno= " + idAluno;
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {

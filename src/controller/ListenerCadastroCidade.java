@@ -47,13 +47,13 @@ public class ListenerCadastroCidade implements ActionListener {
 			}
 
 			cidBO.setUf((String) pFormulario.jcbUf.getSelectedItem());
-			cidBO.setCodigo(pFormulario.codCidade);
+			cidBO.setId(pFormulario.idCidade);
 
 			// acesso ao dao
 			// objetoDao.incluir(cidade);
-			if (cidBO.getCodigo() > 0) { // Se for "0" é uma cidade nova
+			if (cidBO.getId() > 0) { // Se for "0" é uma cidade nova
 				if (cidDao.alterar(cidBO)) {
-					cidBO = cidDao.consultaPorCodigoUnico(cidBO.getCodigo());
+					cidBO = cidDao.consultaPorCodigoUnico(cidBO.getId());
 					int linha = pFormulario.consCid.tabela.getSelectedRow();
 					pFormulario.consCid.modelo.setValueAt(cidBO.getUf(), linha, 1);
 					pFormulario.consCid.modelo.setValueAt(cidBO.getCidade(), linha, 2);

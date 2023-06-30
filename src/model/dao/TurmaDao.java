@@ -19,13 +19,13 @@ public class TurmaDao {
 		con = Conexao.conectaBanco();
 	}
 
-	public ArrayList<TurmaBO> consultaPorCodigo(int codTurma) {
-		ArrayList<TurmaBO> turmaBOList = consulta("codTurma = " + codTurma, "codTurma");
+	public ArrayList<TurmaBO> consultaPorCodigo(int idTurma) {
+		ArrayList<TurmaBO> turmaBOList = consulta("idTurma = " + idTurma, "idTurma");
 		return turmaBOList;
 	}
 	
 	public ArrayList<TurmaBO> consultaPorTurma(String turma) {
-		ArrayList<TurmaBO> turmaBOList = consulta("turma = UPPER('" + turma + "') OR turma LIKE UPPER('%" + turma + "%')", "codTurma");
+		ArrayList<TurmaBO> turmaBOList = consulta("turma = UPPER('" + turma + "') OR turma LIKE UPPER('%" + turma + "%')", "idTurma");
 		return turmaBOList;
 	}
 	
@@ -57,8 +57,8 @@ public class TurmaDao {
 				do {
 					TurmaBO turmaBO = new TurmaBO();
 			
-					turmaBO.setCodigo(Integer.parseInt(registros.getString("codTurma")));
-					turmaBO.cursoBO.setCodigo(Integer.parseInt(registros.getString("codCurso")));
+					turmaBO.setId(Integer.parseInt(registros.getString("idTurma")));
+					turmaBO.cursoBO.setId(Integer.parseInt(registros.getString("idCurso")));
 					try {
 						turmaBO.setTurma(registros.getString("turma"));
 
@@ -93,15 +93,15 @@ public class TurmaDao {
 	public int consultaPorTurmaAno(String turma, int ano) {
 		Statement sentenca;
 		ResultSet registros;
-		int codTurma = 0;
+		int idTurma = 0;
 		
 		try {
 			sentenca = con.createStatement();
 			registros = sentenca
-					.executeQuery("SELECT codTurma FROM turma " + 
+					.executeQuery("SELECT idTurma FROM turma " + 
 							"WHERE turma = UPPER('" + turma + "') OR turma LIKE UPPER('%" + turma + "%') and ano = " + ano);
 			registros.next();
-			codTurma = Integer.parseInt(registros.getString("codTurma"));
+			idTurma = Integer.parseInt(registros.getString("idTurma"));
 		
 			sentenca.close();
 		} catch (SQLException eSQL) {
@@ -110,14 +110,14 @@ public class TurmaDao {
 					"Não foi possível carregar os dados!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);
 		}
-		return codTurma;
+		return idTurma;
 	}
 	
 	public boolean incluir(TurmaBO turmaBO) {
 		try {
-			String sql = "INSERT INTO turma (codCurso, turma, ano, descricao, data_inicio, data_fim) VALUES (?,UPPER(?),?,?,?,?)";
+			String sql = "INSERT INTO turma (idCurso, turma, ano, descricao, data_inicio, data_fim) VALUES (?,UPPER(?),?,?,?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, turmaBO.cursoBO.getCodigo());
+			stmt.setInt(1, turmaBO.cursoBO.getId());
 			stmt.setString(2, turmaBO.getTurma());
 			stmt.setInt(3, turmaBO.getAno());
 			stmt.setString(4, turmaBO.getDescricao());
@@ -137,13 +137,13 @@ public class TurmaDao {
 	
 	public boolean alterar(TurmaBO turmaBO) {
 		try {
-			String sql = "UPDATE turma SET turma = UPPER(?), ano = ?, descricao = ?, codCurso = ?, data_inicio = ?, data_fim = ?"
-					+ "WHERE codTurma = " + turmaBO.getCodigo();
+			String sql = "UPDATE turma SET turma = UPPER(?), ano = ?, descricao = ?, idCurso = ?, data_inicio = ?, data_fim = ?"
+					+ "WHERE idTurma = " + turmaBO.getId();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, turmaBO.getTurma());
 			stmt.setInt(2, turmaBO.getAno());
 			stmt.setString(3, turmaBO.getDescricao());
-			stmt.setInt(4, turmaBO.cursoBO.getCodigo());
+			stmt.setInt(4, turmaBO.cursoBO.getId());
 			stmt.setDate(5, new Date(turmaBO.getDataInicio().getTimeInMillis()));
 			stmt.setDate(6, new Date(turmaBO.getDataFim().getTimeInMillis()));
 			stmt.execute();
@@ -159,9 +159,9 @@ public class TurmaDao {
 		}
 	}
 
-	public boolean excluir(int codTurma) {
+	public boolean excluir(int idTurma) {
 		try {
-			String sql = "DELETE FROM turma WHERE codTurma= " + codTurma;
+			String sql = "DELETE FROM turma WHERE idTurma= " + idTurma;
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {

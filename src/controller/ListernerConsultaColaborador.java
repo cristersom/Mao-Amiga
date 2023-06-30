@@ -75,8 +75,8 @@ public class ListernerConsultaColaborador implements ActionListener {
 			int indice = 0;
 			do {
 				try {
-					pFormulario.modelo.addRow(new Object[] { colaboradorBO.get(indice).getCodigo(),
-							colaboradorBO.get(indice).getNome(), colaboradorBO.get(indice).getCpf(),
+					pFormulario.modelo.addRow(new Object[] { colaboradorBO.get(indice).getId(),
+							colaboradorBO.get(indice).getNome(), colaboradorBO.get(indice).getTipo(), colaboradorBO.get(indice).getCpf(),
 							colaboradorBO.get(indice).cep.getLogradouro() + ", " + colaboradorBO.get(indice).getNumero() + ", "
 									+ colaboradorBO.get(indice).cep.getBairro() + ", "
 									+ colaboradorBO.get(indice).cep.cidade.getCidade(),
@@ -127,10 +127,10 @@ public class ListernerConsultaColaborador implements ActionListener {
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
 
-				if(colaboradorDao.incluirColaborador(pFormulario.cadTurma.codTurma, pFormulario.colaboradorBO.getCodigo())) {
+				if(colaboradorDao.incluirColaborador(pFormulario.cadTurma.idTurma, pFormulario.colaboradorBO.getId())) {
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 					pFormulario.cadTurma.modelo.addRow(new Object[] {
-							pFormulario.colaboradorBO.getCodigo(),
+							pFormulario.colaboradorBO.getId(),
 							pFormulario.colaboradorBO.getNome(),
 							pFormulario.colaboradorBO.getTipo(),
 							pFormulario.colaboradorBO.getCpf(),

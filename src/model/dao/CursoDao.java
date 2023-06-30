@@ -21,8 +21,8 @@ public class CursoDao {
 		con = Conexao.conectaBanco();
 	}
 
-	public ArrayList<CursoBO> consultaPorCodigo(int codCurso) {
-		ArrayList<CursoBO> cursoBOList = consulta("codCurso =" + codCurso, "codCurso");
+	public ArrayList<CursoBO> consultaPorCodigo(int idCurso) {
+		ArrayList<CursoBO> cursoBOList = consulta("idCurso =" + idCurso, "idCurso");
 		return cursoBOList;
 	}
 
@@ -51,7 +51,7 @@ public class CursoDao {
 				do {
 					CursoBO cursoBO = new CursoBO();
 
-					cursoBO.setCodigo(Integer.parseInt(registros.getString("codcurso")));
+					cursoBO.setId(Integer.parseInt(registros.getString("idCurso")));
 					try {
 						cursoBO.setCurso(registros.getString("curso"));
 					} catch (StringVaziaException e) {
@@ -91,7 +91,7 @@ public class CursoDao {
 
 	public boolean alterar(CursoBO cursoBO) {
 		try {
-			String sql = "UPDATE curso SET curso = UPPER(?), descricao = ?" + "WHERE codCurso = " + cursoBO.getCodigo();
+			String sql = "UPDATE curso SET curso = UPPER(?), descricao = ?" + "WHERE idCurso = " + cursoBO.getId();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, cursoBO.getCurso());
 			stmt.setString(2, cursoBO.getDescricao());
@@ -107,9 +107,9 @@ public class CursoDao {
 		}
 	}
 
-	public boolean excluir(int codCurso) {
+	public boolean excluir(int idCurso) {
 		try {
-			String sql = "DELETE FROM curso WHERE codCurso= " + codCurso;
+			String sql = "DELETE FROM curso WHERE idCurso= " + idCurso;
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {

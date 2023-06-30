@@ -24,8 +24,8 @@ public class ResponsavelDao {
 		con = Conexao.conectaBanco();
 	}
 
-	public ArrayList<ResponsavelBO> consultaPorCodigo(int codResponsavel) {
-		ArrayList<ResponsavelBO> responsavelBOList = consulta("codResponsavel = " + codResponsavel, "codResponsavel");
+	public ArrayList<ResponsavelBO> consultaPorCodigo(int idResponsavel) {
+		ArrayList<ResponsavelBO> responsavelBOList = consulta("idResponsavel = " + idResponsavel, "idResponsavel");
 		return responsavelBOList;
 	}
 
@@ -48,10 +48,10 @@ public class ResponsavelDao {
 
 			// faz a consulta
 			registros = sentenca.executeQuery(
-					"SELECT codResponsavel, cpf, nome, rg, certNascimento, sexo, nomeMae, nomePai, nacionalidade, dataNascimento, celular, foneComercial"
-					+ ", eMail, localTrabalho, tipo, autorUsoImagem, responsavel.codCep, numero, complemento, cep, logradouro, bairro, cep.codCidade, cidade, uf "
-							+ "FROM responsavel INNER JOIN cep ON responsavel.codCep = cep.codCep "
-							+ "INNER JOIN cidade ON cep.codCidade = cidade.codCidade" + " WHERE " + sentencaSQL
+					"SELECT idResponsavel, cpf, nome, rg, certNascimento, sexo, nomeMae, nomePai, nacionalidade, dataNascimento, celular, foneComercial"
+					+ ", eMail, localTrabalho, tipo, autorUsoImagem, responsavel.idCep, numero, complemento, cep, logradouro, bairro, cep.idCidade, cidade, uf "
+							+ "FROM responsavel INNER JOIN cep ON responsavel.idCep = cep.idCep "
+							+ "INNER JOIN cidade ON cep.idCidade = cidade.idCidade" + " WHERE " + sentencaSQL
 							+ " Order By " + ordem);
 
 			if (registros.next()) {
@@ -59,7 +59,7 @@ public class ResponsavelDao {
 				do {
 					ResponsavelBO responsavelBO = new ResponsavelBO();
 
-					responsavelBO.setCodigo(Integer.parseInt(registros.getString("codResponsavel")));
+					responsavelBO.setId(Integer.parseInt(registros.getString("idResponsavel")));
 					responsavelBO.setAutorUsoImagem(Integer.parseInt(registros.getString("autorUsoImagem")));
 					
 					try {
@@ -80,7 +80,7 @@ public class ResponsavelDao {
 					responsavelBO.setTipo(registros.getString("tipo"));
 
 					
-					responsavelBO.cep.setCodigo(Integer.parseInt(registros.getString("codCep")));
+					responsavelBO.cep.setId(Integer.parseInt(registros.getString("idCep")));
 					Calendar data = Calendar.getInstance();
 					data.setTime(registros.getDate("dataNascimento"));
 					responsavelBO.setDataNascimento(data);
@@ -93,7 +93,7 @@ public class ResponsavelDao {
 					}
 					responsavelBO.cep.setLogradouro(registros.getString("logradouro"));
 					responsavelBO.cep.setBairro(registros.getString("bairro"));
-					responsavelBO.cep.cidade.setCodigo(Integer.parseInt(registros.getString("codCidade")));
+					responsavelBO.cep.cidade.setId(Integer.parseInt(registros.getString("idCidade")));
 					responsavelBO.cep.cidade.setUf(registros.getString("uf"));
 
 					responsavelBOList.add(responsavelBO);
@@ -113,8 +113,8 @@ public class ResponsavelDao {
 	public boolean incluir(ResponsavelBO responsavelBO) {
 		try {
 			String sql = "INSERT INTO responsavel (cpf, nome, rg, certNascimento, sexo, nomeMae, nomePai, nacionalidade"
-					+ ", dataNascimento, codCep, numero, complemento, celular, foneComercial, eMail, localTrabalho, tipo, autorUsoImagem)"
-					+ "VALUES (?, UPPER(?), ?, ?, ?, UPPER(?), UPPER(?), UPPER(?), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ ", dataNascimento, idCep, numero, complemento, celular, foneComercial, eMail, localTrabalho, tipo, autorUsoImagem)"
+					+ "VALUES (?, UPPER(?), ?, ?, ?, UPPER(?), UPPER(?), UPPER(?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, responsavelBO.getCpf());
 			stmt.setString(2, responsavelBO.getNome());
@@ -125,7 +125,7 @@ public class ResponsavelDao {
 			stmt.setString(7, responsavelBO.getNomePai());
 			stmt.setString(8, responsavelBO.getNacionalidade());
 			stmt.setDate(9, new Date(responsavelBO.getDataNascimento().getTimeInMillis()));
-			stmt.setInt(10, responsavelBO.cep.getCodigo());
+			stmt.setInt(10, responsavelBO.cep.getId());
 			stmt.setInt(11, responsavelBO.getNumero());
 			stmt.setString(12, responsavelBO.getComplemento());
 			stmt.setString(13, responsavelBO.getCelular());
@@ -150,8 +150,8 @@ public class ResponsavelDao {
 		try {
 			
 			String sql = "UPDATE responsavel SET cpf = ?, nome = UPPER(?), rg = ?, certNascimento = ?, sexo = ?, nomeMae = UPPER(?), nomePai = UPPER(?), nacionalidade = UPPER(?)"
-					+ ", dataNascimento = ?, codCep = ?, numero = ?, complemento = ?, celular = ?, foneComercial = ?, eMail = ?, localTrabalho = ?, tipo = ?, autorUsoImagem = ?"
-					+ " WHERE codResponsavel = " + responsavelBO.getCodigo();
+					+ ", dataNascimento = ?, idCep = ?, numero = ?, complemento = ?, celular = ?, foneComercial = ?, eMail = ?, localTrabalho = ?, tipo = ?, autorUsoImagem = ?"
+					+ " WHERE idResponsavel = " + responsavelBO.getId();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, responsavelBO.getCpf());
 			stmt.setString(2, responsavelBO.getNome());
@@ -162,7 +162,7 @@ public class ResponsavelDao {
 			stmt.setString(7, responsavelBO.getNomePai());
 			stmt.setString(8, responsavelBO.getNacionalidade());
 			stmt.setDate(9, new Date(responsavelBO.getDataNascimento().getTimeInMillis()));
-			stmt.setInt(10, responsavelBO.cep.getCodigo());
+			stmt.setInt(10, responsavelBO.cep.getId());
 			stmt.setInt(11, responsavelBO.getNumero());
 			stmt.setString(12, responsavelBO.getComplemento());
 			stmt.setString(13, responsavelBO.getCelular());
@@ -183,9 +183,9 @@ public class ResponsavelDao {
 		}
 	}
 
-	public boolean excluir(int codResponsavel) {
+	public boolean excluir(int idResponsavel) {
 		try {
-			String sql = "DELETE FROM responsavel WHERE codResponsavel= " + codResponsavel;
+			String sql = "DELETE FROM responsavel WHERE idResponsavel= " + idResponsavel;
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {
@@ -200,12 +200,12 @@ public class ResponsavelDao {
 	}
 	
 	
-	public boolean incluirResponsavel(int codTurma, int codResponsavel) {
+	public boolean incluirResponsavel(int idTurma, int idResponsavel) {
 		try {
-			String sql = "INSERT INTO turma_responsavel (codTurma, codResponsavel) VALUES (?,?)";
+			String sql = "INSERT INTO turma_responsavel (idTurma, idResponsavel) VALUES (?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, codTurma);
-			stmt.setInt(2, codResponsavel);
+			stmt.setInt(1, idTurma);
+			stmt.setInt(2, idResponsavel);
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
 			return true;
@@ -224,9 +224,9 @@ public class ResponsavelDao {
 		}
 	}
 	
-	public boolean excluirResponsavelTurma(int codResponsavel) {
+	public boolean excluirResponsavelTurma(int idResponsavel) {
 		try {
-			String sql = "DELETE FROM turma_responsavel WHERE codResponsavel= " + codResponsavel;
+			String sql = "DELETE FROM turma_responsavel WHERE idResponsavel= " + idResponsavel;
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {
@@ -240,7 +240,7 @@ public class ResponsavelDao {
 		return true;
 	}
 	
-	public ArrayList<ResponsavelBO> consultaPorTurma(int codTurma) {
+	public ArrayList<ResponsavelBO> consultaPorTurma(int idTurma) {
 		Statement sentenca;
 		ResultSet registros;
 
@@ -249,9 +249,9 @@ public class ResponsavelDao {
 
 			// faz a consulta
 			registros = sentenca
-					.executeQuery("SELECT col.codResponsavel, nome,  tipo, cpf, dataNascimento, nomeMae "
-							+ "FROM turma_responsavel INNER JOIN responsavel col on turma_responsavel.codResponsavel = col.codResponsavel "
-							+ "WHERE codTurma = " + codTurma
+					.executeQuery("SELECT col.idResponsavel, nome,  tipo, cpf, dataNascimento, nomeMae "
+							+ "FROM turma_responsavel INNER JOIN responsavel col on turma_responsavel.idResponsavel = col.idResponsavel "
+							+ "WHERE idTurma = " + idTurma
 							+ " Order By tipo, nome");
 
 			if (registros.next()) {
@@ -259,7 +259,7 @@ public class ResponsavelDao {
 				do {
 					ResponsavelBO responsavelBO = new ResponsavelBO();
 			
-					responsavelBO.setCodigo(Integer.parseInt(registros.getString("codResponsavel")));
+					responsavelBO.setId(Integer.parseInt(registros.getString("idResponsavel")));
 					responsavelBO.setTipo(registros.getString("tipo"));	
 					try {
 						responsavelBO.setNome(registros.getString("nome"));

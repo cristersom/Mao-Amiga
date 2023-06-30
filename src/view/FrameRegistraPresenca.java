@@ -22,7 +22,7 @@ public class FrameRegistraPresenca extends FrameCadastro
     private JRadioButton radioButton_2;
     
     public FrameRegistraPresenca() {
-        this.setTitle("Registro de Presen\u00e7a");
+        this.setTitle("Registro de Presença");
         final GridBagLayout gridBagLayout = (GridBagLayout)this.pnlCenter.getLayout();
         gridBagLayout.columnWidths = new int[] { 0, 0, 48, 0, 0 };
         gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };

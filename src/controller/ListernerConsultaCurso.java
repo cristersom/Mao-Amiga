@@ -43,7 +43,7 @@ public class ListernerConsultaCurso implements ActionListener {
 			int indice = 0;
 			do {
 				try {
-					pFormulario.modelo.addRow(new Object[] { cursoBO.get(indice).getCodigo(),
+					pFormulario.modelo.addRow(new Object[] { cursoBO.get(indice).getId(),
 							cursoBO.get(indice).getCurso(), cursoBO.get(indice).getDescricao() });
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(pFormulario, "Nenhum registro foi encontrado!", "Mensagem",
@@ -103,7 +103,7 @@ public class ListernerConsultaCurso implements ActionListener {
 				} catch (PropertyVetoException e1) {
 					e1.printStackTrace();
 				}
-				//pFormulario.cadTurma.codCurso = pFormulario.cursoBO.getCodigo();
+				//pFormulario.cadTurma.idCurso = pFormulario.cursoBO.getId();
 				pFormulario.dispose();
 			} else
 				JOptionPane.showMessageDialog(pFormulario, "Escolha um registro!", "Mensagem",

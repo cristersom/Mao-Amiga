@@ -51,7 +51,7 @@ public class ListenerConsultaCEP implements ActionListener {
 					pFormulario.modelo
 							.addRow(new Object[] { cepBO.get(indice).getCep(), cepBO.get(indice).cidade.getCidade(),
 									cepBO.get(indice).getLogradouro(), cepBO.get(indice).getBairro(),
-									cepBO.get(indice).cidade.getUf(), cepBO.get(indice).getCodigo() });
+									cepBO.get(indice).cidade.getUf(), cepBO.get(indice).getId() });
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(pFormulario, "Nenhum registro foi encontrado!", "Mensagem",
 							JOptionPane.WARNING_MESSAGE);
@@ -112,7 +112,7 @@ public class ListenerConsultaCEP implements ActionListener {
 					} catch (PropertyVetoException e1) {
 						e1.printStackTrace();
 					}
-					pFormulario.cadAluno.codCep = pFormulario.cepBO.getCodigo();
+					pFormulario.cadAluno.idCep = pFormulario.cepBO.getId();
 					pFormulario.cadAluno.pnlEndereco.txtCep.setText(pFormulario.cepBO.getCep());
 					pFormulario.cadAluno.pnlEndereco.txtCidade.setText(pFormulario.cepBO.cidade.getCidade());
 					pFormulario.cadAluno.pnlEndereco.txtLogradouro.setText(pFormulario.cepBO.getLogradouro());
@@ -126,11 +126,25 @@ public class ListenerConsultaCEP implements ActionListener {
 					} catch (PropertyVetoException e1) {
 						e1.printStackTrace();
 					}
-					pFormulario.cadColaborador.codCep = pFormulario.cepBO.getCodigo();
+					pFormulario.cadColaborador.idCep = pFormulario.cepBO.getId();
 					pFormulario.cadColaborador.pnlEndereco.txtCep.setText(pFormulario.cepBO.getCep());
 					pFormulario.cadColaborador.pnlEndereco.txtCidade.setText(pFormulario.cepBO.cidade.getCidade());
 					pFormulario.cadColaborador.pnlEndereco.txtLogradouro.setText(pFormulario.cepBO.getLogradouro());
 					pFormulario.cadColaborador.pnlEndereco.txtBairro.setText(pFormulario.cepBO.getBairro());
+					pFormulario.dispose();
+				}
+				
+				if(pFormulario.cadResponsavel != null) {
+					try {
+						pFormulario.cadResponsavel.setSelected(true);
+					} catch (PropertyVetoException e1) {
+						e1.printStackTrace();
+					}
+					pFormulario.cadResponsavel.idCep = pFormulario.cepBO.getId();
+					pFormulario.cadResponsavel.pnlEndereco.txtCep.setText(pFormulario.cepBO.getCep());
+					pFormulario.cadResponsavel.pnlEndereco.txtCidade.setText(pFormulario.cepBO.cidade.getCidade());
+					pFormulario.cadResponsavel.pnlEndereco.txtLogradouro.setText(pFormulario.cepBO.getLogradouro());
+					pFormulario.cadResponsavel.pnlEndereco.txtBairro.setText(pFormulario.cepBO.getBairro());
 					pFormulario.dispose();
 				}
 

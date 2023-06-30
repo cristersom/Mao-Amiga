@@ -5,24 +5,24 @@ import model.exceptions.StringVaziaException;
 import view.Utils;
 
 public class CepBO {
-	private int codCep;
+	private int idCep;
 	private String CEP, logradouro, bairro; // endereço e bairro não são obrigatórios no caso de CEP geral
 	public CidadeBO cidade;
 
 	public CepBO() {
-		codCep = 0;
+		idCep = 0;
 		CEP = "";
 		logradouro = "";
 		bairro = "";
 		cidade = new CidadeBO();
 	}
 
-	public int getCodigo() {
-		return codCep;
+	public int getId() {
+		return idCep;
 	}
 
-	public void setCodigo(int codCep) {
-		this.codCep = codCep;
+	public void setId(int idCep) {
+		this.idCep = idCep;
 	}
 
 	public String getCep() {

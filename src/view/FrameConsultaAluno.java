@@ -16,7 +16,7 @@ import model.bo.AlunoBO;
 public class FrameConsultaAluno extends FrameConsulta {
 	public JTable tabela;
 	public ModeloTabela modelo;
-	public AlunoBO alunoBO;
+	public AlunoBO alunoBO = new AlunoBO();
 	public FrameCadastroTurma cadTurma = null;
 	
 	public FrameConsultaAluno(FrameCadastroTurma cadTurma) {
@@ -25,11 +25,11 @@ public class FrameConsultaAluno extends FrameConsulta {
 	}
 	
 	public FrameConsultaAluno() {
-		jcbconsultaPor.setModel(new DefaultComboBoxModel(new String[] { "Nome", "CPF", "Código" }));
+		jcbconsultaPor.setModel(new DefaultComboBoxModel(new String[] { "Nome", "CPF", "ID" }));
 		setTitle("Consulta Alunos");
 		
 		ArrayList dados = new ArrayList();
-		String[] colunas = new String[] { "Código", "Nome", "CPF", "Nascimento", /*"Tipo",*/ "Endereço" };
+		String[] colunas = new String[] { "ID", "Nome", "CPF", "Nascimento", /*"Tipo",*/ "Endereço" };
 		boolean[] edicao = { true, true, true, true, true };
 
 		modelo = new ModeloTabela(dados, colunas, edicao);

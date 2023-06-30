@@ -13,8 +13,8 @@ import javax.swing.JTabbedPane;
 import java.awt.GridBagLayout;
 
 public class FrameCadastroAluno extends FrameCadastro {
-    public int codAluno;
-    public int codCep;
+    public int idAluno;
+    public int idCep;
     public FrameConsultaAluno consAluno;
     public AbaPessoa pnlAluno;
     public AbaEndereco pnlEndereco;
@@ -24,8 +24,8 @@ public class FrameCadastroAluno extends FrameCadastro {
     public FrameCadastroAluno(FrameConsultaAluno consAluno) {
         this();
         this.consAluno = consAluno;
-        this.codAluno = consAluno.alunoBO.getCodigo();
-        this.codCep = consAluno.alunoBO.cep.getCodigo();
+        this.idAluno = consAluno.alunoBO.getId();
+        this.idCep = consAluno.alunoBO.cep.getId();
         this.pnlAluno.txtNome.setText(consAluno.alunoBO.getNome());
         this.pnlAluno.txtCpf.setText(consAluno.alunoBO.getCpf());
         this.pnlAluno.jcbDia.setSelectedIndex(consAluno.alunoBO.getDataNascimento().getTime().getDate() - 1);
@@ -53,7 +53,7 @@ public class FrameCadastroAluno extends FrameCadastro {
         gbc_tabbedPane.gridy = 0;
         pnlCenter.add(tabbedPane, gbc_tabbedPane);
         
-        AbaPessoa pnlAluno = new AbaPessoa();
+        pnlAluno = new AbaPessoa();
         pnlAluno.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         pnlAluno.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { "Aluno" }));
         pnlAluno.jcbTipo.setEnabled(false);
@@ -65,7 +65,7 @@ public class FrameCadastroAluno extends FrameCadastro {
         (pnlAnexos = new AbaAnexos()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Anexos", null, pnlAnexos, null);
         
-        AbaAutorizadores pnlAutorizados = new AbaAutorizadores();
+        pnlAutorizados = new AbaAutorizadores();
         pnlAutorizados.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Autorizados", null, pnlAutorizados, null);
         

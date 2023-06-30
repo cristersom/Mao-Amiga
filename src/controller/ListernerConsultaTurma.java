@@ -72,7 +72,7 @@ public class ListernerConsultaTurma implements ActionListener {
 			do {
 				try {
 					pFormulario.modelo
-							.addRow(new Object[] { turmaBO.get(indice).getCodigo(), turmaBO.get(indice).getTurma(),
+							.addRow(new Object[] { turmaBO.get(indice).getId(), turmaBO.get(indice).getTurma(),
 									turmaBO.get(indice).getDescricao(), turmaBO.get(indice).getAno() });
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(pFormulario, "Nenhum registro foi encontrado!", "Mensagem",

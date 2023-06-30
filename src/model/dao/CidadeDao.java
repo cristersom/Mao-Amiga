@@ -26,13 +26,13 @@ public class CidadeDao {
 
 		try {
 			sentenca = con.createStatement();
-			registros = sentenca.executeQuery("SELECT * FROM cidade WHERE codcidade =" + cod);
+			registros = sentenca.executeQuery("SELECT * FROM cidade WHERE idCidade =" + cod);
 			if (!registros.next()) {
 				JOptionPane.showMessageDialog(pFormulario, "Nenhum registro foi encontrado!", "Mensagem",
 						JOptionPane.WARNING_MESSAGE);
 				return cidBO;
 			} else {
-				cidBO.setCodigo(Integer.parseInt(registros.getString("codcidade")));
+				cidBO.setId(Integer.parseInt(registros.getString("idCidade")));
 				try {
 					cidBO.setCidade(registros.getString("cidade"));
 				} catch (StringVaziaException e) {
@@ -53,7 +53,7 @@ public class CidadeDao {
 	}
 
 	public CidadeBO[] consultaPorCodigo(int cod) {
-		CidadeBO cidBO[] = consulta("codcidade =" + cod, "codcidade");
+		CidadeBO cidBO[] = consulta("idCidade =" + cod, "idCidade");
 		return cidBO;
 	}
 
@@ -88,7 +88,7 @@ public class CidadeDao {
 				CidadeBO cidBO[] = new CidadeBO[numRegistros];
 				do {
 					cidBO[i] = new CidadeBO();
-					cidBO[i].setCodigo(Integer.parseInt(registros.getString("codcidade")));
+					cidBO[i].setId(Integer.parseInt(registros.getString("idCidade")));
 					try {
 						cidBO[i].setCidade(registros.getString("cidade"));
 					} catch (StringVaziaException e) {
@@ -124,7 +124,7 @@ public class CidadeDao {
         catch (SQLIntegrityConstraintViolationException eSQL) {
             try {
                 sentenca =con.createStatement();
-                ResultSet registro = sentenca.executeQuery("select max(codCidade) valor from cidade");
+                ResultSet registro = sentenca.executeQuery("select max(idCidade) valor from cidade");
                 registro.next();
                 int valor = Integer.parseInt(registro.getString("valor")) + 1;
                 sentenca.executeUpdate("alter table cidade AUTO_INCREMENT = " + String.valueOf(valor));
@@ -152,7 +152,7 @@ public class CidadeDao {
 			sentenca = con.createStatement();
 			String sentencaSQL = null;
 			sentencaSQL = "UPDATE cidade SET cidade = UPPER('" + cidBO.getCidade() + "'), uf = '" + cidBO.getUf()
-					+ "' WHERE codcidade = " + cidBO.getCodigo();
+					+ "' WHERE idCidade = " + cidBO.getId();
 
 			sentenca.executeUpdate(sentencaSQL);
 			sentenca.close();
@@ -173,11 +173,11 @@ public class CidadeDao {
 		return true;
 	}
 
-	public boolean excluir(int codCidade) {
+	public boolean excluir(int idCidade) {
 		Statement sentenca;
 		try {
 			sentenca = con.createStatement();
-			String sentencaSQL = "DELETE FROM cidade WHERE codCidade= " + codCidade;
+			String sentencaSQL = "DELETE FROM cidade WHERE idCidade= " + idCidade;
 			sentenca.executeUpdate(sentencaSQL);
 			sentenca.close();
 		} catch (SQLException eSQL) {

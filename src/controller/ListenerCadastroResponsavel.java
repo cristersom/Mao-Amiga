@@ -94,8 +94,8 @@ public class ListenerCadastroResponsavel implements ActionListener, KeyListener 
 			responsavelBO.setCertNascimento(pFormulario.pnlResponsavel.txtCertNascimento.getText());
 			responsavelBO.setSexo(pFormulario.pnlResponsavel.jcbSexo.getSelectedItem().toString());
 
-			if (pFormulario.codCep > 0)
-				responsavelBO.cep.setCodigo(pFormulario.codCep);
+			if (pFormulario.idCep > 0)
+				responsavelBO.cep.setId(pFormulario.idCep);
 			else {
 				JOptionPane.showMessageDialog(pFormulario, "Informe um CEP!", "Mensagem", JOptionPane.WARNING_MESSAGE);
 				return;
@@ -115,15 +115,15 @@ public class ListenerCadastroResponsavel implements ActionListener, KeyListener 
 			responsavelBO.setCelular(pFormulario.pnlEndereco.txtCelular.getText());
 			responsavelBO.setFoneComercial(pFormulario.pnlEndereco.txtFoneComercial.getText());
 			responsavelBO.setEmail(pFormulario.pnlEndereco.txtEmail.getText());
-			responsavelBO.setCodigo(pFormulario.codResponsavel);
+			responsavelBO.setId(pFormulario.idResponsavel);
 
 			// acesso ao dao
-			if (responsavelBO.getCodigo() > 0) { // Neste o responsavel deve ser alterado e não incluído
+			if (responsavelBO.getId() > 0) { // Neste o responsavel deve ser alterado e não incluído
 				if (responsavelDao.alterar(responsavelBO)) {
-					responsavelBO = responsavelDao.consultaPorCodigo(responsavelBO.getCodigo()).get(0);
+					responsavelBO = responsavelDao.consultaPorCodigo(responsavelBO.getId()).get(0);
 
 					int linha = pFormulario.consResponsavel.tabela.getSelectedRow();
-					pFormulario.consResponsavel.modelo.setValueAt(responsavelBO.getCodigo(), linha, 0);
+					pFormulario.consResponsavel.modelo.setValueAt(responsavelBO.getId(), linha, 0);
 					pFormulario.consResponsavel.modelo.setValueAt(responsavelBO.getNome(), linha, 1);
 					pFormulario.consResponsavel.modelo.setValueAt(responsavelBO.getCpf(), linha, 2);
 					pFormulario.consResponsavel.modelo.setValueAt(responsavelBO.cep.getLogradouro() + ", " + responsavelBO.getNumero()

@@ -14,7 +14,7 @@ public class FrameCadastroCidade extends FrameCadastro {
 	public JTextField txtCidade;
 	public JTextField txtEstado;
 	public JComboBox<String> jcbUf;
-	public int codCidade;
+	public int idCidade;
 	public FrameConsultaCidade consCid = null;
 	public String estados[] = { "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
 			"Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará",
@@ -24,7 +24,7 @@ public class FrameCadastroCidade extends FrameCadastro {
 	public FrameCadastroCidade(FrameConsultaCidade consCid) {
 		this(); // invoca o construtor principal
 		this.consCid = consCid;
-		this.codCidade = consCid.cidBO.getCodigo();
+		this.idCidade = consCid.cidBO.getId();
 		this.txtCidade.setText(consCid.cidBO.getCidade());
 		this.jcbUf.setSelectedItem(consCid.cidBO.getUf());
 	}

@@ -94,8 +94,8 @@ public class ListenerCadastroColaborador implements ActionListener, KeyListener 
 			colaboradorBO.setCertNascimento(pFormulario.pnlColaborador.txtCertNascimento.getText());
 			colaboradorBO.setSexo(pFormulario.pnlColaborador.jcbSexo.getSelectedItem().toString());
 
-			if (pFormulario.codCep > 0)
-				colaboradorBO.cep.setCodigo(pFormulario.codCep);
+			if (pFormulario.idCep > 0)
+				colaboradorBO.cep.setId(pFormulario.idCep);
 			else {
 				JOptionPane.showMessageDialog(pFormulario, "Informe um CEP!", "Mensagem", JOptionPane.WARNING_MESSAGE);
 				return;
@@ -115,15 +115,15 @@ public class ListenerCadastroColaborador implements ActionListener, KeyListener 
 			colaboradorBO.setCelular(pFormulario.pnlEndereco.txtCelular.getText());
 			colaboradorBO.setFoneComercial(pFormulario.pnlEndereco.txtFoneComercial.getText());
 			colaboradorBO.setEmail(pFormulario.pnlEndereco.txtEmail.getText());
-			colaboradorBO.setCodigo(pFormulario.codColaborador);
+			colaboradorBO.setId(pFormulario.idColaborador);
 
 			// acesso ao dao
-			if (colaboradorBO.getCodigo() > 0) { // Neste o colaborador deve ser alterado e não incluído
+			if (colaboradorBO.getId() > 0) { // Neste o colaborador deve ser alterado e não incluído
 				if (colaboradorDao.alterar(colaboradorBO)) {
-					colaboradorBO = colaboradorDao.consultaPorCodigo(colaboradorBO.getCodigo()).get(0);
+					colaboradorBO = colaboradorDao.consultaPorCodigo(colaboradorBO.getId()).get(0);
 
 					int linha = pFormulario.consColaborador.tabela.getSelectedRow();
-					pFormulario.consColaborador.modelo.setValueAt(colaboradorBO.getCodigo(), linha, 0);
+					pFormulario.consColaborador.modelo.setValueAt(colaboradorBO.getId(), linha, 0);
 					pFormulario.consColaborador.modelo.setValueAt(colaboradorBO.getNome(), linha, 1);
 					pFormulario.consColaborador.modelo.setValueAt(colaboradorBO.getCpf(), linha, 2);
 					pFormulario.consColaborador.modelo.setValueAt(colaboradorBO.cep.getLogradouro() + ", " + colaboradorBO.getNumero()

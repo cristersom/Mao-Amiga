@@ -43,7 +43,8 @@ public class Utils {
 		Monitor,
 		Professor,
 		Responsável_Pedagógico,
-		Responsável_Financeiro
+		Responsável_Financeiro,
+		Ambos
 	}
 	
 	public static enum Sexo {

@@ -26,13 +26,13 @@ public class FrameConsultaTurma extends FrameConsulta
     
     public FrameConsultaTurma() {
     	
-		jcbconsultaPor.setModel(new DefaultComboBoxModel<String>(new String[] {"Turma", "Código", "Ano", "Descrição"}));
+		jcbconsultaPor.setModel(new DefaultComboBoxModel<String>(new String[] {"Turma", "ID", "Ano", "Descrição"}));
 		setTitle("Consulta Turma");
 	    // criação de um arranjo sem tamanho definido para inserção dinâmica de objetos
 	    ArrayList dados = new ArrayList();
 	    
 	    // criação de um arranjo para os títulos no cabeçalho
-	    String[] colunas = new String[] {"Código", "Turma", "Descrição", "Ano"};
+	    String[] colunas = new String[] {"ID", "Turma", "Descrição", "Ano"};
 	    
 	    // criação de um arranjo para identificar se a célula é editável ou não
 	    boolean[] edicao = {true, true, true, true};

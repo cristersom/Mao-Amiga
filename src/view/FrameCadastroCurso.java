@@ -7,14 +7,14 @@ import controller.ListenerCadastroCurso;
 import java.awt.GridBagLayout;
 
 public class FrameCadastroCurso extends FrameCadastro{
-	public int codCurso;
+	public int idCurso;
 	public JTextField txtCurso, txtDescricao;
 	public FrameConsultaCurso consCurso = null;
 	
 	public FrameCadastroCurso (FrameConsultaCurso consCurso) {
 		this();
 		this.consCurso = consCurso;
-		this.codCurso = consCurso.cursoBO.getCodigo();
+		this.idCurso = consCurso.cursoBO.getId();
 		this.txtCurso.setText(consCurso.cursoBO.getCurso());
 		this.txtDescricao.setText(consCurso.cursoBO.getDescricao());
 	}

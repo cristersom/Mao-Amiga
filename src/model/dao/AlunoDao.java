@@ -22,8 +22,8 @@ public class AlunoDao {
 		con = Conexao.conectaBanco();
 	}
 
-	public ArrayList<AlunoBO> consultaPorCodigo(int codAluno) {
-		ArrayList<AlunoBO> alunoBOList = consulta("codAluno = " + codAluno, "codAluno");
+	public ArrayList<AlunoBO> consultaPorCodigo(int idAluno) {
+		ArrayList<AlunoBO> alunoBOList = consulta("idAluno = " + idAluno, "idAluno");
 		return alunoBOList;
 	}
 
@@ -46,10 +46,10 @@ public class AlunoDao {
 
 			// faz a consulta
 			registros = sentenca.executeQuery(
-					"SELECT codAluno, cpf, nome, dataNascimento, aluno.codCep, numero, complemento, cep, logradouro, bairro, cep.codCidade, cidade, uf, "
+					"SELECT idAluno, cpf, nome, dataNascimento, aluno.idCep, numero, complemento, cep, logradouro, bairro, cep.idCidade, cidade, uf, "
 							+ "nomeMae "
-							+ "FROM aluno INNER JOIN cep ON aluno.codCep = cep.codCep "
-							+ "INNER JOIN cidade ON cep.codCidade = cidade.codCidade" + " WHERE " + sentencaSQL
+							+ "FROM aluno INNER JOIN cep ON aluno.idCep = cep.idCep "
+							+ "INNER JOIN cidade ON cep.idCidade = cidade.idCidade" + " WHERE " + sentencaSQL
 							+ " Order By " + ordem);
 
 			if (registros.next()) {
@@ -57,7 +57,7 @@ public class AlunoDao {
 				do {
 					AlunoBO alunoBO = new AlunoBO();
 
-					alunoBO.setCodigo(Integer.parseInt(registros.getString("codAluno")));
+					alunoBO.setId(Integer.parseInt(registros.getString("idAluno")));
 					
 					try {
 						alunoBO.setCpf(registros.getString("cpf"));
@@ -65,7 +65,7 @@ public class AlunoDao {
 					} catch (StringVaziaException | CpfInvalidoException e1) {
 					}
 					
-					alunoBO.cep.setCodigo(Integer.parseInt(registros.getString("codCep")));
+					alunoBO.cep.setId(Integer.parseInt(registros.getString("idCep")));
 					Calendar data = Calendar.getInstance();
 					data.setTime(registros.getDate("dataNascimento"));
 					alunoBO.setDataNascimento(data);
@@ -79,7 +79,7 @@ public class AlunoDao {
 					}
 					alunoBO.cep.setLogradouro(registros.getString("logradouro"));
 					alunoBO.cep.setBairro(registros.getString("bairro"));
-					alunoBO.cep.cidade.setCodigo(Integer.parseInt(registros.getString("codCidade")));
+					alunoBO.cep.cidade.setId(Integer.parseInt(registros.getString("idCidade")));
 					alunoBO.cep.cidade.setUf(registros.getString("uf"));
 
 					alunoBOList.add(alunoBO);
@@ -98,12 +98,12 @@ public class AlunoDao {
 
 	public boolean incluir(AlunoBO alunoBO) {
 		try {
-			String sql = "INSERT INTO aluno (cpf, nome, dataNascimento, codCep, numero, complemento) VALUES (?,UPPER(?),?,?,?,?)";
+			String sql = "INSERT INTO aluno (cpf, nome, dataNascimento, idCep, numero, complemento) VALUES (?,UPPER(?),?,?,?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, alunoBO.getCpf());
 			stmt.setString(2, alunoBO.getNome());
 			stmt.setDate(3, new Date(alunoBO.getDataNascimento().getTimeInMillis()));
-			stmt.setInt(4, alunoBO.cep.getCodigo());
+			stmt.setInt(4, alunoBO.cep.getId());
 			stmt.setInt(5, alunoBO.getNumero());
 			stmt.setString(6, alunoBO.getComplemento());
 			stmt.execute();
@@ -121,13 +121,13 @@ public class AlunoDao {
 	public boolean alterar(AlunoBO alunoBO) {
 		try {
 			
-			String sql = "UPDATE aluno SET cpf = ?, nome = ?, dataNascimento = ?, codCep = ?, numero = ?, complemento = ?"
-					+ "WHERE codAluno = " + alunoBO.getCodigo();
+			String sql = "UPDATE aluno SET cpf = ?, nome = ?, dataNascimento = ?, idCep = ?, numero = ?, complemento = ?"
+					+ "WHERE idAluno = " + alunoBO.getId();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, alunoBO.getCpf());
 			stmt.setString(2, alunoBO.getNome());
 			stmt.setDate(3, new Date(alunoBO.getDataNascimento().getTimeInMillis()));
-			stmt.setInt(4, alunoBO.cep.getCodigo());
+			stmt.setInt(4, alunoBO.cep.getId());
 			stmt.setInt(5, alunoBO.getNumero());
 			stmt.setString(6, alunoBO.getComplemento());
 			stmt.execute();
@@ -142,9 +142,9 @@ public class AlunoDao {
 		}
 	}
 
-	public boolean excluir(int codAluno) {
+	public boolean excluir(int idAluno) {
 		try {
-			String sql = "DELETE FROM aluno WHERE codAluno= " + codAluno;
+			String sql = "DELETE FROM aluno WHERE idAluno= " + idAluno;
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {

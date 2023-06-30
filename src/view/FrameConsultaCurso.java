@@ -24,11 +24,11 @@ public class FrameConsultaCurso extends FrameConsulta {
 	}
 	
 	public FrameConsultaCurso() {
-		jcbconsultaPor.setModel(new DefaultComboBoxModel<String>(new String[] {"Curso", "Código", "Descrição"}));
+		jcbconsultaPor.setModel(new DefaultComboBoxModel<String>(new String[] {"Curso", "ID", "Descrição"}));
 		setTitle("Consulta Curso");
 		
 		ArrayList dados = new ArrayList();
-		String[] colunas = new String[] {"Código", "Curso", "Descrição"};
+		String[] colunas = new String[] {"ID", "Curso", "Descrição"};
 		boolean[] edicao = {true, true, true};
 		
 		modelo = new ModeloTabela(dados, colunas, edicao);

@@ -51,7 +51,7 @@ public class ListernerConsultaCidade implements ActionListener {
 			int indice = 0;
 			do {
 				try {
-					pFormulario.modelo.addRow(new Object[] { new Integer(cidBO[indice].getCodigo()), cidBO[indice].getUf(),
+					pFormulario.modelo.addRow(new Object[] { new Integer(cidBO[indice].getId()), cidBO[indice].getUf(),
 							cidBO[indice].getCidade() });
 				}catch (Exception e1) {
 					JOptionPane.showMessageDialog(pFormulario, "Nenhum registro foi encontrado!", "Mensagem",
@@ -115,7 +115,7 @@ public class ListernerConsultaCidade implements ActionListener {
 				} catch (PropertyVetoException e1) {
 					e1.printStackTrace();
 				}
-				pFormulario.cadCep.txtCodigo.setText(String.valueOf(pFormulario.cidBO.getCodigo()));
+				pFormulario.cadCep.txtCodigo.setText(String.valueOf(pFormulario.cidBO.getId()));
 				pFormulario.cadCep.txtCidade.setText(pFormulario.cidBO.getCidade());
 				pFormulario.cadCep.txtUf.setText(pFormulario.cidBO.getUf());
 				//pFormulario.cadCep.txtCodigo.setEditable(false);

@@ -40,13 +40,13 @@ public class ListenerCadastroCurso implements ActionListener {
 			}
 
 			cursoBO.setDescricao(pFormulario.txtDescricao.getText());
-			cursoBO.setCodigo(pFormulario.codCurso);
+			cursoBO.setId(pFormulario.idCurso);
 
 			// acesso ao dao
 			// objetoDao.incluir(cidade);
-			if (cursoBO.getCodigo() > 0) {
+			if (cursoBO.getId() > 0) {
 				if (cursoDao.alterar(cursoBO)) {
-					cursoBO = cursoDao.consultaPorCodigo(cursoBO.getCodigo()).get(0);
+					cursoBO = cursoDao.consultaPorCodigo(cursoBO.getId()).get(0);
 
 					int linha = pFormulario.consCurso.tabela.getSelectedRow();
 					pFormulario.consCurso.modelo.setValueAt(cursoBO.getCurso(), linha, 1);

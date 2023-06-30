@@ -10,7 +10,7 @@ import javax.swing.JTabbedPane;
 import controller.ListenerCadastroResponsavel;
 
 public class FrameCadastroResponsavel extends FrameCadastro {    
-	public int codResponsavel, codCep;
+	public int idResponsavel, idCep;
 	public AbaPessoa pnlResponsavel;
 	public AbaEndereco pnlEndereco;
 	public FrameConsultaResponsavel consResponsavel = null;
@@ -19,7 +19,7 @@ public class FrameCadastroResponsavel extends FrameCadastro {
 	public FrameCadastroResponsavel(FrameConsultaResponsavel consResponsavel) {
 		this();
 		this.consResponsavel = consResponsavel;
-		this.codResponsavel = consResponsavel.responsavelBO.getCodigo();
+		this.idResponsavel = consResponsavel.responsavelBO.getId();
 		
 		this.pnlResponsavel.jcbTipo.setSelectedItem(consResponsavel.responsavelBO.getTipo());;
 		this.pnlResponsavel.checkboxAutorImatem.setSelected(consResponsavel.responsavelBO.getAutorUsoImagem() == 1 ? true : false);
@@ -36,7 +36,7 @@ public class FrameCadastroResponsavel extends FrameCadastro {
 		this.pnlResponsavel.jcbSexo.setSelectedItem(consResponsavel.responsavelBO.getSexo());
 		//this.pnlResponsavel.txtIdiomaMaterno.setText(consResponsavel.responsavelBO.getIdiomaMaterno());
 		
-		this.codCep = consResponsavel.responsavelBO.cep.getCodigo();
+		this.idCep = consResponsavel.responsavelBO.cep.getId();
 		this.pnlEndereco.txtCep.setText(consResponsavel.responsavelBO.cep.getCep());
 		this.pnlEndereco.txtCidade.setText(consResponsavel.responsavelBO.cep.cidade.getCidade());
 		this.pnlEndereco.txtBairro.setText(consResponsavel.responsavelBO.cep.getBairro());
@@ -67,7 +67,8 @@ public class FrameCadastroResponsavel extends FrameCadastro {
 		
         pnlResponsavel = new AbaPessoa();
         pnlResponsavel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnlResponsavel.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.Responsável_Financeiro.toString(), Utils.Tipo.Responsável_Pedagógico.toString() }));
+        pnlResponsavel.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.Responsável_Financeiro.toString()
+        			 , Utils.Tipo.Responsável_Pedagógico.toString(), Utils.Tipo.Ambos.toString() }));
         pnlResponsavel.lblInfEducacao.setVisible(false);
         pnlResponsavel.txtInfEducacao.setVisible(false);
         pnlResponsavel.lblFichaSaude.setVisible(false);

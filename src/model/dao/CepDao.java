@@ -24,8 +24,8 @@ public class CepDao {
 		return cepBOList;
 	}
 	
-	public ArrayList<CepBO> consultaPorCodigo(int codCep) {
-		ArrayList<CepBO> cepBOList = consulta("codCep =" + codCep, "codCep");
+	public ArrayList<CepBO> consultaPorCodigo(int idCep) {
+		ArrayList<CepBO> cepBOList = consulta("idCep =" + idCep, "idCep");
 		return cepBOList;
 	}
 
@@ -61,8 +61,8 @@ public class CepDao {
 
 			// faz a consulta
 			registros = sentenca
-					.executeQuery("SELECT codCep, cep, cidade, logradouro, bairro, uf, cep.codcidade as codcidade "
-							+ "FROM cep INNER JOIN cidade ON cep.codCidade = cidade.codCidade WHERE " + sentencaSQL
+					.executeQuery("SELECT idCep, cep, cidade, logradouro, bairro, uf, cep.idCidade "
+							+ "FROM cep INNER JOIN cidade ON cep.idCidade = cidade.idCidade WHERE " + sentencaSQL
 							+ " Order By " + ordem);
 
 			if (registros.next()) {
@@ -74,10 +74,10 @@ public class CepDao {
 						cepBO.cidade.setCidade(registros.getString("cidade"));
 					} catch (StringVaziaException | CepInvalidoException e1) {
 					}
-					cepBO.setCodigo(Integer.parseInt(registros.getString("codCep")));
+					cepBO.setId(Integer.parseInt(registros.getString("idCep")));
 					cepBO.setLogradouro(registros.getString("logradouro"));
 					cepBO.setBairro(registros.getString("bairro"));
-					cepBO.cidade.setCodigo(Integer.parseInt(registros.getString("codcidade")));
+					cepBO.cidade.setId(Integer.parseInt(registros.getString("idCidade")));
 					cepBO.cidade.setUf(registros.getString("uf"));
 					cepBOList.add(cepBO);
 				} while (registros.next());
@@ -95,12 +95,12 @@ public class CepDao {
 
 	public boolean incluir(CepBO cepBO) {
 		try {
-			String sql = "INSERT INTO cep (cep, logradouro, bairro, codcidade) VALUES (?,UPPER(?),UPPER(?),?)";
+			String sql = "INSERT INTO cep (cep, logradouro, bairro, idCidade) VALUES (?,UPPER(?),UPPER(?),?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, cepBO.getCep());
 			stmt.setString(2, cepBO.getLogradouro());
 			stmt.setString(3, cepBO.getBairro());
-			stmt.setInt(4, cepBO.cidade.getCodigo());
+			stmt.setInt(4, cepBO.cidade.getId());
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
 			return true;
@@ -115,13 +115,13 @@ public class CepDao {
 
 	public boolean alterar(CepBO cepBO) {
 		try {
-			String sql = "UPDATE cep SET cep = ?, logradouro = UPPER(?), bairro = UPPER(?), codcidade = ? "
-					+ "WHERE codCep = " + cepBO.getCodigo();
+			String sql = "UPDATE cep SET cep = ?, logradouro = UPPER(?), bairro = UPPER(?), idCidade = ? "
+					+ "WHERE idCep = " + cepBO.getId();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, cepBO.getCep());
 			stmt.setString(2, cepBO.getLogradouro());
 			stmt.setString(3, cepBO.getBairro());
-			stmt.setInt(4, cepBO.cidade.getCodigo());
+			stmt.setInt(4, cepBO.cidade.getId());
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
 			return true;
@@ -134,9 +134,9 @@ public class CepDao {
 		}
 	}
 
-	public boolean excluir(int codCep) {
+	public boolean excluir(int idCep) {
 		try {
-			String sql = "DELETE FROM cep WHERE codcep= " + codCep;
+			String sql = "DELETE FROM cep WHERE idCep= " + idCep;
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {

@@ -51,7 +51,7 @@ public class FrameCadastroTurma extends JInternalFrame
     public JComboBox<Integer> jcbAno;
     public JComboBox<String> jcbCurso;
     public List<CursoBO> listCursoDao;
-    public int codTurma;
+    public int idTurma;
     int i;
     private JLabel lblCurso, lblTurma, lblDataIni, lblDataFim;
     public JTable tabela;
@@ -65,8 +65,8 @@ public class FrameCadastroTurma extends JInternalFrame
     public FrameCadastroTurma(FrameConsultaTurma consTurma) {
         this();
         this.consTurma = consTurma;
-        //this.jcbCurso.setSelectedIndex(consTurma.turmaBO.curso.getCodigo());
-        this.codTurma = consTurma.turmaBO.getCodigo();
+        //this.jcbCurso.setSelectedIndex(consTurma.turmaBO.curso.getId());
+        this.idTurma = consTurma.turmaBO.getId();
         this.jcbAno.setSelectedItem(consTurma.turmaBO.getAno());
         this.txtTurma.setText(consTurma.turmaBO.getTurma());
         this.txtDescricao.setText(consTurma.turmaBO.getDescricao());
@@ -78,7 +78,7 @@ public class FrameCadastroTurma extends JInternalFrame
         CursoDao cursoDao = new CursoDao();
         List<CursoBO> list = cursoDao.consultaPorDescricao("");
         for (i = 0; i < list.size(); i++) {
-        	if(list.get(i).getCodigo() == consTurma.turmaBO.cursoBO.getCodigo())
+        	if(list.get(i).getId() == consTurma.turmaBO.cursoBO.getId())
         	break;
         }
         this.jcbCurso.setSelectedIndex(i);

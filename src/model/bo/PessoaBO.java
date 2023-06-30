@@ -39,11 +39,11 @@ public class PessoaBO {
 		this.localTrabalho = "";
 	}
 
-	public int getCodigo() {
+	public int getId() {
 		return codPessoa;
 	}
 
-	public void setCodigo(int codPessoa) {
+	public void setId(int codPessoa) {
 		this.codPessoa = codPessoa;
 	}
 

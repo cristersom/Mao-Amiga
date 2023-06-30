@@ -27,13 +27,13 @@ public class FrameConsultaCidade extends FrameConsulta {
 	}
 	
 	public FrameConsultaCidade() {
-		jcbconsultaPor.setModel(new DefaultComboBoxModel<String>(new String[] {"Cidade", "Código", "UF"}));
+		jcbconsultaPor.setModel(new DefaultComboBoxModel<String>(new String[] {"Cidade", "ID", "UF"}));
 		setTitle("Consulta de Cidade");
 	    // criação de um arranjo sem tamanho definido para inserção dinâmica de objetos
 	    ArrayList dados = new ArrayList();
 	    
 	    // criação de um arranjo para os títulos no cabeçalho
-	    String[] colunas = new String[] {"Código", "UF", "Cidade"};
+	    String[] colunas = new String[] {"ID", "UF", "Cidade"};
 	    
 	    // criação de um arranjo para identificar se a célula é editável ou não
 	    boolean[] edicao = {true, true, true};

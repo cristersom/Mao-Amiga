@@ -20,7 +20,7 @@ import javax.swing.ImageIcon;
 import java.util.Collections;
 
 public class FrameCadastroCEP extends FrameCadastro {
-	public int codCep;
+	public int idCep;
 	public JTextField txtUf, txtCodigo, txtCidade, txtCep, txtLogradouro, txtBairro;
 	public JButton btnBuscaCidades;
 	public FrameConsultaCEP consCep = null;
@@ -30,9 +30,9 @@ public class FrameCadastroCEP extends FrameCadastro {
 	public FrameCadastroCEP (FrameConsultaCEP consCep) {
 		this();
 		this.consCep = consCep;
-		this.codCep = consCep.cepBO.getCodigo();
+		this.idCep = consCep.cepBO.getId();
 		this.txtCep.setText(consCep.cepBO.getCep());
-		this.txtCodigo.setText(String.valueOf(consCep.cepBO.cidade.getCodigo()));
+		this.txtCodigo.setText(String.valueOf(consCep.cepBO.cidade.getId()));
 		this.txtCidade.setText(consCep.cepBO.cidade.getCidade());
 		this.txtUf.setText(consCep.cepBO.cidade.getUf());
 		this.txtLogradouro.setText(consCep.cepBO.getLogradouro());

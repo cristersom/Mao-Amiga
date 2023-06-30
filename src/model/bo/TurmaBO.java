@@ -7,7 +7,7 @@ import model.exceptions.StringVaziaException;
 
 public class TurmaBO
 {
-    private int ano, codTurma;
+    private int ano, idTurma;
     private String turma, descricao;
     private Calendar dataInicio, dataFim;
     public CursoBO cursoBO;
@@ -15,7 +15,7 @@ public class TurmaBO
     public ColaboradorBO colaboradorBO;
     
     public TurmaBO() {
-        this.codTurma = 0;
+        this.idTurma = 0;
         this.turma = "";
         this.ano = 1900;
         this.descricao = "";
@@ -26,12 +26,12 @@ public class TurmaBO
         this.colaboradorBO = new ColaboradorBO();
     }
     
-    public int getCodigo() {
-        return this.codTurma;
+    public int getId() {
+        return this.idTurma;
     }
     
-    public void setCodigo(int codTurma) {
-        this.codTurma = codTurma;
+    public void setId(int idTurma) {
+        this.idTurma = idTurma;
     }
     
     public int getAno() {

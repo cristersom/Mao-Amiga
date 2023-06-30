@@ -12,11 +12,11 @@ public class CursoBO {
 		descricao = "";
 	}
 
-	public int getCodigo() {
+	public int getId() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setId(int codigo) {
 		this.codigo = codigo;
 	}
 

@@ -85,8 +85,8 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 						JOptionPane.WARNING_MESSAGE);			
 		} else {//botão ok
 
-			turmaBO.setCodigo(pFormulario.codTurma);
-			turmaBO.cursoBO.setCodigo(pFormulario.listCursoDao.get(pFormulario.jcbCurso.getSelectedIndex()).getCodigo());
+			turmaBO.setId(pFormulario.idTurma);
+			turmaBO.cursoBO.setId(pFormulario.listCursoDao.get(pFormulario.jcbCurso.getSelectedIndex()).getId());
 			turmaBO.setAno((int) pFormulario.jcbAno.getSelectedItem());
 			turmaBO.setDescricao(pFormulario.txtDescricao.getText());
 			
@@ -97,12 +97,12 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 				
 
 				// acesso ao Dao
-				if (turmaBO.getCodigo() > 0) {
+				if (turmaBO.getId() > 0) {
 					if (turmaDao.alterar(turmaBO)) {
-						turmaBO = turmaDao.consultaPorCodigo(turmaBO.getCodigo()).get(0);
+						turmaBO = turmaDao.consultaPorCodigo(turmaBO.getId()).get(0);
 						try {
 							int linha = pFormulario.consTurma.tabela.getSelectedRow();
-							pFormulario.consTurma.modelo.setValueAt(turmaBO.getCodigo(), linha, 0);
+							pFormulario.consTurma.modelo.setValueAt(turmaBO.getId(), linha, 0);
 							pFormulario.consTurma.modelo.setValueAt(turmaBO.getTurma(), linha, 1);
 							pFormulario.consTurma.modelo.setValueAt(turmaBO.getDescricao(), linha, 2);
 							pFormulario.consTurma.modelo.setValueAt(turmaBO.getAno(), linha, 3);
@@ -110,7 +110,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 									JOptionPane.WARNING_MESSAGE);
 						} catch (NullPointerException n) {//no caso de um registro novo que é alterado durante a criação
 							/*
-							pFormulario.consTurma.modelo.addRow(new Object[] {turmaBO.getCodigo(), turmaBO.getTurma()
+							pFormulario.consTurma.modelo.addRow(new Object[] {turmaBO.getId(), turmaBO.getTurma()
 									, turmaBO.getDescricao(), turmaBO.getAno()
 							});
 							*/
@@ -144,8 +144,8 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 	    public void stateChanged(ChangeEvent e) {
 	    	
 	        if (pFormulario.tabbedPane.getSelectedComponent() == pFormulario.pnlPessoas) {
-	        	turmaBO.setCodigo(pFormulario.codTurma);
-    			turmaBO.cursoBO.setCodigo(pFormulario.listCursoDao.get(pFormulario.jcbCurso.getSelectedIndex()).getCodigo());
+	        	turmaBO.setId(pFormulario.idTurma);
+    			turmaBO.cursoBO.setId(pFormulario.listCursoDao.get(pFormulario.jcbCurso.getSelectedIndex()).getId());
     			turmaBO.setAno((int) pFormulario.jcbAno.getSelectedItem());
     			turmaBO.setDescricao(pFormulario.txtDescricao.getText());
     			
@@ -163,13 +163,13 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
     						JOptionPane.WARNING_MESSAGE);
     			}
 	        		        	
-	        	if(pFormulario.turmaBO.getCodigo() > 0 ) {
+	        	if(pFormulario.turmaBO.getId() > 0 ) {
 		        	ArrayList<MatriculaBO> matriculaBOList = null;
 		        	ArrayList<ColaboradorBO> colaboradorBOList = null;
 		        	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
 		        	
-		        	matriculaBOList = matriculaDao.consultaPorTurma(pFormulario.codTurma);
-		        	colaboradorBOList = colaboradorDao.consultaPorTurma(pFormulario.codTurma);
+		        	matriculaBOList = matriculaDao.consultaPorTurma(pFormulario.idTurma);
+		        	colaboradorBOList = colaboradorDao.consultaPorTurma(pFormulario.idTurma);
 		        	
 					// apaga todas as linhas da tabela
 					for (int i = pFormulario.modelo.getRowCount() - 1; i >= 0; i--)
@@ -178,7 +178,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 					int indice = 0;
 					do {
 						try {
-							pFormulario.modelo.addRow(new Object[] { colaboradorBOList.get(indice).getCodigo()
+							pFormulario.modelo.addRow(new Object[] { colaboradorBOList.get(indice).getId()
 									, colaboradorBOList.get(indice).getNome(), colaboradorBOList.get(indice).getTipo()
 									, colaboradorBOList.get(indice).getCpf(), sdf.format(colaboradorBOList.get(indice).getDataNascimento().getTime())
 									, colaboradorBOList.get(indice).getNomeMae()
@@ -204,8 +204,8 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 					} while (indice < matriculaBOList.size());
 	        	} else {
 	    			if (turmaDao.incluir(turmaBO)) {
-	    				turmaBO.setCodigo(turmaDao.consultaPorTurmaAno(turmaBO.getTurma(), turmaBO.getAno()));
-	    				pFormulario.codTurma = turmaBO.getCodigo();
+	    				turmaBO.setId(turmaDao.consultaPorTurmaAno(turmaBO.getTurma(), turmaBO.getAno()));
+	    				pFormulario.idTurma = turmaBO.getId();
 	    			}
 				}
 	        }
