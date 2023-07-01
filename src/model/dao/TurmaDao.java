@@ -174,4 +174,90 @@ public class TurmaDao {
 		}
 		return true;
 	}
+	
+	//controle de Responsáveis
+	
+	public ArrayList<TurmaBO> consultaResponsaveis(int idTurma, int idAluno) {
+		Statement sentenca;
+		ResultSet registros;
+
+		try {
+			sentenca = con.createStatement();
+
+			// faz a consulta
+			registros = sentenca
+					.executeQuery("SELECT idResponsavelAluno, responsavel.nome, aluno.nome, responsavel.tipo, responsavel.celular, responsavel.foneComercial  "
+							+ " FROM aluno_responsaveis"
+							+ " INNER JOIN turma ON turma.idTurma = aluno_responsaveis.idTurma"
+							+ " INNER JOIN aluno ON aluno.idAluno = aluno_responsaveis.idAluno"
+							+ " INNER JOIN responsavel ON responsavel.idResponsavel = aluno_responsaveis.idResponsavel"
+							+ " WHERE aluno_responsaveis.idTurma = " + idTurma
+							+ " && aluno_responsaveis.idAluno = " + idAluno
+							+ " Order By 2");
+
+			if (registros.next()) {
+				ArrayList<TurmaBO> turmaBOList = new ArrayList<TurmaBO>();
+				do {
+					TurmaBO turmaBO = new TurmaBO();
+			
+					turmaBO.responsavelBO.setId(Integer.parseInt(registros.getString("idResponsavelAluno")));
+					try {
+						turmaBO.responsavelBO.setNome(registros.getString("responsavel.nome"));
+						turmaBO.alunoBO.setNome(registros.getString("aluno.nome"));
+					} catch (StringVaziaException e) {}
+						turmaBO.responsavelBO.setTipo(registros.getString("tipo"));
+						turmaBO.responsavelBO.setCelular(registros.getString("celular"));
+						turmaBO.responsavelBO.setFoneComercial(registros.getString("foneComercial"));
+					
+					turmaBOList.add(turmaBO);
+				} while (registros.next());
+				return turmaBOList;
+			}
+			sentenca.close();
+		} catch (SQLException eSQL) {
+			eSQL.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"Não foi possível carregar os dados!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return null;
+	}
+	
+	public boolean incluirResponsavel(int idTurma, int idAluno, int idResponsavel) {
+		try {
+			String sql = "INSERT INTO aluno_responsaveis (idTurma, idAluno, idResponsavel) VALUES (?,?,?)";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, idTurma);
+			stmt.setInt(2, idAluno);
+			stmt.setInt(3, idResponsavel);
+			stmt.execute();
+			// Conexao.desconectaBanco(con);
+			return true;
+		} catch (SQLException eSQL) {
+			eSQL.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"Não foi possível realizar a inclusão!\n Responsável já cadastrado para o respectivo aluno e turma.\n"
+					+ "idTurma" + idTurma + "idAluno" + idAluno + "idResponsavel" + idResponsavel
+							+ "Mensagem: " + eSQL.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	}
+	
+	public boolean excluirResponsavel(int idResponsavelAluno) {
+		try {
+			String sql = "DELETE FROM aluno_responsaveis WHERE idResponsavelAluno= " + idResponsavelAluno;
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.execute();
+		} catch (SQLException eSQL) {
+			eSQL.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"Não foi possível realizar a operação!\n"
+							+ "Mensagem: Esse registro está sendo referenciado por outra tabela",
+					"Erro", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
+	}
+	
 }

@@ -13,6 +13,7 @@ public class TurmaBO
     public CursoBO cursoBO;
     public AlunoBO alunoBO;
     public ColaboradorBO colaboradorBO;
+    public ResponsavelBO responsavelBO;
     
     public TurmaBO() {
         this.idTurma = 0;
@@ -24,6 +25,7 @@ public class TurmaBO
         this.cursoBO = new CursoBO();
         this.alunoBO = new AlunoBO();
         this.colaboradorBO = new ColaboradorBO();
+        this.responsavelBO = new ResponsavelBO();
     }
     
     public int getId() {

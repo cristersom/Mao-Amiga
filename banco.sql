@@ -131,6 +131,18 @@ CONSTRAINT uk_Responsavel UNIQUE (cpf, tipo),
 CONSTRAINT fk_Responsavel FOREIGN KEY (idCep) REFERENCES cep(idCep)
 );
 
+CREATE TABLE aluno_responsaveis(
+  idResponsavelAluno integer NOT NULL AUTO_INCREMENT,
+  idTurma integer NOT NULL,
+  idAluno integer NOT NULL,
+  idResponsavel integer NOT NULL,
+  CONSTRAINT pk_Responsaveis PRIMARY KEY (idResponsavelAluno),
+  CONSTRAINT uk_Responsaveis UNIQUE (idTurma, idAluno, idResponsavel),
+  CONSTRAINT fk_Resp_Turma FOREIGN KEY (idTurma) REFERENCES turma(idTurma),
+  CONSTRAINT fk_Resp_Aluno FOREIGN KEY (idAluno) REFERENCES aluno(idAluno),
+  CONSTRAINT fk_Resp_Responsavel FOREIGN KEY (idResponsavel) REFERENCES responsavel(idResponsavel)
+);
+
 -- Tabela de junção entre aluno e autorizados (muitos para muitos)
 CREATE TABLE aluno_autorizados(
   idAutorizado integer NOT NULL AUTO_INCREMENT,

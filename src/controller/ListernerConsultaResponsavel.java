@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.bo.ResponsavelBO;
 import model.dao.ResponsavelDao;
+import model.dao.TurmaDao;
 import view.FrameCadastroResponsavel;
 import view.FrameConsultaResponsavel;
 
@@ -15,6 +16,7 @@ public class ListernerConsultaResponsavel implements ActionListener {
 
 	private FrameConsultaResponsavel pFormulario;
     private ResponsavelDao responsavelDao = new ResponsavelDao();
+    private TurmaDao turmDao = new TurmaDao();
     
 	public ListernerConsultaResponsavel(FrameConsultaResponsavel pFormulario) {
 		this.pFormulario = pFormulario;
@@ -119,20 +121,23 @@ public class ListernerConsultaResponsavel implements ActionListener {
 
 		} else if (cmd.equals("Selecionar")) {
 			if (pFormulario.tabela.getSelectedRow() >= 0) {
+				
 				pFormulario.responsavelBO = responsavelDao
 						.consultaPorCodigo(Integer.parseInt(
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
 
-				if(responsavelDao.incluirResponsavel(pFormulario.cadTurma.idTurma, pFormulario.responsavelBO.getId())) {
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-					pFormulario.cadTurma.modelo.addRow(new Object[] {
+				if( turmDao.incluirResponsavel(pFormulario.cadTurma.idTurma
+						 , Integer.parseInt(pFormulario.cadTurma.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())
+						 , pFormulario.responsavelBO.getId()) ) {
+					
+					pFormulario.cadTurma.modeloResp.addRow(new Object[] {
 							pFormulario.responsavelBO.getId(),
 							pFormulario.responsavelBO.getNome(),
+							pFormulario.cadTurma.modelo.getValueAt(pFormulario.cadTurma.tabela.getSelectedRow(), 1).toString(),
 							pFormulario.responsavelBO.getTipo(),
-							pFormulario.responsavelBO.getCpf(),
-							sdf.format(pFormulario.responsavelBO.getDataNascimento().getTime()),
-							pFormulario.responsavelBO.getNomeMae()
+							pFormulario.responsavelBO.getCelular(),
+							pFormulario.responsavelBO.getFoneComercial()
 					});
 					pFormulario.dispose();
 					try {

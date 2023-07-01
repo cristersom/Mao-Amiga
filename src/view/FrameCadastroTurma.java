@@ -43,10 +43,10 @@ import javax.swing.JInternalFrame;
 
 public class FrameCadastroTurma extends JInternalFrame
 {
-    private JPanel pnlTurma;
     protected JPanel pnlCenter;
-    public JPanel pnlPessoas;
-    public JButton btnCancelar, btnOk, btnConsultar, btnIncluirAluno, btnExlcuir, btnSair, btnIncluirColaborador;
+    public JPanel pnlTurma, pnlPessoas, pnlResponsaveis;
+    public JButton btnCancelar1, btnCancelar2, btnCancelar3, btnOk1, btnOk2, btnOk3, btnConsultar, btnIncluirAluno, btnExlcuir
+    	 , btnIncluirColaborador, btnIncluirResponsavel, btnExluirResponsavel;
     public JTextField txtTurma, txtDescricao, txtDataIni, txtDataFim;
     public JComboBox<Integer> jcbAno;
     public JComboBox<String> jcbCurso;
@@ -54,8 +54,8 @@ public class FrameCadastroTurma extends JInternalFrame
     public int idTurma;
     int i;
     private JLabel lblCurso, lblTurma, lblDataIni, lblDataFim;
-    public JTable tabela;
-    public ModeloTabela modelo;
+    public JTable tabela, tabelaResp;
+    public ModeloTabela modelo, modeloResp;
     public JTabbedPane tabbedPane;
     
     //public AlunoBO alunoBO;
@@ -242,14 +242,16 @@ public class FrameCadastroTurma extends JInternalFrame
         pnlBottom.setBorder(new BevelBorder(1, null, null, null, null));
         pnlTurma.add(pnlBottom, "South");
         
-        (btnOk = new JButton("OK")).setFont(new Font("Tahoma", 0, 12));
-        pnlBottom.add(btnOk);
+        (btnOk1 = new JButton("OK")).setFont(new Font("Tahoma", 0, 12));
+        pnlBottom.add(btnOk1);
         
-        (btnCancelar = new JButton("Cancelar")).setFont(new Font("Tahoma", 0, 12));
-        pnlBottom.add(btnCancelar);
+        (btnCancelar1 = new JButton("Cancelar")).setFont(new Font("Tahoma", 0, 12));
+        pnlBottom.add(btnCancelar1);
         
+        
+        //Inicio aba Pessoas >> Integrantes ---------------------------------------------------
         (pnlPessoas = new JPanel(new BorderLayout())).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        tabbedPane.addTab("Integrantes", null, pnlPessoas, null);
+        tabbedPane.addTab("Alunos/Professores/Monitores", null, pnlPessoas, null);
         
         ArrayList dados = new ArrayList();
         String[] colunas = { "Código", "Nome", "Tipo", "CPF", "Nascimento", "Nome da Mãe" };
@@ -273,22 +275,66 @@ public class FrameCadastroTurma extends JInternalFrame
 	    tabela.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 	    tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane rolagemTabela = new JScrollPane(tabela);
-        
         pnlPessoas.add(rolagemTabela, "Center");
+        
         pnlBottom = new JPanel();
         pnlBottom.setBorder(BorderFactory.createBevelBorder(1));
+        pnlBottom.add(btnOk2 = new JButton("OK"));
         pnlBottom.add(btnIncluirAluno = new JButton("Incluir Aluno"));
         pnlBottom.add(btnIncluirColaborador = new JButton("Incluir Colaborador"));
         pnlBottom.add(btnExlcuir = new JButton("Excluir"));
-        pnlBottom.add(btnSair = new JButton("Cancelar"));
+        pnlBottom.add(btnCancelar2 = new JButton("Cancelar"));
         pnlPessoas.add(pnlBottom, "South");
         
+        //Inicio aba Responsáveis ---------------------------------------------------------------------
+        pnlResponsaveis = new JPanel(new BorderLayout());
+        pnlResponsaveis.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        tabbedPane.addTab("Responsáveis", null, pnlResponsaveis, null);
+        
+        ArrayList dadosResp = new ArrayList();
+        String[] colunasResp = {"ID", "Responsável", "Aluno", "Tipo", "Celular", "Telefone" };
+        boolean[] edicaoResp = { true, true, true, true, true, true };
+        
+        modeloResp = new ModeloTabela(dadosResp, colunasResp, edicaoResp);
+        tabelaResp = new JTable(modeloResp);
+        tabelaResp.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tabelaResp.getColumnModel().getColumn(0).setResizable(true);
+        tabelaResp.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tabelaResp.getColumnModel().getColumn(1).setResizable(true);
+        tabelaResp.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tabelaResp.getColumnModel().getColumn(2).setResizable(true);
+        tabelaResp.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tabelaResp.getColumnModel().getColumn(3).setResizable(true);
+        tabelaResp.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tabelaResp.getColumnModel().getColumn(4).setResizable(true);
+        tabelaResp.getColumnModel().getColumn(5).setPreferredWidth(50);
+        tabelaResp.getColumnModel().getColumn(5).setResizable(true);
+        tabelaResp.getTableHeader().setReorderingAllowed(false);
+	    tabelaResp.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+	    tabelaResp.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane rolagemTabelaResp = new JScrollPane(tabelaResp);
+        pnlResponsaveis.add(rolagemTabelaResp, "Center");
+        
+        pnlBottom = new JPanel();
+        pnlBottom.setBorder(BorderFactory.createBevelBorder(1));
+        pnlBottom.add(btnOk3 = new JButton("OK"));
+        pnlBottom.add(btnIncluirResponsavel = new JButton("Incluir"));
+        pnlBottom.add(btnExluirResponsavel = new JButton("Excluir"));
+        pnlBottom.add(btnCancelar3 = new JButton("Cancelar"));
+        pnlResponsaveis.add(pnlBottom, "South");
+        
+        //Seta os listeners do formulário
         ListenerCadastroTurma listener = new ListenerCadastroTurma(this);
-        btnOk.addActionListener((ActionListener)listener);
-        btnCancelar.addActionListener((ActionListener)listener);
-        btnSair.addActionListener((ActionListener)listener);
+        btnOk1.addActionListener((ActionListener)listener);
+        btnOk2.addActionListener((ActionListener)listener);
+        btnOk3.addActionListener((ActionListener)listener);
+        btnCancelar1.addActionListener((ActionListener)listener);
+        btnCancelar2.addActionListener((ActionListener)listener);
+        btnCancelar3.addActionListener((ActionListener)listener);
         btnIncluirAluno.addActionListener((ActionListener)listener);
         btnIncluirColaborador.addActionListener((ActionListener)listener);
+        btnIncluirResponsavel.addActionListener((ActionListener)listener);
+        btnExluirResponsavel.addActionListener((ActionListener)listener);
         btnExlcuir.addActionListener((ActionListener)listener);
         tabbedPane.addChangeListener((ChangeListener)listener);
         //jcbCurso.addActionListener((ActionListener)listener);

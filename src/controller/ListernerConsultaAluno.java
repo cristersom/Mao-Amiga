@@ -143,7 +143,7 @@ public class ListernerConsultaAluno implements ActionListener {
 						
 					} catch (PropertyVetoException e1) {
 						e1.printStackTrace();
-					}
+					}					
 				}
 				
 			} else
