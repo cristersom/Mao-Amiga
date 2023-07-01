@@ -3,11 +3,8 @@ package view;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionListener;
 import controller.ListenerCadastroAluno;
-import javax.swing.Icon;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.BorderFactory;
-import java.awt.Component;
 import java.awt.GridBagConstraints;
 import javax.swing.JTabbedPane;
 import java.awt.GridBagLayout;
@@ -19,7 +16,7 @@ public class FrameCadastroAluno extends FrameCadastro {
     public AbaPessoa pnlAluno;
     public AbaEndereco pnlEndereco;
     public AbaAnexos pnlAnexos;
-    public AbaAutorizadores pnlAutorizados;
+    public AbaAutorizados pnlAutorizados;
     
     public FrameCadastroAluno(FrameConsultaAluno consAluno) {
         this();
@@ -75,7 +72,7 @@ public class FrameCadastroAluno extends FrameCadastro {
         
         pnlAluno = new AbaPessoa();
         pnlAluno.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnlAluno.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { "Aluno" }));
+        pnlAluno.jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.Aluno.toString() }));
         pnlAluno.jcbTipo.setEnabled(false);
         tabbedPane.addTab("Aluno", null, pnlAluno, null);
         
@@ -89,7 +86,7 @@ public class FrameCadastroAluno extends FrameCadastro {
         pnlAnexos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Anexos", null, pnlAnexos, null);
         
-        pnlAutorizados = new AbaAutorizadores();
+        pnlAutorizados = new AbaAutorizados();
         pnlAutorizados.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Autorizados", null, pnlAutorizados, null);
         

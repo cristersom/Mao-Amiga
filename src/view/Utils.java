@@ -44,7 +44,9 @@ public class Utils {
 		Professor,
 		Responsável_Pedagógico,
 		Responsável_Financeiro,
-		Ambos
+		Ambos,
+		Busca,
+		Emêrgencia
 	}
 	
 	public static enum Sexo {

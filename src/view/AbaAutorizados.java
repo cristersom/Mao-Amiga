@@ -13,7 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 
-public class AbaAutorizadores extends JPanel {
+public class AbaAutorizados extends JPanel {
     public JTextField txtNomeAutor;
     public JTextField txtTelefoneAutor;
     public JComboBox<String> jcbTipo;
@@ -22,7 +22,7 @@ public class AbaAutorizadores extends JPanel {
     public JTable tabela;
     public ModeloTabela modelo;
     
-    public AbaAutorizadores() {
+    public AbaAutorizados() {
         this.setLayout(new BorderLayout());
         ArrayList dadosAutor = new ArrayList();
         String[] colunasAutor = { "Nome", "Telefone", "Tipo" };
@@ -55,7 +55,7 @@ public class AbaAutorizadores extends JPanel {
         pnlBottomAutor.add(txtTelefoneAutor = new JTextField());
         txtTelefoneAutor.setColumns(15);
         (jcbTipo = new JComboBox<String>()).setToolTipText("Tipo");
-        jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { "Buscar", "Emergência" }));
+        jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.Busca.toString(), Utils.Tipo.Emêrgencia.toString() }));
         pnlBottomAutor.add(jcbTipo);
         pnlBottomAutor.add(btnIncluir = new JButton("Incluir"));
         pnlBottomAutor.add(btnExcluir = new JButton("Excluir"));
