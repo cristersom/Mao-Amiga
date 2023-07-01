@@ -74,8 +74,6 @@ public class FrameCadastroColaborador extends FrameCadastro {
         pnlColaborador.txtObservacoes.setVisible(false);
         pnlColaborador.lblIdiomaMaterno.setVisible(false);
         pnlColaborador.txtIdiomaMaterno.setVisible(false);
-
-        
         tabbedPane.addTab("Colaborador", null, pnlColaborador, null);
 
         pnlEndereco = new AbaEndereco();

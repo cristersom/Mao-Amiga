@@ -115,6 +115,7 @@ public class ListenerCadastroResponsavel implements ActionListener, KeyListener 
 			responsavelBO.setCelular(pFormulario.pnlEndereco.txtCelular.getText());
 			responsavelBO.setFoneComercial(pFormulario.pnlEndereco.txtFoneComercial.getText());
 			responsavelBO.setEmail(pFormulario.pnlEndereco.txtEmail.getText());
+			responsavelBO.setLocalTrabalho(pFormulario.pnlEndereco.txtLocalTrabalho.getText());
 			responsavelBO.setId(pFormulario.idResponsavel);
 
 			// acesso ao dao

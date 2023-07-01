@@ -52,22 +52,23 @@ public class AbaPessoa extends JPanel {
         gbc_comboBox.gridx = 1;
         gbc_comboBox.gridy = 0;
         this.add(this.jcbTipo, gbc_comboBox);
+            
+        JLabel lblSexo = new JLabel("Sexo:");
+        GridBagConstraints gbc_lblSexo = new GridBagConstraints();
+        gbc_lblSexo.anchor = GridBagConstraints.EAST;
+        gbc_lblSexo.insets = new Insets(5, 5, 5, 5);
+        gbc_lblSexo.gridx = 3;
+        gbc_lblSexo.gridy = 0;
+        this.add(lblSexo, gbc_lblSexo);
         
-        JLabel lblAutorImagem = new JLabel("Autoriza o uso da imagem:");
-        GridBagConstraints gbc_lblAutorImagem = new GridBagConstraints();
-        gbc_lblAutorImagem.insets = new Insets(5, 5, 5, 5);
-        gbc_lblAutorImagem.anchor = GridBagConstraints.EAST;
-        gbc_lblAutorImagem.gridx = 3;
-        gbc_lblAutorImagem.gridy = 0;
-        this.add(lblAutorImagem, gbc_lblAutorImagem);
-        
-        checkboxAutorImatem = new JCheckBox("");
-        GridBagConstraints gbc_checkboxAutorImatem = new GridBagConstraints();
-        gbc_checkboxAutorImatem.anchor = GridBagConstraints.WEST;
-        gbc_checkboxAutorImatem.insets = new Insets(5, 5, 5, 5);
-        gbc_checkboxAutorImatem.gridx = 4;
-        gbc_checkboxAutorImatem.gridy = 0;
-        this.add(checkboxAutorImatem, gbc_checkboxAutorImatem);
+        (jcbSexo = new JComboBox<String>()).setToolTipText("");
+        jcbSexo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Sexo.Masculino.toString(), Utils.Sexo.Feminino.toString() }));
+        GridBagConstraints gbc_jcbSexo = new GridBagConstraints();
+        gbc_jcbSexo.anchor = GridBagConstraints.EAST;
+        gbc_jcbSexo.insets = new Insets(5, 5, 5, 5);
+        gbc_jcbSexo.gridx = 4;
+        gbc_jcbSexo.gridy = 0;
+        this.add(jcbSexo, gbc_jcbSexo);
         
         JLabel lblNascimento = new JLabel("Nascimento:");
         GridBagConstraints gbc_lblNascimento = new GridBagConstraints();
@@ -236,23 +237,22 @@ public class AbaPessoa extends JPanel {
         gbc_txtCertNascimento.gridx = 1;
         gbc_txtCertNascimento.gridy = 4;
         this.add(this.txtCertNascimento, gbc_txtCertNascimento);
+ 
+        JLabel lblAutorImagem = new JLabel("Autoriza o uso da imagem.");
+        GridBagConstraints gbc_lblAutorImagem = new GridBagConstraints();
+        gbc_lblAutorImagem.insets = new Insets(5, 5, 5, 5);
+        gbc_lblAutorImagem.anchor = GridBagConstraints.EAST;
+        gbc_lblAutorImagem.gridx = 4;
+        gbc_lblAutorImagem.gridy = 4;
+        this.add(lblAutorImagem, gbc_lblAutorImagem);
         
-        JLabel lblSexo = new JLabel("Sexo:");
-        GridBagConstraints gbc_lblSexo = new GridBagConstraints();
-        gbc_lblSexo.anchor = GridBagConstraints.EAST;
-        gbc_lblSexo.insets = new Insets(5, 5, 5, 5);
-        gbc_lblSexo.gridx = 2;
-        gbc_lblSexo.gridy = 4;
-        this.add(lblSexo, gbc_lblSexo);
-        
-        (jcbSexo = new JComboBox<String>()).setToolTipText("");
-        jcbSexo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Sexo.Masculino.toString(), Utils.Sexo.Feminino.toString() }));
-        GridBagConstraints gbc_jcbSexo = new GridBagConstraints();
-        gbc_jcbSexo.anchor = GridBagConstraints.WEST;
-        gbc_jcbSexo.insets = new Insets(5, 5, 5, 5);
-        gbc_jcbSexo.gridx = 3;
-        gbc_jcbSexo.gridy = 4;
-        this.add(jcbSexo, gbc_jcbSexo);
+        checkboxAutorImatem = new JCheckBox("");
+        GridBagConstraints gbc_checkboxAutorImatem = new GridBagConstraints();
+        gbc_checkboxAutorImatem.anchor = GridBagConstraints.EAST;
+        gbc_checkboxAutorImatem.insets = new Insets(5, 5, 5, 5);
+        gbc_checkboxAutorImatem.gridx = 3;
+        gbc_checkboxAutorImatem.gridy = 4;
+        this.add(checkboxAutorImatem, gbc_checkboxAutorImatem);
         
         lblIdiomaMaterno = new JLabel("Idioma Materno:");
         GridBagConstraints gbc_lblIdiomaMaterno = new GridBagConstraints();
@@ -265,7 +265,7 @@ public class AbaPessoa extends JPanel {
         txtIdiomaMaterno = new JTextField();
         GridBagConstraints gbc_txtIdiomaMaterno = new GridBagConstraints();
         gbc_txtIdiomaMaterno.gridwidth = 3;
-        gbc_txtIdiomaMaterno.insets = new Insets(5, 5, 5, 0);
+        gbc_txtIdiomaMaterno.insets = new Insets(5, 5, 5, 5);
         gbc_txtIdiomaMaterno.fill = 2;
         gbc_txtIdiomaMaterno.gridx = 6;
         gbc_txtIdiomaMaterno.gridy = 4;
@@ -276,16 +276,16 @@ public class AbaPessoa extends JPanel {
         gbc_lblFichaSaude.anchor = GridBagConstraints.EAST;
         gbc_lblFichaSaude.insets = new Insets(5, 5, 5, 5);
         gbc_lblFichaSaude.gridx = 0;
-        gbc_lblFichaSaude.gridy = 7;
+        gbc_lblFichaSaude.gridy = 8;
         this.add(lblFichaSaude, gbc_lblFichaSaude);
-        
+       
         (txtFichaSaude = new TextArea(3, 1)).setCaretPosition(8);
         GridBagConstraints gbc_txtFichaSaude = new GridBagConstraints();
         gbc_txtFichaSaude.gridwidth = 8;
         gbc_txtFichaSaude.gridheight = 3;
         gbc_txtFichaSaude.insets = new Insets(5, 5, 5, 5);
         gbc_txtFichaSaude.gridx = 1;
-        gbc_txtFichaSaude.gridy = 5;
+        gbc_txtFichaSaude.gridy = 6;
         gbc_txtFichaSaude.fill = 1;
         this.add(this.txtFichaSaude, gbc_txtFichaSaude);
         
@@ -294,7 +294,7 @@ public class AbaPessoa extends JPanel {
         gbc_lblInfEducacao.anchor = GridBagConstraints.EAST;
         gbc_lblInfEducacao.insets = new Insets(5, 5, 5, 5);
         gbc_lblInfEducacao.gridx = 0;
-        gbc_lblInfEducacao.gridy = 10;
+        gbc_lblInfEducacao.gridy = 11;
         this.add(lblInfEducacao, gbc_lblInfEducacao);
         
         (txtInfEducacao = new TextArea(3, 1)).setCaretPosition(8);
@@ -303,11 +303,11 @@ public class AbaPessoa extends JPanel {
         gbc_txtInfEducacao.gridheight = 3;
         gbc_txtInfEducacao.insets = new Insets(5, 5, 5, 5);
         gbc_txtInfEducacao.gridx = 1;
-        gbc_txtInfEducacao.gridy = 8;
+        gbc_txtInfEducacao.gridy = 9;
         gbc_txtInfEducacao.fill = 1;
         this.add(this.txtInfEducacao, gbc_txtInfEducacao);
         
-        lblObservacoes = new JLabel("Observa\u00e7\u00f5es:");
+        lblObservacoes = new JLabel("Observações:");
         GridBagConstraints gbc_lblObservacoes = new GridBagConstraints();
         gbc_lblObservacoes.anchor = GridBagConstraints.EAST;
         gbc_lblObservacoes.insets = new Insets(5, 5, 5, 5);
@@ -321,7 +321,7 @@ public class AbaPessoa extends JPanel {
         gbc_txtObservacoes.gridheight = 3;
         gbc_txtObservacoes.insets = new Insets(5, 5, 5, 5);
         gbc_txtObservacoes.gridx = 1;
-        gbc_txtObservacoes.gridy = 11;
+        gbc_txtObservacoes.gridy = 12;
         gbc_txtObservacoes.fill = 2;
         this.add(this.txtObservacoes, gbc_txtObservacoes);
     }

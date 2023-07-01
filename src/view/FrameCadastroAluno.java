@@ -41,17 +41,18 @@ public class FrameCadastroAluno extends FrameCadastro {
     
     public FrameCadastroAluno() {
         setTitle("Cadastro de Aluno");
-        GridBagLayout gridBagLayout = (GridBagLayout)pnlCenter.getLayout();
-        gridBagLayout.rowWeights = new double[] { 1.0 };
-        gridBagLayout.columnWidths = new int[1];
-        gridBagLayout.columnWeights = new double[] { 1.0 };
+
+		GridBagLayout gridBagLayout = (GridBagLayout) pnlCenter.getLayout();
+		gridBagLayout.rowWeights = new double[] { 1.0 };
+		gridBagLayout.columnWidths = new int[] { 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0 };
         
-        JTabbedPane tabbedPane = new JTabbedPane(1);
-        GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
-        gbc_tabbedPane.fill = 1;
-        gbc_tabbedPane.gridx = 0;
-        gbc_tabbedPane.gridy = 0;
-        pnlCenter.add(tabbedPane, gbc_tabbedPane);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
+		gbc_tabbedPane.gridx = 0;
+		gbc_tabbedPane.gridy = 0;
+		pnlCenter.add(tabbedPane, gbc_tabbedPane);
         
         pnlAluno = new AbaPessoa();
         pnlAluno.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -59,10 +60,14 @@ public class FrameCadastroAluno extends FrameCadastro {
         pnlAluno.jcbTipo.setEnabled(false);
         tabbedPane.addTab("Aluno", null, pnlAluno, null);
         
-        (pnlEndereco = new AbaEndereco()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlEndereco = new AbaEndereco();
+        pnlEndereco.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Endereço", null, pnlEndereco, null);
+        pnlEndereco.lblLocalTrabalho.setVisible(false);
+        pnlEndereco.txtLocalTrabalho.setVisible(false);
         
-        (pnlAnexos = new AbaAnexos()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlAnexos = new AbaAnexos();
+        pnlAnexos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Anexos", null, pnlAnexos, null);
         
         pnlAutorizados = new AbaAutorizadores();
