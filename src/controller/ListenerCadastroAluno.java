@@ -35,13 +35,16 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener {
 			pFormulario.getDesktopPane().add(fr);
 
 		} else if (origem == pFormulario.btnOk) {
-
+			
+			alunoBO.setTipo(pFormulario.pnlAluno.jcbTipo.getSelectedItem().toString());
+			alunoBO.setAutorUsoImagem(pFormulario.pnlAluno.checkboxAutorImatem.isSelected() ? 1 : 0);		
+			
 			dia = String.valueOf(pFormulario.pnlAluno.jcbDia.getSelectedIndex() + 1);
 			mes = String.valueOf(pFormulario.pnlAluno.jcbMes.getSelectedIndex() + 1);
 			ano = String.valueOf(pFormulario.pnlAluno.jcbAno.getSelectedIndex() + 1900);
 
 			dataNasc = dia + '/' + mes + '/' + ano;
-
+			
 			try {
 				alunoBO.setDataNascimento(dataNasc);
 			} catch (ParseException e1) {
@@ -79,7 +82,17 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener {
 				return;
 			}
 
-			pFormulario.pnlAluno.txtCpf.setText(alunoBO.getCpf());
+			//pFormulario.pnlAluno.txtCpf.setText(alunoBO.getCpf());
+			
+			try {
+				alunoBO.setNomeMae(pFormulario.pnlAluno.txtNomeMae.getText());
+			} catch (StringVaziaException e1) {
+			}
+			alunoBO.setRg(pFormulario.pnlAluno.txtRG.getText());
+			alunoBO.setNomePai(pFormulario.pnlAluno.txtNomePai.getText());
+			alunoBO.setNacionalidade(pFormulario.pnlAluno.txtNacionalidade.getText());
+			alunoBO.setCertNascimento(pFormulario.pnlAluno.txtCertNascimento.getText());
+			alunoBO.setSexo(pFormulario.pnlAluno.jcbSexo.getSelectedItem().toString());
 
 			if (pFormulario.idCep > 0)
 				alunoBO.cep.setId(pFormulario.idCep);
@@ -99,10 +112,17 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener {
 			}
 
 			alunoBO.setComplemento(pFormulario.pnlEndereco.txtComplemento.getText());
+			alunoBO.setCelular(pFormulario.pnlEndereco.txtCelular.getText());
+			alunoBO.setFoneComercial(pFormulario.pnlEndereco.txtFoneComercial.getText());
+			alunoBO.setEmail(pFormulario.pnlEndereco.txtEmail.getText());
+			alunoBO.setIdiomaMaterno(pFormulario.pnlAluno.txtIdiomaMaterno.getText());
+			alunoBO.setFichaSaude(pFormulario.pnlAluno.txtFichaSaude.getText());
+			alunoBO.setInfoEducacao(pFormulario.pnlAluno.txtInfEducacao.getText());
+			alunoBO.setObservacoes(pFormulario.pnlAluno.txtObservacoes.getText());
 			alunoBO.setId(pFormulario.idAluno);
 
 			// acesso ao dao
-			if (alunoBO.getId() > 0) { // Neste caso a Chapa deve ser alterada e não incluída
+			if (alunoBO.getId() > 0) { // Neste o aluno deve ser alterado e não incluído
 				if (alunoDao.alterar(alunoBO)) {
 					alunoBO = alunoDao.consultaPorCodigo(alunoBO.getId()).get(0);
 

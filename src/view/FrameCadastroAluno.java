@@ -26,17 +26,36 @@ public class FrameCadastroAluno extends FrameCadastro {
         this.consAluno = consAluno;
         this.idAluno = consAluno.alunoBO.getId();
         this.idCep = consAluno.alunoBO.cep.getId();
-        this.pnlAluno.txtNome.setText(consAluno.alunoBO.getNome());
-        this.pnlAluno.txtCpf.setText(consAluno.alunoBO.getCpf());
-        this.pnlAluno.jcbDia.setSelectedIndex(consAluno.alunoBO.getDataNascimento().getTime().getDate() - 1);
-        this.pnlAluno.jcbMes.setSelectedIndex(consAluno.alunoBO.getDataNascimento().getTime().getMonth());
-        this.pnlAluno.jcbAno.setSelectedIndex(consAluno.alunoBO.getDataNascimento().getTime().getYear());
-        this.pnlEndereco.txtCidade.setText(consAluno.alunoBO.cep.cidade.getCidade());
-        this.pnlEndereco.txtCep.setText(consAluno.alunoBO.cep.getCep());
-        this.pnlEndereco.txtLogradouro.setText(consAluno.alunoBO.cep.getLogradouro());
-        this.pnlEndereco.txtBairro.setText(consAluno.alunoBO.cep.getBairro());
-        this.pnlEndereco.txtNumero.setText(String.valueOf(consAluno.alunoBO.getNumero()));
-        this.pnlEndereco.txtComplemento.setText(consAluno.alunoBO.getComplemento());
+
+		this.pnlAluno.jcbTipo.setSelectedItem(consAluno.alunoBO.getTipo());;
+		this.pnlAluno.checkboxAutorImatem.setSelected(consAluno.alunoBO.getAutorUsoImagem() == 1 ? true : false);
+		this.pnlAluno.jcbDia.setSelectedIndex(consAluno.alunoBO.getDataNascimento().getTime().getDate() - 1);
+		this.pnlAluno.jcbMes.setSelectedIndex(consAluno.alunoBO.getDataNascimento().getTime().getMonth());
+		this.pnlAluno.jcbAno.setSelectedIndex(consAluno.alunoBO.getDataNascimento().getTime().getYear());
+		this.pnlAluno.txtNome.setText(consAluno.alunoBO.getNome());
+		this.pnlAluno.txtCpf.setText(consAluno.alunoBO.getCpf());
+		this.pnlAluno.txtNomeMae.setText(consAluno.alunoBO.getNomeMae());
+		this.pnlAluno.txtRG.setText(consAluno.alunoBO.getRg());
+		this.pnlAluno.txtNomePai.setText(consAluno.alunoBO.getNomePai());
+		this.pnlAluno.txtNacionalidade.setText(consAluno.alunoBO.getNacionalidade());
+		this.pnlAluno.txtCertNascimento.setText(consAluno.alunoBO.getCertNascimento());
+		this.pnlAluno.jcbSexo.setSelectedItem(consAluno.alunoBO.getSexo());
+		this.pnlAluno.txtIdiomaMaterno.setText(consAluno.alunoBO.getIdiomaMaterno());
+		this.pnlAluno.txtFichaSaude.setText(consAluno.alunoBO.getFichaSaude());
+		this.pnlAluno.txtInfEducacao.setText(consAluno.alunoBO.getInfoEducacao());
+		this.pnlAluno.txtObservacoes.setText(consAluno.alunoBO.getObservacoes());
+		
+		this.idCep = consAluno.alunoBO.cep.getId();
+		this.pnlEndereco.txtCep.setText(consAluno.alunoBO.cep.getCep());
+		this.pnlEndereco.txtCidade.setText(consAluno.alunoBO.cep.cidade.getCidade());
+		this.pnlEndereco.txtBairro.setText(consAluno.alunoBO.cep.getBairro());
+		this.pnlEndereco.txtLogradouro.setText(consAluno.alunoBO.cep.getLogradouro());
+		this.pnlEndereco.txtNumero.setText(String.valueOf(consAluno.alunoBO.getNumero()));
+		this.pnlEndereco.txtComplemento.setText(consAluno.alunoBO.getComplemento());
+		this.pnlEndereco.txtCelular.setText(consAluno.alunoBO.getCelular());
+		this.pnlEndereco.txtFoneComercial.setText(consAluno.alunoBO.getFoneComercial());
+		this.pnlEndereco.txtEmail.setText(consAluno.alunoBO.getEmail());
+		//this.pnlEndereco.txtLocalTrabalho.setText(consAluno.alunoBO.getLocalTrabalho());
     }
     
     public FrameCadastroAluno() {

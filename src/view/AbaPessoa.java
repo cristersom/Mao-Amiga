@@ -279,10 +279,10 @@ public class AbaPessoa extends JPanel {
         gbc_lblFichaSaude.gridy = 8;
         this.add(lblFichaSaude, gbc_lblFichaSaude);
        
-        (txtFichaSaude = new TextArea(3, 1)).setCaretPosition(8);
+        (txtFichaSaude = new TextArea(5, 1)).setCaretPosition(8);
         GridBagConstraints gbc_txtFichaSaude = new GridBagConstraints();
         gbc_txtFichaSaude.gridwidth = 8;
-        gbc_txtFichaSaude.gridheight = 3;
+        gbc_txtFichaSaude.gridheight = 5;
         gbc_txtFichaSaude.insets = new Insets(5, 5, 5, 5);
         gbc_txtFichaSaude.gridx = 1;
         gbc_txtFichaSaude.gridy = 6;
@@ -294,16 +294,16 @@ public class AbaPessoa extends JPanel {
         gbc_lblInfEducacao.anchor = GridBagConstraints.EAST;
         gbc_lblInfEducacao.insets = new Insets(5, 5, 5, 5);
         gbc_lblInfEducacao.gridx = 0;
-        gbc_lblInfEducacao.gridy = 11;
+        gbc_lblInfEducacao.gridy = 13;
         this.add(lblInfEducacao, gbc_lblInfEducacao);
         
-        (txtInfEducacao = new TextArea(3, 1)).setCaretPosition(8);
+        (txtInfEducacao = new TextArea(5, 1)).setCaretPosition(8);
         GridBagConstraints gbc_txtInfEducacao = new GridBagConstraints();
         gbc_txtInfEducacao.gridwidth = 8;
-        gbc_txtInfEducacao.gridheight = 3;
+        gbc_txtInfEducacao.gridheight = 5;
         gbc_txtInfEducacao.insets = new Insets(5, 5, 5, 5);
         gbc_txtInfEducacao.gridx = 1;
-        gbc_txtInfEducacao.gridy = 9;
+        gbc_txtInfEducacao.gridy = 11;
         gbc_txtInfEducacao.fill = 1;
         this.add(this.txtInfEducacao, gbc_txtInfEducacao);
         
@@ -312,17 +312,17 @@ public class AbaPessoa extends JPanel {
         gbc_lblObservacoes.anchor = GridBagConstraints.EAST;
         gbc_lblObservacoes.insets = new Insets(5, 5, 5, 5);
         gbc_lblObservacoes.gridx = 0;
-        gbc_lblObservacoes.gridy = GridBagConstraints.EAST;
+        gbc_lblObservacoes.gridy = 17;
         this.add(lblObservacoes, gbc_lblObservacoes);
         
-        (txtObservacoes = new TextArea(3, 1)).setCaretPosition(8);
+        (txtObservacoes = new TextArea(5, 1)).setCaretPosition(8);
         GridBagConstraints gbc_txtObservacoes = new GridBagConstraints();
         gbc_txtObservacoes.gridwidth = 8;
-        gbc_txtObservacoes.gridheight = 3;
+        gbc_txtObservacoes.gridheight = 5;
         gbc_txtObservacoes.insets = new Insets(5, 5, 5, 5);
         gbc_txtObservacoes.gridx = 1;
-        gbc_txtObservacoes.gridy = 12;
-        gbc_txtObservacoes.fill = 2;
+        gbc_txtObservacoes.gridy = 16;
+        gbc_txtObservacoes.fill = 1;
         this.add(this.txtObservacoes, gbc_txtObservacoes);
     }
 }
