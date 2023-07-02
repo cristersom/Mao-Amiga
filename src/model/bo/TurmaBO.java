@@ -11,7 +11,7 @@ public class TurmaBO
     private String turma, descricao;
     private Calendar dataInicio, dataFim;
     public CursoBO cursoBO;
-    public AlunoBO alunoBO;
+    public MatriculaBO matriculaBO;
     public ColaboradorBO colaboradorBO;
     public ResponsavelBO responsavelBO;
     
@@ -23,7 +23,7 @@ public class TurmaBO
         this.dataInicio = Calendar.getInstance();
         this.dataFim = Calendar.getInstance();
         this.cursoBO = new CursoBO();
-        this.alunoBO = new AlunoBO();
+        this.matriculaBO = new MatriculaBO();
         this.colaboradorBO = new ColaboradorBO();
         this.responsavelBO = new ResponsavelBO();
     }

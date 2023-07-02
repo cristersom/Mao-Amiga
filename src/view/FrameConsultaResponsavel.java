@@ -28,7 +28,7 @@ public class FrameConsultaResponsavel extends FrameConsulta {
 		
 		ArrayList dados = new ArrayList();
 		String[] colunas = new String[] { "ID", "Nome", "Tipo", "CPF", "Endereço", "CEP" };
-		boolean[] edicao = { true, true, true, true, true };
+		boolean[] edicao = { false, false, false, false, false  };
 
 		modelo = new ModeloTabela(dados, colunas, edicao);
 		tabela = new JTable(modelo);

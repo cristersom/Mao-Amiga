@@ -127,10 +127,7 @@ public class ListernerConsultaAluno implements ActionListener {
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
 								
-				//seta aluno				
-				pFormulario.cadTurma.turmaBO.alunoBO = pFormulario.alunoBO;
-				
-				if (matriculaDao.incluir(pFormulario.cadTurma.turmaBO)) {
+				if (matriculaDao.incluir(pFormulario.cadTurma.idTurma, pFormulario.alunoBO.getId())) {
 					
 					
 					int idMatricula = matriculaDao.consultaMatricula(pFormulario.cadTurma.idTurma, pFormulario.alunoBO.getId()).get(0).getMatricula();

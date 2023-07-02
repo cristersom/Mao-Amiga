@@ -255,7 +255,7 @@ public class FrameCadastroTurma extends JInternalFrame
         
         ArrayList dados = new ArrayList();
         String[] colunas = { "Matricula", "ID", "Nome", "Tipo", "CPF", "Nascimento", "Nome da Mãe" };
-        boolean[] edicao = { true, true, true, true };
+        boolean[] edicao = { false, false, false, false, false, false, false };
         
         modelo = new ModeloTabela(dados, colunas, edicao);
         tabela = new JTable(modelo);
@@ -295,7 +295,7 @@ public class FrameCadastroTurma extends JInternalFrame
         
         ArrayList dadosResp = new ArrayList();
         String[] colunasResp = {"ID", "Responsável", "Aluno", "Tipo", "Celular", "Telefone", "idResponsavelAluno" };
-        boolean[] edicaoResp = { true, true, true, true, true, true };
+        boolean[] edicaoResp = { false, false, false, false, false, false, false };
         
         modeloResp = new ModeloTabela(dadosResp, colunasResp, edicaoResp);
         tabelaResp = new JTable(modeloResp);

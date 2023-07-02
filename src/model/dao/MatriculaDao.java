@@ -6,13 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
 import javax.swing.JOptionPane;
 
 import model.bo.MatriculaBO;
@@ -62,13 +57,13 @@ public class MatriculaDao {
 					MatriculaBO matriculaBO = new MatriculaBO();
 					
 					matriculaBO.setMatricula(Integer.parseInt(registros.getString("idMatricula")));
-					matriculaBO.setTurma(Integer.parseInt(registros.getString("idTurma")));
-					matriculaBO.setAluno(Integer.parseInt(registros.getString("idAluno")));
+					matriculaBO.setIdTurma(Integer.parseInt(registros.getString("idTurma")));
+					matriculaBO.alunoBO.setId(Integer.parseInt(registros.getString("idAluno")));
 					try {
-						matriculaBO.turmaBO.alunoBO.setNome(registros.getString("nome"));
-						matriculaBO.turmaBO.alunoBO.setCpf(registros.getString("cpf"));
-						matriculaBO.turmaBO.alunoBO.setNomeMae(registros.getString("nomeMae"));
-						matriculaBO.turmaBO.alunoBO.setDataNascimento(registros.getString("dataNascimento"));
+						matriculaBO.alunoBO.setNome(registros.getString("nome"));
+						matriculaBO.alunoBO.setCpf(registros.getString("cpf"));
+						matriculaBO.alunoBO.setNomeMae(registros.getString("nomeMae"));
+						matriculaBO.alunoBO.setDataNascimento(registros.getString("dataNascimento"));
 					} catch (StringVaziaException | CpfInvalidoException | ParseException e1) {
 					}
 					
@@ -92,13 +87,13 @@ public class MatriculaDao {
 		return null;
 	}
 
-	public boolean incluir(TurmaBO turmaBO) {
+	public boolean incluir(int idTurma, int idAluno) {
 		
 		try {
 			String sql = "INSERT INTO contrato_matricula (idTurma, idAluno) VALUES (?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, turmaBO.getId());
-			stmt.setInt(2, turmaBO.alunoBO.getId());
+			stmt.setInt(1, idTurma);
+			stmt.setInt(2, idAluno);
 
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
@@ -106,7 +101,7 @@ public class MatriculaDao {
 		} catch (SQLIntegrityConstraintViolationException SQLError) {
 			SQLError.printStackTrace();
 			JOptionPane.showMessageDialog(null,
-					"Não foi possível incluir o aluno!\nAluno "+turmaBO.alunoBO.getNome()+" já cadastrado na turma "+turmaBO.getId()+".\n" + "Mensagem: " + SQLError.getMessage(), "Erro",
+					"Não foi possível incluir o aluno!\nAluno já cadastrado na turma\n" + "Mensagem: " + SQLError.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		} catch (SQLException eSQL) {

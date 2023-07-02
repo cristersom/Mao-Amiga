@@ -36,7 +36,7 @@ public class FrameConsultaCidade extends FrameConsulta {
 	    String[] colunas = new String[] {"ID", "UF", "Cidade"};
 	    
 	    // criação de um arranjo para identificar se a célula é editável ou não
-	    boolean[] edicao = {true, true, true};
+	    boolean[] edicao = {false, false, false};
 	    
 		modelo = new ModeloTabela(dados, colunas, edicao);
 		tabela = new JTable(modelo);

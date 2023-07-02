@@ -29,7 +29,7 @@ public class FrameConsultaCurso extends FrameConsulta {
 		
 		ArrayList dados = new ArrayList();
 		String[] colunas = new String[] {"ID", "Curso", "Descrição"};
-		boolean[] edicao = {true, true, true};
+		boolean[] edicao = {false, false, false};
 		
 		modelo = new ModeloTabela(dados, colunas, edicao);
 		tabela = new JTable(modelo);
