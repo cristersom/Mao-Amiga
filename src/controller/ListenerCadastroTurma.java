@@ -11,12 +11,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import model.bo.AlunoResponsavelBO;
-import model.bo.ColaboradorBO;
 import model.bo.MatriculaBO;
 import model.bo.TurmaBO;
+import model.bo.TurmaColaboradorBO;
 import model.dao.AlunoResponsavelDao;
-import model.dao.ColaboradorDao;
 import model.dao.MatriculaDao;
+import model.dao.TurmaColaboradorDao;
 import model.dao.TurmaDao;
 import model.exceptions.StringVaziaException;
 import view.FrameCadastroTurma;
@@ -31,7 +31,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 	private TurmaBO turmaBO = new TurmaBO();
 	private TurmaDao turmaDao = new TurmaDao();
 	private MatriculaDao matriculaDao = new MatriculaDao();
-	private ColaboradorDao colaboradorDao = new ColaboradorDao();
+	private TurmaColaboradorDao turmaColaboradorDao = new TurmaColaboradorDao();
 	private AlunoResponsavelDao alunoResponsavelDao = new AlunoResponsavelDao();
 	private AlunoResponsavelBO alunoResponsavelBO = new AlunoResponsavelBO();
 	
@@ -106,7 +106,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())) == true)
 							pFormulario.modelo.removeRow(pFormulario.tabela.getSelectedRow());
 					} else {
-						if (colaboradorDao.excluirColaboradorTurma(Integer.parseInt(
+						if (turmaColaboradorDao.excluir(Integer.parseInt(
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())) == true)
 							pFormulario.modelo.removeRow(pFormulario.tabela.getSelectedRow());
 					}
@@ -196,11 +196,11 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
     			
 	        	if(pFormulario.tabbedPane.getSelectedComponent() == pFormulario.pnlPessoas && pFormulario.tabela.getSelectedRow() < 0) {
 		        	ArrayList<MatriculaBO> matriculaBOList = null;
-		        	ArrayList<ColaboradorBO> colaboradorBOList = null;
+		        	ArrayList<TurmaColaboradorBO> turmaColaboradorBOList = null;
 		        	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
 		        				        	
 		        	matriculaBOList = matriculaDao.consultaPorTurma(pFormulario.idTurma);
-		        	colaboradorBOList = colaboradorDao.consultaPorTurma(pFormulario.idTurma);
+		        	turmaColaboradorBOList = turmaColaboradorDao.consulta(pFormulario.idTurma);
 		        	
 					// apaga todas as linhas da tabela
 					for (int i = pFormulario.modelo.getRowCount() - 1; i >= 0; i--)
@@ -209,10 +209,10 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 					int indice = 0;
 					do {
 						try {
-							pFormulario.modelo.addRow(new Object[] {"", colaboradorBOList.get(indice).getId()
-									, colaboradorBOList.get(indice).getNome(), colaboradorBOList.get(indice).getTipo()
-									, colaboradorBOList.get(indice).getCpf(), sdf.format(colaboradorBOList.get(indice).getDataNascimento().getTime())
-									, colaboradorBOList.get(indice).getNomeMae()
+							pFormulario.modelo.addRow(new Object[] {turmaColaboradorBOList.get(indice).getIdColaboradorTurma(), turmaColaboradorBOList.get(indice).colaboradorBO.getId()
+									, turmaColaboradorBOList.get(indice).colaboradorBO.getNome(), turmaColaboradorBOList.get(indice).colaboradorBO.getTipo()
+									, turmaColaboradorBOList.get(indice).colaboradorBO.getCpf(), sdf.format(turmaColaboradorBOList.get(indice).colaboradorBO.getDataNascimento().getTime())
+									, turmaColaboradorBOList.get(indice).colaboradorBO.getNomeMae()
 							});
 						} catch (Exception e1) {
 							break;

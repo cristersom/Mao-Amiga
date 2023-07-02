@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import model.bo.ColaboradorBO;
 import model.dao.ColaboradorDao;
+import model.dao.TurmaColaboradorDao;
 import model.dao.TurmaDao;
 import view.FrameCadastroColaborador;
 import view.FrameConsultaColaborador;
@@ -18,6 +19,7 @@ public class ListernerConsultaColaborador implements ActionListener {
 
 	private FrameConsultaColaborador pFormulario;
     private ColaboradorDao colaboradorDao = new ColaboradorDao();
+    private TurmaColaboradorDao turmaColaboradorDao = new TurmaColaboradorDao();
     
 	public ListernerConsultaColaborador(FrameConsultaColaborador pFormulario) {
 		this.pFormulario = pFormulario;
@@ -127,9 +129,12 @@ public class ListernerConsultaColaborador implements ActionListener {
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
 
-				if(colaboradorDao.incluirColaborador(pFormulario.cadTurma.idTurma, pFormulario.colaboradorBO.getId())) {
+				if(turmaColaboradorDao.incluir(pFormulario.cadTurma.idTurma, pFormulario.colaboradorBO.getId())) {
+					int idColaboradorTurma = turmaColaboradorDao.consulta(pFormulario.cadTurma.idTurma).get(0).getIdColaboradorTurma();
+					
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 					pFormulario.cadTurma.modelo.addRow(new Object[] {
+							idColaboradorTurma,
 							pFormulario.colaboradorBO.getId(),
 							pFormulario.colaboradorBO.getNome(),
 							pFormulario.colaboradorBO.getTipo(),
