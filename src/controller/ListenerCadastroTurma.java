@@ -83,8 +83,11 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 				if (JOptionPane.showConfirmDialog(pFormulario, "Confirma exclusão?", "Confirmacao",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					if (turmaDao.excluirResponsavel(Integer.parseInt(
-							pFormulario.modeloResp.getValueAt(pFormulario.tabelaResp.getSelectedRow(), 0).toString())) == true)
+							pFormulario.modeloResp.getValueAt(pFormulario.tabelaResp.getSelectedRow(), 0).toString())) == true) {
+						
 						pFormulario.modeloResp.removeRow(pFormulario.tabelaResp.getSelectedRow());
+					}
+						
 				}
 			} else
 				JOptionPane.showMessageDialog(pFormulario, "Escolha um registro!", "Mensagem",
@@ -179,7 +182,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 				pFormulario.turmaBO = turmaBO;
 				
 				//Se ainda não existe código, cria uma turma para gerar o código da turma
-    			if(pFormulario.turmaBO.getId() < 0)
+    			if(pFormulario.idTurma <= 0)
 		    		if (turmaDao.incluir(turmaBO)) {
 		    			turmaBO.setId(turmaDao.consultaPorTurmaAno(turmaBO.getTurma(), turmaBO.getAno()));
 		    			pFormulario.idTurma = turmaBO.getId();
