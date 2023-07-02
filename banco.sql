@@ -99,9 +99,11 @@ CONSTRAINT fk_CepColaborador FOREIGN KEY (idCep) REFERENCES cep(idCep)
 
 -- Tabela de junção entre turma e colaborador (muitos para muitos)
 CREATE TABLE turma_colaborador (
+  idColaboradorTurma integer NOT NULL AUTO_INCREMENT,
   idTurma integer NOT NULL,
   idColaborador integer NOT NULL,
-  CONSTRAINT pk_Turma_Colaborador PRIMARY KEY (idTurma, idColaborador),
+  CONSTRAINT pk_Turma_Colaborador PRIMARY KEY (idColaboradorTurma),
+  CONSTRAINT uk_Turma_Colaborador UNIQUE (idTurma, idColaborador),
   CONSTRAINT fk_Turma_TurmaColaborador FOREIGN KEY (idTurma) REFERENCES turma(idTurma),
   CONSTRAINT fk_Colaborador_TurmaColaborador FOREIGN KEY (idColaborador) REFERENCES colaborador(idColaborador)
 );

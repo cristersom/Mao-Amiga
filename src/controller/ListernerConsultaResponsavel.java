@@ -3,12 +3,11 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.bo.ResponsavelBO;
+import model.dao.AlunoResponsavelDao;
 import model.dao.ResponsavelDao;
-import model.dao.TurmaDao;
 import view.FrameCadastroResponsavel;
 import view.FrameConsultaResponsavel;
 
@@ -16,7 +15,7 @@ public class ListernerConsultaResponsavel implements ActionListener {
 
 	private FrameConsultaResponsavel pFormulario;
     private ResponsavelDao responsavelDao = new ResponsavelDao();
-    private TurmaDao turmDao = new TurmaDao();
+    private AlunoResponsavelDao alunoResponsavelDao = new AlunoResponsavelDao();
     
 	public ListernerConsultaResponsavel(FrameConsultaResponsavel pFormulario) {
 		this.pFormulario = pFormulario;
@@ -127,8 +126,11 @@ public class ListernerConsultaResponsavel implements ActionListener {
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
 
-				if( turmDao.incluirResponsavel(Integer.parseInt(pFormulario.cadTurma.modelo.getValueAt(pFormulario.cadTurma.tabela.getSelectedRow(), 0).toString())
+				if( alunoResponsavelDao.incluir(Integer.parseInt(pFormulario.cadTurma.modelo.getValueAt(pFormulario.cadTurma.tabela.getSelectedRow(), 0).toString())
 						 , pFormulario.responsavelBO.getId()) ) {
+					
+					int idResponsavelAluno = alunoResponsavelDao.consulta(
+							Integer.parseInt(pFormulario.cadTurma.modelo.getValueAt(pFormulario.cadTurma.tabela.getSelectedRow(), 0).toString())).get(0).getIdResponsavelAluno();
 					
 					pFormulario.cadTurma.modeloResp.addRow(new Object[] {
 							pFormulario.responsavelBO.getId(),
@@ -136,7 +138,8 @@ public class ListernerConsultaResponsavel implements ActionListener {
 							pFormulario.cadTurma.modelo.getValueAt(pFormulario.cadTurma.tabela.getSelectedRow(), 2).toString(),
 							pFormulario.responsavelBO.getTipo(),
 							pFormulario.responsavelBO.getCelular(),
-							pFormulario.responsavelBO.getFoneComercial()
+							pFormulario.responsavelBO.getFoneComercial(),
+							idResponsavelAluno
 					});
 					pFormulario.dispose();
 					try {

@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import model.bo.AlunoResponsavelBO;
 import model.bo.ColaboradorBO;
 import model.bo.MatriculaBO;
 import model.bo.TurmaBO;
+import model.dao.AlunoResponsavelDao;
 import model.dao.ColaboradorDao;
 import model.dao.MatriculaDao;
 import model.dao.TurmaDao;
@@ -29,6 +32,8 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 	private TurmaDao turmaDao = new TurmaDao();
 	private MatriculaDao matriculaDao = new MatriculaDao();
 	private ColaboradorDao colaboradorDao = new ColaboradorDao();
+	private AlunoResponsavelDao alunoResponsavelDao = new AlunoResponsavelDao();
+	private AlunoResponsavelBO alunoResponsavelBO = new AlunoResponsavelBO();
 	
 	//CursoDao cursoDao = new CursoDao();
 
@@ -82,8 +87,8 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 			if (pFormulario.tabelaResp.getSelectedRow() >= 0) {
 				if (JOptionPane.showConfirmDialog(pFormulario, "Confirma exclusão?", "Confirmacao",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					if (turmaDao.excluirResponsavel(Integer.parseInt(
-							pFormulario.modeloResp.getValueAt(pFormulario.tabelaResp.getSelectedRow(), 0).toString())) == true) {
+					if (alunoResponsavelDao.excluir(Integer.parseInt(
+							pFormulario.modeloResp.getValueAt(pFormulario.tabelaResp.getSelectedRow(), 6).toString())) == true) {
 						
 						pFormulario.modeloResp.removeRow(pFormulario.tabelaResp.getSelectedRow());
 					}
@@ -189,7 +194,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 		    		}
 				
     			
-	        	if(pFormulario.tabbedPane.getSelectedComponent() == pFormulario.pnlPessoas && pFormulario.tabela.getSelectedRow() <= 0) {
+	        	if(pFormulario.tabbedPane.getSelectedComponent() == pFormulario.pnlPessoas && pFormulario.tabela.getSelectedRow() < 0) {
 		        	ArrayList<MatriculaBO> matriculaBOList = null;
 		        	ArrayList<ColaboradorBO> colaboradorBOList = null;
 		        	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
@@ -237,23 +242,23 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 					
 	    			if (pFormulario.tabela.getSelectedRow() >= 0 
 	    					&& pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 3).toString() == Utils.Tipo.Aluno.toString() ) {
-						ArrayList<TurmaBO> turmaBOList = null;
+						ArrayList<AlunoResponsavelBO> alunoResponsavelBOList = null;
 						//busca responsáveis
-						turmaBOList = turmaDao.consultaResponsaveis(Integer.parseInt(
+						alunoResponsavelBOList = alunoResponsavelDao.consulta(Integer.parseInt(
 									  		pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())); 
 						int indice = 0;
 						do {
 							try {
-								pFormulario.modeloResp.addRow(new Object[] { turmaBOList.get(indice).responsavelBO.getId()
-										, turmaBOList.get(indice).responsavelBO.getNome(), turmaBOList.get(indice).alunoBO.getNome()
-										, turmaBOList.get(indice).responsavelBO.getTipo(), turmaBOList.get(indice).responsavelBO.getCelular()
-										, turmaBOList.get(indice).responsavelBO.getFoneComercial()
+								pFormulario.modeloResp.addRow(new Object[] { alunoResponsavelBOList.get(indice).responsavelBO.getId()
+										, alunoResponsavelBOList.get(indice).responsavelBO.getNome(), alunoResponsavelBOList.get(indice).alunoBO.getNome()
+										, alunoResponsavelBOList.get(indice).responsavelBO.getTipo(), alunoResponsavelBOList.get(indice).responsavelBO.getCelular()
+										, alunoResponsavelBOList.get(indice).responsavelBO.getFoneComercial(), alunoResponsavelBOList.get(indice).getIdResponsavelAluno()
 								});
 							} catch (Exception e1) {
 								break;
 							}
 							indice++;
-						} while (indice < turmaBOList.size());
+						} while (indice < alunoResponsavelBOList.size());
 						
 	    			} else
 	    				JOptionPane.showMessageDialog(pFormulario, "Escolha um Aluno!", "Mensagem",

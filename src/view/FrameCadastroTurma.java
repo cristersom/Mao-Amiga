@@ -294,7 +294,7 @@ public class FrameCadastroTurma extends JInternalFrame
         tabbedPane.addTab("Responsáveis", null, pnlResponsaveis, null);
         
         ArrayList dadosResp = new ArrayList();
-        String[] colunasResp = {"ID", "Responsável", "Aluno", "Tipo", "Celular", "Telefone" };
+        String[] colunasResp = {"ID", "Responsável", "Aluno", "Tipo", "Celular", "Telefone", "idResponsavelAluno" };
         boolean[] edicaoResp = { true, true, true, true, true, true };
         
         modeloResp = new ModeloTabela(dadosResp, colunasResp, edicaoResp);
@@ -311,6 +311,8 @@ public class FrameCadastroTurma extends JInternalFrame
         tabelaResp.getColumnModel().getColumn(4).setResizable(true);
         tabelaResp.getColumnModel().getColumn(5).setPreferredWidth(50);
         tabelaResp.getColumnModel().getColumn(5).setResizable(true);
+        tabelaResp.getColumnModel().getColumn(6).setPreferredWidth(50);
+        tabela.getColumnModel().removeColumn(tabela.getColumnModel().getColumn(6)); //para remover da visualização da Jtable
         tabelaResp.getTableHeader().setReorderingAllowed(false);
 	    tabelaResp.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 	    tabelaResp.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
