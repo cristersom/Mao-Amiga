@@ -11,7 +11,7 @@ public class ModeloTabela extends AbstractTableModel {
 	public ModeloTabela(ArrayList lin, String[] col, boolean[] editavel) {
 		setLinhas(lin);
 		setColunas(col);
-		colEditavel = editavel;
+		this.colEditavel = editavel;
 	}
 
 	public ArrayList getLinhas() {
@@ -43,9 +43,13 @@ public class ModeloTabela extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int numCol) {
-		return colEditavel[numCol];
+		return this.colEditavel[numCol];
 	}
-
+	
+	public boolean isCellEditable(int row, int col) {
+	    return this.colEditavel[col];
+	}
+	
 	public Object getValueAt(int numLin, int numCol) {
 		Object[] linha = (Object[]) getLinhas().get(numLin);
 		return linha[numCol];
