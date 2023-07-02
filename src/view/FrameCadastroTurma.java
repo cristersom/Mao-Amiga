@@ -254,21 +254,23 @@ public class FrameCadastroTurma extends JInternalFrame
         tabbedPane.addTab("Alunos/Professores/Monitores", null, pnlPessoas, null);
         
         ArrayList dados = new ArrayList();
-        String[] colunas = { "Código", "Nome", "Tipo", "CPF", "Nascimento", "Nome da Mãe" };
+        String[] colunas = { "Matricula", "ID", "Nome", "Tipo", "CPF", "Nascimento", "Nome da Mãe" };
         boolean[] edicao = { true, true, true, true };
         
         modelo = new ModeloTabela(dados, colunas, edicao);
         tabela = new JTable(modelo);
-        tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(15);
         tabela.getColumnModel().getColumn(0).setResizable(true);
-        tabela.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(10);
         tabela.getColumnModel().getColumn(1).setResizable(true);
-        tabela.getColumnModel().getColumn(2).setPreferredWidth(20);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(200);
         tabela.getColumnModel().getColumn(2).setResizable(true);
-        tabela.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tabela.getColumnModel().getColumn(3).setPreferredWidth(20);
         tabela.getColumnModel().getColumn(3).setResizable(true);
         tabela.getColumnModel().getColumn(4).setPreferredWidth(50);
         tabela.getColumnModel().getColumn(4).setResizable(true);
+        tabela.getColumnModel().getColumn(5).setPreferredWidth(50);
+        tabela.getColumnModel().getColumn(5).setResizable(true);
         tabela.getColumnModel().getColumn(5).setPreferredWidth(50);
         tabela.getColumnModel().getColumn(5).setResizable(true);
         tabela.getTableHeader().setReorderingAllowed(false);

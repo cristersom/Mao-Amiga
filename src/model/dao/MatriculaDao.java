@@ -28,6 +28,11 @@ public class MatriculaDao {
 		con = Conexao.conectaBanco();
 	}
 	
+	public ArrayList<MatriculaBO> consultaMatricula(int idTurma, int idAluno) {
+		ArrayList<MatriculaBO> matriculaBOList = consulta("idTurma = " + idTurma + " && aluno.idAluno = " + idAluno, "idTurma");
+		return matriculaBOList;
+	}
+	
 	public ArrayList<MatriculaBO> consultaPorMatricula(int idMatricula) {
 		ArrayList<MatriculaBO> matriculaBOList = consulta("idMatricula = " + idMatricula, "idMatricula");
 		return matriculaBOList;
@@ -113,9 +118,9 @@ public class MatriculaDao {
 		}
 	}
 	
-	public boolean excluir(int idAluno) {
+	public boolean excluir(int idMatricula) {
 		try {
-			String sql = "DELETE FROM contrato_matricula WHERE idAluno= " + idAluno;
+			String sql = "DELETE FROM contrato_matricula WHERE idMatricula= " + idMatricula;
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {

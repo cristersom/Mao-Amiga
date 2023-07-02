@@ -177,7 +177,7 @@ public class TurmaDao {
 	
 	//controle de Responsáveis
 	
-	public ArrayList<TurmaBO> consultaResponsaveis(int idTurma, int idAluno) {
+	public ArrayList<TurmaBO> consultaResponsaveis(int idMatricula) {
 		Statement sentenca;
 		ResultSet registros;
 
@@ -188,11 +188,10 @@ public class TurmaDao {
 			registros = sentenca
 					.executeQuery("SELECT idResponsavelAluno, responsavel.nome, aluno.nome, responsavel.tipo, responsavel.celular, responsavel.foneComercial  "
 							+ " FROM aluno_responsaveis"
-							+ " INNER JOIN turma ON turma.idTurma = aluno_responsaveis.idTurma"
-							+ " INNER JOIN aluno ON aluno.idAluno = aluno_responsaveis.idAluno"
+							+ " INNER JOIN contrato_matricula ON contrato_matricula.idMatricula = aluno_responsaveis.idMatricula"
+							+ " INNER JOIN aluno ON aluno.idAluno = contrato_matricula.idAluno"
 							+ " INNER JOIN responsavel ON responsavel.idResponsavel = aluno_responsaveis.idResponsavel"
-							+ " WHERE aluno_responsaveis.idTurma = " + idTurma
-							+ " && aluno_responsaveis.idAluno = " + idAluno
+							+ " WHERE aluno_responsaveis.idMatricula = " + idMatricula
 							+ " Order By 2");
 
 			if (registros.next()) {
@@ -223,13 +222,12 @@ public class TurmaDao {
 		return null;
 	}
 	
-	public boolean incluirResponsavel(int idTurma, int idAluno, int idResponsavel) {
+	public boolean incluirResponsavel(int idMatricula, int idResponsavel) {
 		try {
-			String sql = "INSERT INTO aluno_responsaveis (idTurma, idAluno, idResponsavel) VALUES (?,?,?)";
+			String sql = "INSERT INTO aluno_responsaveis (idMatricula, idResponsavel) VALUES (?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, idTurma);
-			stmt.setInt(2, idAluno);
-			stmt.setInt(3, idResponsavel);
+			stmt.setInt(1, idMatricula);
+			stmt.setInt(2, idResponsavel);
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
 			return true;
@@ -237,7 +235,6 @@ public class TurmaDao {
 			eSQL.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 					"Não foi possível realizar a inclusão!\n Responsável já cadastrado para o respectivo aluno e turma.\n"
-					+ "idTurma" + idTurma + "idAluno" + idAluno + "idResponsavel" + idResponsavel
 							+ "Mensagem: " + eSQL.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);
 			return false;

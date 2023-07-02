@@ -127,14 +127,13 @@ public class ListernerConsultaResponsavel implements ActionListener {
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString()))
 						.get(0);
 
-				if( turmDao.incluirResponsavel(pFormulario.cadTurma.idTurma
-						 , Integer.parseInt(pFormulario.cadTurma.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())
+				if( turmDao.incluirResponsavel(Integer.parseInt(pFormulario.cadTurma.modelo.getValueAt(pFormulario.cadTurma.tabela.getSelectedRow(), 0).toString())
 						 , pFormulario.responsavelBO.getId()) ) {
 					
 					pFormulario.cadTurma.modeloResp.addRow(new Object[] {
 							pFormulario.responsavelBO.getId(),
 							pFormulario.responsavelBO.getNome(),
-							pFormulario.cadTurma.modelo.getValueAt(pFormulario.cadTurma.tabela.getSelectedRow(), 1).toString(),
+							pFormulario.cadTurma.modelo.getValueAt(pFormulario.cadTurma.tabela.getSelectedRow(), 2).toString(),
 							pFormulario.responsavelBO.getTipo(),
 							pFormulario.responsavelBO.getCelular(),
 							pFormulario.responsavelBO.getFoneComercial()

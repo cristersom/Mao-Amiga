@@ -96,7 +96,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 			if (pFormulario.tabela.getSelectedRow() >= 0) {
 				if (JOptionPane.showConfirmDialog(pFormulario, "Confirma exclusão?", "Confirmacao",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					if (pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 2).toString() == Utils.Tipo.Aluno.toString()) {
+					if (pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 3).toString() == Utils.Tipo.Aluno.toString()) {
 						if (matriculaDao.excluir(Integer.parseInt(
 								pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())) == true)
 							pFormulario.modelo.removeRow(pFormulario.tabela.getSelectedRow());
@@ -204,7 +204,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 					int indice = 0;
 					do {
 						try {
-							pFormulario.modelo.addRow(new Object[] { colaboradorBOList.get(indice).getId()
+							pFormulario.modelo.addRow(new Object[] {"", colaboradorBOList.get(indice).getId()
 									, colaboradorBOList.get(indice).getNome(), colaboradorBOList.get(indice).getTipo()
 									, colaboradorBOList.get(indice).getCpf(), sdf.format(colaboradorBOList.get(indice).getDataNascimento().getTime())
 									, colaboradorBOList.get(indice).getNomeMae()
@@ -218,7 +218,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 					indice = 0;
 					do {
 						try {
-							pFormulario.modelo.addRow(new Object[] { matriculaBOList.get(indice).getAluno()
+							pFormulario.modelo.addRow(new Object[] {matriculaBOList.get(indice).getMatricula(), matriculaBOList.get(indice).getAluno()
 									, matriculaBOList.get(indice).turmaBO.alunoBO.getNome(), "Aluno", matriculaBOList.get(indice).turmaBO.alunoBO.getCpf()
 									, sdf.format(matriculaBOList.get(indice).turmaBO.alunoBO.getDataNascimento().getTime())
 									, matriculaBOList.get(indice).turmaBO.alunoBO.getNomeMae()
@@ -236,10 +236,10 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 						pFormulario.modeloResp.removeRow(i);
 					
 	    			if (pFormulario.tabela.getSelectedRow() >= 0 
-	    					&& pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 2).toString() == Utils.Tipo.Aluno.toString() ) {
+	    					&& pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 3).toString() == Utils.Tipo.Aluno.toString() ) {
 						ArrayList<TurmaBO> turmaBOList = null;
 						//busca responsáveis
-						turmaBOList = turmaDao.consultaResponsaveis(pFormulario.idTurma, Integer.parseInt(
+						turmaBOList = turmaDao.consultaResponsaveis(Integer.parseInt(
 									  		pFormulario.modelo.getValueAt(pFormulario.tabela.getSelectedRow(), 0).toString())); 
 						int indice = 0;
 						do {
