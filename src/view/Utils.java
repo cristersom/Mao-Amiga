@@ -54,6 +54,11 @@ public class Utils {
 		Feminino
 	}
 	
+	public static enum Presente {
+		Sim,
+		Não
+	}
+	
 	public void validaData(int dia, int mes, int ano)
 			throws DiaInvalidoException, MesInvalidoException, AnoInvalidoException {
 		if (dia == 31 && mes != 1 && mes != 3 && mes != 5 && mes != 7 && mes != 8 && mes != 10 && mes != 12)

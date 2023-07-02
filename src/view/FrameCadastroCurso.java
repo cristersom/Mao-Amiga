@@ -45,7 +45,7 @@ public class FrameCadastroCurso extends FrameCadastro{
 		pnlCenter.add(txtCurso, gbc_txtCurso);
 		txtCurso.setColumns(10);
 		
-		JLabel lblDescrio = new JLabel("Descri\u00E7\u00E3o:");
+		JLabel lblDescrio = new JLabel("Descrição:");
 		GridBagConstraints gbc_lblDescrio = new GridBagConstraints();
 		gbc_lblDescrio.insets = new Insets(5, 5, 0, 5);
 		gbc_lblDescrio.anchor = GridBagConstraints.EAST;

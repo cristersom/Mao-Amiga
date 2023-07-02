@@ -18,6 +18,7 @@ import view.FrameConsultaColaborador;
 import view.FrameConsultaCurso;
 import view.FrameConsultaResponsavel;
 import view.FrameConsultaTurma;
+import view.FrameRegistraFrequencia;
 import view.SistemaMatricula;
 
 public class ListenerFormulario implements ActionListener {
@@ -169,6 +170,25 @@ public class ListenerFormulario implements ActionListener {
 			fr.txtConsulta.requestFocus();
 
 		} else if (origem == pFormulario.itemCadastroColaborador) {
+			FrameCadastroColaborador fr = new FrameCadastroColaborador();
+			fr.setVisible(true);
+			pFormulario.DPane.add(fr);
+			try {
+				fr.setSelected(true);
+			} catch (PropertyVetoException exc) {
+			}
+			//fr.txtResponsavel.requestFocus();
+		} else if (origem == pFormulario.itemConsultaFrequencia || origem == pFormulario.btnFrequencia) {
+			FrameRegistraFrequencia fr = new FrameRegistraFrequencia();
+			fr.setVisible(true);
+			pFormulario.DPane.add(fr);
+			try {
+				fr.setSelected(true);
+			} catch (PropertyVetoException exc) {
+			}
+			fr.jcbTurma.requestFocus();
+
+		} else if (origem == pFormulario.itemCadastroFrequencia) {
 			FrameCadastroColaborador fr = new FrameCadastroColaborador();
 			fr.setVisible(true);
 			pFormulario.DPane.add(fr);
