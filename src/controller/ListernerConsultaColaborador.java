@@ -130,7 +130,7 @@ public class ListernerConsultaColaborador implements ActionListener {
 						.get(0);
 
 				if(turmaColaboradorDao.incluir(pFormulario.cadTurma.idTurma, pFormulario.colaboradorBO.getId())) {
-					int idColaboradorTurma = turmaColaboradorDao.consulta(pFormulario.cadTurma.idTurma).get(0).getIdColaboradorTurma();
+					int idColaboradorTurma = turmaColaboradorDao.consultaPorTurma(pFormulario.cadTurma.idTurma).get(0).getIdColaboradorTurma();
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 					pFormulario.cadTurma.modelo.addRow(new Object[] {

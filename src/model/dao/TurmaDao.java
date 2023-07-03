@@ -89,6 +89,32 @@ public class TurmaDao {
 		}
 		return null;
 	}
+	
+	public ArrayList<Integer> consultaAnoTurmas() {
+		Statement sentenca;
+		ResultSet registros;
+		
+		ArrayList<Integer> anosList = new ArrayList<Integer>();
+		try {
+			sentenca = con.createStatement();
+			registros = sentenca
+					.executeQuery("SELECT distinct ano FROM turma Order By ano");
+			
+			if(registros.next()) {
+				do {
+					anosList.add(Integer.parseInt(registros.getString("ano")));
+				} while (registros.next());
+				return anosList;
+			}		
+			sentenca.close();
+		} catch (SQLException eSQL) {
+			eSQL.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"Não foi possível carregar os dados!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return null;		
+	}
 
 	public int consultaPorTurmaAno(String turma, int ano) {
 		Statement sentenca;

@@ -12,9 +12,11 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 import model.bo.ColaboradorBO;
+import model.bo.CursoBO;
 import model.bo.TurmaColaboradorBO;
 import model.exceptions.CpfInvalidoException;
 import model.exceptions.StringVaziaException;
+import view.Utils;
 
 public class TurmaColaboradorDao {
 	Connection con;
@@ -22,7 +24,18 @@ public class TurmaColaboradorDao {
 		con = Conexao.conectaBanco();
 	}
 	
-	public ArrayList<TurmaColaboradorBO> consulta(int idTurma) {
+	public ArrayList<TurmaColaboradorBO> consultaPorTurma(int idTurma) {
+		ArrayList<TurmaColaboradorBO> turmaColaboradorBOList = consulta("idTurma = " + idTurma, "idTurma");
+		return turmaColaboradorBOList;
+	}
+
+	public ArrayList<TurmaColaboradorBO> consultaProfessores(int idTurma) {
+		ArrayList<TurmaColaboradorBO> turmaColaboradorBOList = consulta("idTurma = " + idTurma
+				+ " && tipo = '" + Utils.Tipo.Professor.toString() + "'", "nome");
+		return turmaColaboradorBOList;
+	}
+	
+	public ArrayList<TurmaColaboradorBO> consulta(String sentencaSQL, String ordem) {
 		Statement sentenca;
 		ResultSet registros;
 
@@ -32,9 +45,8 @@ public class TurmaColaboradorDao {
 			// faz a consulta
 			registros = sentenca
 					.executeQuery("SELECT idColaboradorTurma, idTurma, col.idColaborador, nome,  tipo, cpf, dataNascimento, nomeMae "
-							+ "FROM turma_colaborador INNER JOIN colaborador col on turma_colaborador.idColaborador = col.idColaborador "
-							+ "WHERE idTurma = " + idTurma
-							+ " Order By tipo, nome");
+							+ "FROM turma_colaborador INNER JOIN colaborador col ON turma_colaborador.idColaborador = col.idColaborador "
+							+ "WHERE " + sentencaSQL + " Order By " + ordem );
 
 			if (registros.next()) {
 				ArrayList<TurmaColaboradorBO> TurmaColaboradorBOList = new ArrayList<TurmaColaboradorBO>();

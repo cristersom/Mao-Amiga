@@ -88,4 +88,8 @@ public class TurmaBO
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
 		this.dataFim.setTime(sdf.parse(dataFim));
 	}
+	
+	public String toString() {
+		return this.turma;
+	}
 }

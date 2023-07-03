@@ -156,3 +156,12 @@ CREATE TABLE aluno_autorizados(
   CONSTRAINT pk_Aluno_Autorizado PRIMARY KEY (idAutorizado, idAluno),
   CONSTRAINT fk_Aluno_AlunoAutorizado FOREIGN KEY (idAluno) REFERENCES aluno(idAluno)
 );
+
+CREATE TABLE frequencia(
+  idMatricula integer NOT NULL,
+  dataAula date NOT NULL,
+  presenteManha varchar(3),
+  presenteTarde varchar(3),
+  CONSTRAINT pk_Frequencia PRIMARY KEY (idMatricula, dataAula, presenteManha, presenteTarde),
+  CONSTRAINT fk_Freq_Matricula FOREIGN KEY (idMatricula) REFERENCES contrato_matricula(idMatricula)
+);

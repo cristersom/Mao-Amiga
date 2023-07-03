@@ -200,7 +200,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 		        	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
 		        				        	
 		        	matriculaBOList = matriculaDao.consultaPorTurma(pFormulario.idTurma);
-		        	turmaColaboradorBOList = turmaColaboradorDao.consulta(pFormulario.idTurma);
+		        	turmaColaboradorBOList = turmaColaboradorDao.consultaPorTurma(pFormulario.idTurma);
 		        	
 					// apaga todas as linhas da tabela
 					for (int i = pFormulario.modelo.getRowCount() - 1; i >= 0; i--)
@@ -218,7 +218,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 							break;
 						}
 						indice++;
-					} while (indice < matriculaBOList.size());					
+					} while (indice < turmaColaboradorBOList.size());					
 					
 					indice = 0;
 					do {
