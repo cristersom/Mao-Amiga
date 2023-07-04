@@ -28,10 +28,7 @@ public class AulaDao {
 			sentenca = con.createStatement();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			registros = sentenca.executeQuery("SELECT idAula FROM aula WHERE idTurma = " + idTurma + " && dataAula = '" + sdf.format(dataAula.getTime()) + "'");
-			if (!registros.next()) {
-				JOptionPane.showMessageDialog(null, "Nenhum registro de aula foi encontrado nesta data!", "Mensagem",
-						JOptionPane.WARNING_MESSAGE);
-			} else {
+			if (registros.next()) {
 				idAula = Integer.parseInt(registros.getString("idAula"));
 			}
 			sentenca.close();
@@ -84,6 +81,46 @@ public class AulaDao {
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
+						
+			return true;
+		} catch (SQLException eSQL) {
+			eSQL.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"Não foi possível realizar o registro da aula!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	}
+	
+	public boolean alterar(AulaBO aulaBO) {
+		try {
+			String sql = "UPDATE aula SET idColaborador = ?, conteudo_ministrado = ?"
+					+ " WHERE idAula = " + aulaBO.getIdAula();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, aulaBO.getIdColaborador());
+			stmt.setString(2, aulaBO.getConteudo_ministrado());
+			stmt.execute();
+			
+			//atualiza o registro de frequencia
+			try {
+				int indice = 0;
+				do {
+					sql = "UPDATE frequencia SET presenteManha = ?, presenteTarde = ?"
+						+ " WHERE idAula = " + aulaBO.getIdAula()
+						+ " && idMatricula = " + aulaBO.frequenciaBOList.get(indice).getIdMatricula();
+					stmt = con.prepareStatement(sql);
+						stmt.setString(1, aulaBO.frequenciaBOList.get(indice).getPresenteManha());
+						stmt.setString(2, aulaBO.frequenciaBOList.get(indice).getPresenteTarde());
+						stmt.execute();
+						indice++;
+				} while (indice < aulaBO.frequenciaBOList.size());
+			} catch (SQLException eSQL) {
+				eSQL.printStackTrace();
+				JOptionPane.showMessageDialog(null,
+						"Não foi possível alterar o registro da frequencia!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}				
 						
 			return true;
 		} catch (SQLException eSQL) {

@@ -132,13 +132,13 @@ public class ListenerRegistraAula implements ActionListener {
 			int idAula = aulaDao.getIdAula(aulaBO.getIdTurma(), aulaBO.getDataAula());
 			
 			if(idAula > 0) {
+				aulaBO.setIdAula(idAula);
 				if (JOptionPane.showConfirmDialog(pFormulario, "Já registro de aula para este dia!\n Deseja atualizar?", "Confirmacao",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					/*if (alunoResponsavelDao.excluir(Integer.parseInt(
-							pFormulario.modeloResp.getValueAt(pFormulario.tabelaResp.getSelectedRow(), 6).toString())) == true) {
-						
-						pFormulario.modeloResp.removeRow(pFormulario.tabelaResp.getSelectedRow());
-					}*/
+					if(aulaDao.alterar(aulaBO)) {
+						JOptionPane.showMessageDialog(pFormulario, "Registro Atualizado!", "Mensagem",
+								JOptionPane.WARNING_MESSAGE);
+					}
 						
 				}
 			}else if(aulaDao.incluir(aulaBO)) {
