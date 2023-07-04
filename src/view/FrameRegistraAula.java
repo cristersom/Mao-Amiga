@@ -5,9 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -16,21 +18,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
-import controller.ListenerRegistraFrequencia;
+import controller.ListenerRegistraAula;
 import model.bo.TurmaBO;
 import model.bo.TurmaColaboradorBO;
 import model.dao.TurmaColaboradorDao;
 import model.dao.TurmaDao;
 
-public class FrameRegistraFrequencia extends FrameCadastro {
+public class FrameRegistraAula extends FrameCadastro {
 	public JButton btnBuscar;
-	public JComboBox<Integer> jcbAnoLetivo;
+	public JComboBox<Integer> jcbAnoLetivo, jcbDia, jcbAno;
 	public JComboBox<TurmaBO> jcbTurma;
 	public JComboBox<TurmaColaboradorBO> jcbProfessor;
+	public JComboBox<String> jcbMes;
     public JTable tabela;
     public ModeloTabela modelo;
 	
-    public FrameRegistraFrequencia() {
+    public FrameRegistraAula() {
     	pnlCenter.setLayout(new BorderLayout(0, 0));
         this.setTitle("Registro de Presença");
         
@@ -73,6 +76,7 @@ public class FrameRegistraFrequencia extends FrameCadastro {
         jcbProfessor = new JComboBox<TurmaColaboradorBO>();
 		pnlTop.add(jcbProfessor);
 		
+		jcbProfessor.addItem(null);//para obrigar a seleção de professor para registro de aula
 		TurmaColaboradorDao turmaColaboradorDao = new TurmaColaboradorDao();
 		List<TurmaColaboradorBO> professorList;
         try {
@@ -84,9 +88,43 @@ public class FrameRegistraFrequencia extends FrameCadastro {
         	//se não existir turma cadastroda, não carrega nada no combobox
         }
 		
+		JLabel lblData = new JLabel("Data:");
+        pnlTop.add(lblData);
+        
+        jcbDia = new JComboBox<Integer>();
+        int i = 1;
+        while (i < 32) {
+            jcbDia.addItem(i);
+            ++i;
+        }
+        pnlTop.add(jcbDia);
+        
+        jcbMes = new JComboBox<String>();
+		jcbMes.setModel(new DefaultComboBoxModel<String>(new String[] { "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL",
+				"MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO" }));
+		pnlTop.add(jcbMes);
+        
+		jcbAno = new JComboBox<Integer>();
+		for (i = 1900; i < 2100; i++)
+			jcbAno.addItem(i);
+		jcbAno.setSelectedIndex(123);
+		pnlTop.add(jcbAno);
+		
+		//Obtem a data atual
+		Calendar dataAtual = Calendar.getInstance();
+		Integer ano = dataAtual.get(Calendar.YEAR);
+		Integer mes = dataAtual.get(Calendar.MONTH);
+		Integer diaDoMes = dataAtual.get(Calendar.DAY_OF_MONTH);
+		//seta o dia com a data atual
+		jcbDia.setSelectedIndex(diaDoMes - 1);
+		jcbMes.setSelectedIndex(mes);
+		jcbAno.setSelectedIndex(ano-1900);
+		
         btnBuscar = new JButton("Buscar");
 		pnlTop.add(btnBuscar);
         
+		
+		
         
 		//Painel Central
 		JPanel pnlAlunos = new JPanel(new BorderLayout());
@@ -118,7 +156,7 @@ public class FrameRegistraFrequencia extends FrameCadastro {
         pnlAlunos.add(rolagemTabela, "Center");
         
         //modelo.setValueAt(new Boolean(true), 0, 3);
-        
+      /*  
 		tabela.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -129,7 +167,8 @@ public class FrameRegistraFrequencia extends FrameCadastro {
 				System.out.println(tabela.getRowCount());
 				int reg = tabela.getRowCount();
 				for(int i=0; i< reg; i++)
- 				 System.out.println(modelo.getValueAt(i, 3).toString());
+					if((boolean) modelo.getValueAt(i, 3))
+						System.out.println(modelo.getValueAt(i, 3).toString());
 			}
 		});
         
@@ -137,10 +176,10 @@ public class FrameRegistraFrequencia extends FrameCadastro {
         modelo.addRow(new Object[] { 132457, 123, "FULANO DE TAL", false , true, 569 });
         modelo.addRow(new Object[] { 132457, 123, "FULANO DE TAL", false , true, 569 });
         modelo.addRow(new Object[] { 132457, 123, "FULANO DE TAL", true , true, 569 });
-        
-        
+        */
+        btnOk.setText("Registrar Aula");
         //Seta os listeners do formulário
-        ListenerRegistraFrequencia listener = new ListenerRegistraFrequencia(this);
+        ListenerRegistraAula listener = new ListenerRegistraAula(this);
         btnOk.addActionListener((ActionListener)listener);
         btnCancelar.addActionListener((ActionListener)listener);
         jcbAnoLetivo.addActionListener((ActionListener)listener);

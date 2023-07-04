@@ -3,31 +3,41 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import model.bo.AulaBO;
+import model.bo.ColaboradorBO;
+import model.bo.FrequenciaBO;
 import model.bo.MatriculaBO;
 import model.bo.TurmaBO;
 import model.bo.TurmaColaboradorBO;
+import model.dao.AulaDao;
 import model.dao.MatriculaDao;
 import model.dao.TurmaColaboradorDao;
 import model.dao.TurmaDao;
 import view.FrameCadastroAluno;
-import view.FrameRegistraFrequencia;
+import view.FrameRegistraAula;
+import view.Utils;
 
-public class ListenerRegistraFrequencia implements ActionListener {
+public class ListenerRegistraAula implements ActionListener {
 
-	private FrameRegistraFrequencia pFormulario;
+	private FrameRegistraAula pFormulario;
 	private MatriculaDao matriculaDao = new MatriculaDao();
 	
-	public ListenerRegistraFrequencia(FrameRegistraFrequencia pFormulario) {
+	public ListenerRegistraAula(FrameRegistraAula pFormulario) {
 		this.pFormulario = pFormulario;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object origem = e.getSource();
-
+		
 		if (origem == pFormulario.btnCancelar) {
 
 			this.pFormulario.dispose();
@@ -48,6 +58,7 @@ public class ListenerRegistraFrequencia implements ActionListener {
 			TurmaColaboradorDao turmaColaboradorDao = new TurmaColaboradorDao();
 			List<TurmaColaboradorBO> professorList;
 			pFormulario.jcbProfessor.removeAllItems();
+			pFormulario.jcbProfessor.addItem(null);//para obrigar a seleção de professor para registro de aula
 	        try {
 	        	TurmaBO turmaBO = (TurmaBO)pFormulario.jcbTurma.getSelectedItem();
 	        	professorList = turmaColaboradorDao.consultaProfessores(turmaBO.getId());
@@ -79,9 +90,76 @@ public class ListenerRegistraFrequencia implements ActionListener {
 				}
 				indice++;
 			} while (indice < matriculaBOList.size());	
-	        
+	       // pFormulario.btnOk.setText("Atualizar Aula");
+			
 		} else {//botão ok
-/*
+			AulaBO aulaBO = new AulaBO();
+			AulaDao aulaDao = new AulaDao();
+						
+			if(pFormulario.jcbProfessor.getSelectedItem() == null) {
+				JOptionPane.showMessageDialog(pFormulario, "Selecione o Professor!", "Mensagem",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			TurmaBO turmaBO = (TurmaBO)pFormulario.jcbTurma.getSelectedItem();
+			aulaBO.setIdTurma(turmaBO.getId());
+			String dia = String.valueOf(pFormulario.jcbDia.getSelectedIndex() + 1);
+			String mes = String.valueOf(pFormulario.jcbMes.getSelectedIndex() + 1);
+			String ano = String.valueOf(pFormulario.jcbAno.getSelectedIndex() + 1900);
+			try {
+				aulaBO.setDataAula(dia + '/' + mes + '/' + ano);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			TurmaColaboradorBO turmaColaboradorBO = (TurmaColaboradorBO)pFormulario.jcbProfessor.getSelectedItem();
+			aulaBO.setIdColaborador(turmaColaboradorBO.colaboradorBO.getId());
+			
+			//buscar frequencia alunos
+			
+			for(int i=0; i < pFormulario.tabela.getRowCount(); i++) {
+				FrequenciaBO frequenciaBO = new FrequenciaBO();
+				frequenciaBO.setIdMatricula(Integer.parseInt(pFormulario.modelo.getValueAt(i, 0).toString()));
+				if((boolean) pFormulario.modelo.getValueAt(i, 3))
+					frequenciaBO.setPresenteManha(Utils.Presente.Sim.toString());
+				if((boolean) pFormulario.modelo.getValueAt(i, 4))
+					frequenciaBO.setPresenteTarde(Utils.Presente.Sim.toString());
+				aulaBO.frequenciaBOList.add(frequenciaBO);
+			}
+			
+			int idAula = aulaDao.getIdAula(aulaBO.getIdTurma(), aulaBO.getDataAula());
+			
+			if(idAula > 0) {
+				if (JOptionPane.showConfirmDialog(pFormulario, "Já registro de aula para este dia!\n Deseja atualizar?", "Confirmacao",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					/*if (alunoResponsavelDao.excluir(Integer.parseInt(
+							pFormulario.modeloResp.getValueAt(pFormulario.tabelaResp.getSelectedRow(), 6).toString())) == true) {
+						
+						pFormulario.modeloResp.removeRow(pFormulario.tabelaResp.getSelectedRow());
+					}*/
+						
+				}
+			}else if(aulaDao.incluir(aulaBO)) {
+				JOptionPane.showMessageDialog(pFormulario, "Aula Registrada!", "Mensagem",
+						JOptionPane.WARNING_MESSAGE);
+				this.pFormulario.dispose();
+			}
+			
+			
+			
+			
+			
+			
+	/*		
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
+			
+			JOptionPane.showMessageDialog(pFormulario, "Selecione o Professor!"+sdf.format(dataAula.getTime()), "Mensagem",
+					JOptionPane.WARNING_MESSAGE);
+			
+			
+
 			try {
 				cidBO.setCidade(pFormulario.txtCidade.getText());
 			} catch (StringVaziaException e1) {

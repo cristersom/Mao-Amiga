@@ -18,7 +18,7 @@ import view.FrameConsultaColaborador;
 import view.FrameConsultaCurso;
 import view.FrameConsultaResponsavel;
 import view.FrameConsultaTurma;
-import view.FrameRegistraFrequencia;
+import view.FrameRegistraAula;
 import view.SistemaMatricula;
 
 public class ListenerFormulario implements ActionListener {
@@ -178,8 +178,8 @@ public class ListenerFormulario implements ActionListener {
 			} catch (PropertyVetoException exc) {
 			}
 			//fr.txtResponsavel.requestFocus();
-		} else if (origem == pFormulario.itemConsultaFrequencia || origem == pFormulario.btnFrequencia) {
-			FrameRegistraFrequencia fr = new FrameRegistraFrequencia();
+		} else if (origem == pFormulario.itemConsultaAula || origem == pFormulario.btnAula) {
+			FrameRegistraAula fr = new FrameRegistraAula();
 			fr.setVisible(true);
 			pFormulario.DPane.add(fr);
 			try {
@@ -188,7 +188,7 @@ public class ListenerFormulario implements ActionListener {
 			}
 			fr.jcbTurma.requestFocus();
 
-		} else if (origem == pFormulario.itemCadastroFrequencia) {
+		/*} else if (origem == pFormulario.itemCadastroAula) {
 			FrameCadastroColaborador fr = new FrameCadastroColaborador();
 			fr.setVisible(true);
 			pFormulario.DPane.add(fr);
@@ -197,7 +197,7 @@ public class ListenerFormulario implements ActionListener {
 			} catch (PropertyVetoException exc) {
 			}
 			//fr.txtResponsavel.requestFocus();
-
+*/
 		} else {
 			if (JOptionPane.showConfirmDialog(this.pFormulario, "Deseja encerrar a aplicação?", "Confirmação",
 					JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)

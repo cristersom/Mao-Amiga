@@ -25,7 +25,7 @@ import javax.swing.JFrame;
 public class SistemaMatricula extends JFrame
 {
     public JDesktopPane DPane;
-    public JButton btnAluno, btnCidade, btnResponsavel, btnCep, btnTurma, btnColaborador, btnAutorizado, btnCurso, btnFrequencia;
+    public JButton btnAluno, btnCidade, btnResponsavel, btnCep, btnTurma, btnColaborador, btnAutorizado, btnCurso, btnAula;
     private JMenuBar menuBar;
     private JMenu menuConsulta, menuCadastro, menuSistema;
     private JToolBar toolBar;
@@ -33,7 +33,7 @@ public class SistemaMatricula extends JFrame
     public JMenuItem itemSair, itemConsultaAluno, itemConsultaCidade, itemConsultaResponsavel, itemConsultaCep, itemCadastroAluno
          	       , itemCadastroResponsavel, itemCadastroCidade, itemCadastroCep, itemCadastroTurma, itemConsultaTurma
          	       , itemConsultaAutorizado, itemCadastroAutorizado, itemConsultaColaborador, itemCadastroColaborador, itemConsultaCurso
-         	       , itemCadastroCurso, itemConsultaFrequencia, itemCadastroFrequencia;
+         	       , itemCadastroCurso, itemConsultaAula, itemRegistraAula;
     
     public SistemaMatricula() {
     	
@@ -84,11 +84,11 @@ public class SistemaMatricula extends JFrame
         itemConsultaAluno.setIcon(imgAluno);
         menuConsulta.add(itemConsultaAluno);
         
-        ImageIcon imgFrequencia = new ImageIcon("frequencia.png");
-        imgFrequencia.setImage(imgFrequencia.getImage().getScaledInstance(width, height, hints));
-        itemConsultaFrequencia = new JMenuItem("Frequência");
-        itemConsultaFrequencia.setIcon(imgFrequencia);
-        menuConsulta.add(itemConsultaFrequencia);
+        ImageIcon imgAula = new ImageIcon("frequencia.png");
+        imgAula.setImage(imgAula.getImage().getScaledInstance(width, height, hints));
+        itemConsultaAula = new JMenuItem("Frequência");
+        itemConsultaAula.setIcon(imgAula);
+        menuConsulta.add(itemConsultaAula);
         
         ImageIcon imgTurma = new ImageIcon("turma.png");
         imgTurma.setImage(imgTurma.getImage().getScaledInstance(width, height, hints));
@@ -132,8 +132,8 @@ public class SistemaMatricula extends JFrame
         
         (itemCadastroAluno = new JMenuItem("Aluno")).setIcon(imgAluno);
         menuCadastro.add(itemCadastroAluno);
-        (itemCadastroFrequencia = new JMenuItem("Frequência")).setIcon(imgFrequencia);
-        menuCadastro.add(itemCadastroFrequencia);
+        (itemRegistraAula = new JMenuItem("Frequência")).setIcon(imgAula);
+        menuCadastro.add(itemRegistraAula);
         (itemCadastroTurma = new JMenuItem("Turma")).setIcon(imgTurma);
         menuCadastro.add(itemCadastroTurma);
         (itemCadastroCurso = new JMenuItem("Curso")).setIcon(imgCurso);
@@ -156,9 +156,9 @@ public class SistemaMatricula extends JFrame
         (btnAluno = new JButton()).setToolTipText("Consulta Aluno");
         btnAluno.setIcon(new ImageIcon("aluno.png"));
         toolBar.add(btnAluno);
-        (btnFrequencia = new JButton()).setToolTipText("Consulta Frequencia");
-        btnFrequencia.setIcon(new ImageIcon("frequencia.png"));
-        toolBar.add(btnFrequencia);
+        (btnAula = new JButton()).setToolTipText("Consulta Aula");
+        btnAula.setIcon(new ImageIcon("frequencia.png"));
+        toolBar.add(btnAula);
         (btnTurma = new JButton()).setToolTipText("Consulta Turma");
         btnTurma.setIcon(new ImageIcon("turma.png"));
         toolBar.add(btnTurma);
@@ -203,9 +203,9 @@ public class SistemaMatricula extends JFrame
         btnAluno.addActionListener((ActionListener)listener);
         itemConsultaAluno.addActionListener((ActionListener)listener);
         itemCadastroAluno.addActionListener((ActionListener)listener);
-        btnFrequencia.addActionListener((ActionListener)listener);
-        itemConsultaFrequencia.addActionListener((ActionListener)listener);
-        itemCadastroFrequencia.addActionListener((ActionListener)listener);
+        btnAula.addActionListener((ActionListener)listener);
+        itemConsultaAula.addActionListener((ActionListener)listener);
+        itemRegistraAula.addActionListener((ActionListener)listener);
         btnTurma.addActionListener((ActionListener)listener);
         itemConsultaTurma.addActionListener((ActionListener)listener);
         itemCadastroTurma.addActionListener((ActionListener)listener);
