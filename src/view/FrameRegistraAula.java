@@ -1,6 +1,10 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,13 +27,16 @@ import model.bo.TurmaBO;
 import model.bo.TurmaColaboradorBO;
 import model.dao.TurmaColaboradorDao;
 import model.dao.TurmaDao;
+import javax.swing.JTextArea;
 
 public class FrameRegistraAula extends FrameCadastro {
+	public int idAula;
 	public JButton btnBuscar;
 	public JComboBox<Integer> jcbAnoLetivo, jcbDia, jcbAno;
 	public JComboBox<TurmaBO> jcbTurma;
 	public JComboBox<TurmaColaboradorBO> jcbProfessor;
 	public JComboBox<String> jcbMes;
+	public JTextArea txtConteudoMinistrado;
     public JTable tabela;
     public ModeloTabela modelo;
 	
@@ -37,10 +44,10 @@ public class FrameRegistraAula extends FrameCadastro {
     	pnlCenter.setLayout(new BorderLayout(0, 0));
         this.setTitle("Registro de Presença");
         
-        //Painel Superior
+        //Painel Superior #######################################################################################
 		JPanel pnlTop = new JPanel();
 		pnlTop.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		pnlCenter.add(pnlTop, BorderLayout.WEST);
+		pnlCenter.add(pnlTop, BorderLayout.NORTH);
 		
 		JLabel lblAnoLetivo = new JLabel("Ano Letivo:");
         pnlTop.add(lblAnoLetivo);
@@ -120,17 +127,14 @@ public class FrameRegistraAula extends FrameCadastro {
 		jcbMes.setSelectedIndex(mes);
 		jcbAno.setSelectedIndex(ano-1900);
 		
-        btnBuscar = new JButton("Buscar");
+        btnBuscar = new JButton("Buscar Alunos");
 		pnlTop.add(btnBuscar);
         
-		
-		
-        
-		//Painel Central
+		//Painel Central ##########################################################################################
 		JPanel pnlAlunos = new JPanel(new BorderLayout());
         pnlAlunos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnlCenter.add(pnlAlunos, BorderLayout.SOUTH);
-        
+        pnlCenter.add(pnlAlunos, BorderLayout.CENTER);
+                
         ArrayList dados = new ArrayList();
         //dados = (ArrayList) Arrays.asList("","","","Boolean","Boolena","");
         String[] colunas = { "Matricula", "ID", "Nomel do Aluno", "Presente Manhã?", "Presente Tarde?", "idTurma"};
@@ -153,30 +157,20 @@ public class FrameRegistraAula extends FrameCadastro {
 	    tabela.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 	    tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane rolagemTabela = new JScrollPane(tabela);
-        pnlAlunos.add(rolagemTabela, "Center");
+        pnlAlunos.add(rolagemTabela, BorderLayout.CENTER);
         
-        //modelo.setValueAt(new Boolean(true), 0, 3);
-      /*  
-		tabela.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 1)				
-					btnOk.doClick();
-				
-				 //System.out.println(tabela.getSelectedRow());
-				System.out.println(tabela.getRowCount());
-				int reg = tabela.getRowCount();
-				for(int i=0; i< reg; i++)
-					if((boolean) modelo.getValueAt(i, 3))
-						System.out.println(modelo.getValueAt(i, 3).toString());
-			}
-		});
+        //Painel inferior ###########################################################################
+        //Painel Superior
+		JPanel pnlBottom = new JPanel();
+		pnlCenter.add(pnlBottom, BorderLayout.SOUTH);
+    
+		JLabel lblConteudo = new JLabel("Conteúdo Ministrado:");
+		pnlBottom.add(lblConteudo);
+		
+		txtConteudoMinistrado = new JTextArea(4,90);	
+		txtConteudoMinistrado.setLineWrap(true);
+		pnlBottom.add(txtConteudoMinistrado);
         
-        modelo.addRow(new Object[] { 132456, 123, "FULANO DE TAL", true , true, 569 });
-        modelo.addRow(new Object[] { 132457, 123, "FULANO DE TAL", false , true, 569 });
-        modelo.addRow(new Object[] { 132457, 123, "FULANO DE TAL", false , true, 569 });
-        modelo.addRow(new Object[] { 132457, 123, "FULANO DE TAL", true , true, 569 });
-        */
         btnOk.setText("Registrar Aula");
         //Seta os listeners do formulário
         ListenerRegistraAula listener = new ListenerRegistraAula(this);
@@ -184,6 +178,9 @@ public class FrameRegistraAula extends FrameCadastro {
         btnCancelar.addActionListener((ActionListener)listener);
         jcbAnoLetivo.addActionListener((ActionListener)listener);
         jcbTurma.addActionListener((ActionListener)listener);
+        jcbDia.addActionListener((ActionListener)listener);
+        jcbMes.addActionListener((ActionListener)listener);
+        jcbAno.addActionListener((ActionListener)listener);
         btnBuscar.addActionListener((ActionListener)listener);
     }
 }

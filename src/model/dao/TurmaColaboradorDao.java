@@ -35,6 +35,13 @@ public class TurmaColaboradorDao {
 		return turmaColaboradorBOList;
 	}
 	
+	public TurmaColaboradorBO consultaProfessor(int idTurma, int idColaborador) {
+		ArrayList<TurmaColaboradorBO> turmaColaboradorBOList = consulta("idTurma = " + idTurma
+				+ " && col.idColaborador = " + idColaborador
+				+ " && tipo = '" + Utils.Tipo.Professor.toString() + "'", "nome");
+		return turmaColaboradorBOList.get(0);
+	}
+	
 	public ArrayList<TurmaColaboradorBO> consulta(String sentencaSQL, String ordem) {
 		Statement sentenca;
 		ResultSet registros;

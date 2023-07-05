@@ -66,7 +66,6 @@ public class TurmaDao {
 					turmaBO.setDescricao(registros.getString("descricao"));
 					turmaBO.setAno(Integer.parseInt(registros.getString("ano")));
 					
-					
 					Calendar data = Calendar.getInstance();
 					data.setTime(registros.getDate("data_inicio"));
 					turmaBO.setDataInicio(data);

@@ -12,11 +12,11 @@ public class MatriculaBO {
     	this.alunoBO = new AlunoBO();
     }
     
-    public int getMatricula() {
+    public int getIdMatricula() {
         return this.idMatricula;
     }
        
-    public void setMatricula(int idMatricula) {
+    public void setIdMatricula(int idMatricula) {
     	this.idMatricula = idMatricula;
     }
     

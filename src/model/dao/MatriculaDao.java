@@ -34,7 +34,7 @@ public class MatriculaDao {
 	}
 	
 	public ArrayList<MatriculaBO> consultaPorTurma(int idTurma) {
-		ArrayList<MatriculaBO> matriculaBOList = consulta("idTurma = " + idTurma, "idTurma");
+		ArrayList<MatriculaBO> matriculaBOList = consulta("idTurma = " + idTurma, "nome");
 		return matriculaBOList;
 	}
 	
@@ -56,7 +56,7 @@ public class MatriculaDao {
 				do {
 					MatriculaBO matriculaBO = new MatriculaBO();
 					
-					matriculaBO.setMatricula(Integer.parseInt(registros.getString("idMatricula")));
+					matriculaBO.setIdMatricula(Integer.parseInt(registros.getString("idMatricula")));
 					matriculaBO.setIdTurma(Integer.parseInt(registros.getString("idTurma")));
 					matriculaBO.alunoBO.setId(Integer.parseInt(registros.getString("idAluno")));
 					try {

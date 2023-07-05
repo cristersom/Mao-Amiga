@@ -223,7 +223,7 @@ public class ListenerCadastroTurma implements ActionListener, ChangeListener {
 					indice = 0;
 					do {
 						try {
-							pFormulario.modelo.addRow(new Object[] {matriculaBOList.get(indice).getMatricula(), matriculaBOList.get(indice).alunoBO.getId()
+							pFormulario.modelo.addRow(new Object[] {matriculaBOList.get(indice).getIdMatricula(), matriculaBOList.get(indice).alunoBO.getId()
 									, matriculaBOList.get(indice).alunoBO.getNome(), "Aluno", matriculaBOList.get(indice).alunoBO.getCpf()
 									, sdf.format(matriculaBOList.get(indice).alunoBO.getDataNascimento().getTime())
 									, matriculaBOList.get(indice).alunoBO.getNomeMae()

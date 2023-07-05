@@ -130,7 +130,7 @@ public class ListernerConsultaAluno implements ActionListener {
 				if (matriculaDao.incluir(pFormulario.cadTurma.idTurma, pFormulario.alunoBO.getId())) {
 					
 					
-					int idMatricula = matriculaDao.consultaMatricula(pFormulario.cadTurma.idTurma, pFormulario.alunoBO.getId()).get(0).getMatricula();
+					int idMatricula = matriculaDao.consultaMatricula(pFormulario.cadTurma.idTurma, pFormulario.alunoBO.getId()).get(0).getIdMatricula();
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 					pFormulario.cadTurma.modelo.addRow(new Object[] {idMatricula, pFormulario.alunoBO.getId(),  pFormulario.alunoBO.getNome(), Utils.Tipo.Aluno.toString()
