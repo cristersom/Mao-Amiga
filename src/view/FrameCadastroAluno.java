@@ -7,6 +7,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.BorderFactory;
 import java.awt.GridBagConstraints;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeListener;
+
 import java.awt.GridBagLayout;
 
 public class FrameCadastroAluno extends FrameCadastro {
@@ -17,6 +19,7 @@ public class FrameCadastroAluno extends FrameCadastro {
     public AbaEndereco pnlEndereco;
     public AbaAnexos pnlAnexos;
     public AbaAutorizados pnlAutorizados;
+    public JTabbedPane tabbedPane;
     
     public FrameCadastroAluno(FrameConsultaAluno consAluno) {
         this();
@@ -63,7 +66,7 @@ public class FrameCadastroAluno extends FrameCadastro {
 		gridBagLayout.columnWidths = new int[] { 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0 };
         
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 		gbc_tabbedPane.gridx = 0;
@@ -89,11 +92,15 @@ public class FrameCadastroAluno extends FrameCadastro {
         pnlAutorizados = new AbaAutorizados();
         pnlAutorizados.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tabbedPane.addTab("Autorizados", null, pnlAutorizados, null);
+        btnOk.setText("Salvar");
         
         ListenerCadastroAluno listener = new ListenerCadastroAluno(this);
         btnOk.addActionListener((ActionListener)listener);
         btnCancelar.addActionListener((ActionListener)listener);
         pnlEndereco.btnBuscaCep.addActionListener((ActionListener)listener);
         pnlAluno.txtCpf.addKeyListener((KeyListener)listener);
+        pnlAutorizados.btnIncluir.addActionListener((ActionListener)listener);
+        pnlAutorizados.btnExcluir.addActionListener((ActionListener)listener);
+        tabbedPane.addChangeListener((ChangeListener)listener);
     }
 }

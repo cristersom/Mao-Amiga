@@ -6,17 +6,27 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyVetoException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import model.bo.AlunoBO;
+import model.bo.AutorizadoBO;
 import model.dao.AlunoDao;
+import model.dao.AutorizadoDao;
 import model.exceptions.CpfInvalidoException;
 import model.exceptions.StringVaziaException;
 import view.FrameCadastroAluno;
 import view.FrameConsultaCEP;
 
-public class ListenerCadastroAluno implements ActionListener, KeyListener {
+public class ListenerCadastroAluno implements ActionListener, KeyListener, ChangeListener {
 
 	private FrameCadastroAluno pFormulario;
+	private AutorizadoBO autorizadoBO = new AutorizadoBO();
+	private AutorizadoDao autorizadoDao = new AutorizadoDao();
 
 	public ListenerCadastroAluno(FrameCadastroAluno pFormulario) {
 		this.pFormulario = pFormulario;
@@ -33,7 +43,59 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener {
 			FrameConsultaCEP fr = new FrameConsultaCEP(this.pFormulario);
 			fr.setVisible(true);
 			pFormulario.getDesktopPane().add(fr);
-
+		} else if (origem == pFormulario.pnlAutorizados.btnIncluir) {
+			autorizadoBO.setIdAluno(pFormulario.idAluno);
+			if(pFormulario.pnlAutorizados.txtNomeAutor.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(pFormulario, "Informe um nome para o autorizado!", "Mensagem", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			autorizadoBO.setNome(pFormulario.pnlAutorizados.txtNomeAutor.getText());
+			autorizadoBO.setCelular(pFormulario.pnlAutorizados.txtCelular.getText());
+			autorizadoBO.setFoneComercial(pFormulario.pnlAutorizados.txtFoneComercial.getText());
+			try {
+				autorizadoBO.dataInicio.setData(pFormulario.pnlAutorizados.txtDataIni.getText());
+				autorizadoBO.dataFim.setData(pFormulario.pnlAutorizados.txtDataFim.getText());
+			} catch (ParseException e1) {
+				JOptionPane.showMessageDialog(this.pFormulario, "Data inválida", "Erro", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			autorizadoBO.setTipo(pFormulario.pnlAutorizados.jcbTipo.getSelectedItem().toString());
+			if(autorizadoDao.incluir(autorizadoBO)){
+				// apaga todas as linhas da tabela
+				for (int i = pFormulario.pnlAutorizados.modelo.getRowCount() - 1; i >= 0; i--)
+					pFormulario.pnlAutorizados.modelo.removeRow(i);
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				ArrayList<AutorizadoBO> autorizadoBOList = autorizadoDao.consultaPorIdAluno(pFormulario.idAluno);
+				int indice = 0;
+				do {
+					pFormulario.pnlAutorizados.modelo.addRow(new Object[] {autorizadoBOList.get(indice).getNome(), autorizadoBOList.get(indice).getCelular()
+							, autorizadoBOList.get(indice).getFoneComercial(), autorizadoBOList.get(indice).getTipo()
+							, sdf.format(autorizadoBOList.get(indice).dataInicio.getData().getTime())
+							, sdf.format(autorizadoBOList.get(indice).dataFim.getData().getTime())
+							, autorizadoBOList.get(indice).getIdAutorizado()
+					});
+					indice++;
+				} while(indice < autorizadoBOList.size());
+		
+				JOptionPane.showMessageDialog(pFormulario, "Registro incluido!", "Mensagem",
+						JOptionPane.WARNING_MESSAGE);
+			}
+			
+		} else if (origem == pFormulario.pnlAutorizados.btnExcluir) {
+			if (pFormulario.pnlAutorizados.tabela.getSelectedRow() >= 0) {
+				if (JOptionPane.showConfirmDialog(pFormulario, "Confirma exclusão?", "Confirmacao",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					
+					int idAutorizado = Integer.parseInt(pFormulario.pnlAutorizados.modelo.getValueAt(pFormulario.pnlAutorizados.tabela.getSelectedRow(), 6).toString());
+					if(autorizadoDao.excluir(idAutorizado)) {
+						pFormulario.pnlAutorizados.modelo.removeRow(pFormulario.pnlAutorizados.tabela.getSelectedRow());
+					}
+				}
+			} else
+				JOptionPane.showMessageDialog(pFormulario, "Escolha um registro!", "Mensagem",
+						JOptionPane.WARNING_MESSAGE);
+			
 		} else if (origem == pFormulario.btnOk) {
 			
 			alunoBO.setTipo(pFormulario.pnlAluno.jcbTipo.getSelectedItem().toString());
@@ -104,7 +166,7 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener {
 			try {
 				alunoBO.setNumero(Integer.parseInt(pFormulario.pnlEndereco.txtNumero.getText()));
 			} catch (NumberFormatException e1) {
-				JOptionPane.showMessageDialog(pFormulario, "Campo \"Número\" deve ser numérico!", "Mensagem",
+				JOptionPane.showMessageDialog(pFormulario, "Campo Número deve ser numérico!", "Mensagem",
 						JOptionPane.WARNING_MESSAGE);
 				pFormulario.pnlEndereco.txtNumero.selectAll();
 				pFormulario.pnlEndereco.txtNumero.requestFocus();
@@ -175,6 +237,27 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void stateChanged(ChangeEvent e) {
+		if (pFormulario.tabbedPane.getSelectedComponent() == pFormulario.pnlAutorizados) {
+			// apaga todas as linhas da tabela
+			for (int i = pFormulario.pnlAutorizados.modelo.getRowCount() - 1; i >= 0; i--)
+				pFormulario.pnlAutorizados.modelo.removeRow(i);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			ArrayList<AutorizadoBO> autorizadoBOList = autorizadoDao.consultaPorIdAluno(pFormulario.idAluno);
+			int indice = 0;
+			do {
+				pFormulario.pnlAutorizados.modelo.addRow(new Object[] {autorizadoBOList.get(indice).getNome(), autorizadoBOList.get(indice).getCelular()
+						, autorizadoBOList.get(indice).getFoneComercial(), autorizadoBOList.get(indice).getTipo()
+						, sdf.format(autorizadoBOList.get(indice).dataInicio.getData().getTime())
+						, sdf.format(autorizadoBOList.get(indice).dataFim.getData().getTime())
+						, autorizadoBOList.get(indice).getIdAutorizado()
+				});
+				indice++;
+			} while(indice < autorizadoBOList.size());
+		}
 	}
 
 }

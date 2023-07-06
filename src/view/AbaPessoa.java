@@ -17,8 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.JPanel;
 
 public class AbaPessoa extends JPanel {
-    public JTextField txtNome, txtCpf, txtRG, txtCertNascimento, txtNomePai, txtNomeMae, txtNacionalidade, txtIdiomaMaterno
-    	 , txtEmail, txtCelular, txtFoneComercial, txtLocalTrabalho;
+    public JTextField txtNome, txtCpf, txtRG, txtCertNascimento, txtNomePai, txtNomeMae, txtNacionalidade, txtIdiomaMaterno;
     public TextArea txtFichaSaude, txtInfEducacao, txtObservacoes;
     public JComboBox<Integer> jcbDia, jcbAno;
     public JComboBox<String> jcbMes, jcbTipo, jcbSexo;

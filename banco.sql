@@ -149,7 +149,7 @@ CREATE TABLE aluno_autorizados(
   idAluno integer NOT NULL,
   nome varchar(80) NOT NULL,
   celular varchar(15),
-  telefone varchar(15),
+  foneComercial varchar(15),
   tipo varchar(25) NOT NULL,
   dataInicio date NOT NULL,
   dataFim date NOT NULL,
