@@ -177,3 +177,15 @@ CREATE TABLE frequencia(
   CONSTRAINT pk_Frequencia PRIMARY KEY (idAula, idMatricula),
   CONSTRAINT fk_Freq_Matricula FOREIGN KEY (idMatricula) REFERENCES contrato_matricula(idMatricula)
 );
+
+CREATE TABLE arquivo(
+  idArquivo integer NOT NULL AUTO_INCREMENT,
+  idAluno integer NOT NULL,
+  nome varchar(50) NOT NULL,
+  descricao varchar(50),
+  dataInclusao date NOT NULL,
+  diretorio varchar(50) NOT NULL,
+  CONSTRAINT pk_Arquivo PRIMARY KEY (idArquivo),
+  CONSTRAINT uk_Arquivo UNIQUE (idAluno, nome),
+  CONSTRAINT fk_Aluno_Arquivo FOREIGN KEY (idAluno) REFERENCES aluno(idAluno)
+);

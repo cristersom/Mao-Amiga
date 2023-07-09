@@ -6,15 +6,19 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import model.bo.ParametrosBO;
+import view.Utils;
+
 public class Conexao {
 
 	public static Connection conectaBanco() {
 		Connection conexao = null;
+		ParametrosBO parametrosBO = Utils.getParametros();//busca a configuração no arquivo config.ini
 		try {
 
 			// Conexão MySql
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/my_Sql", "root", "123456");
+			conexao = DriverManager.getConnection("jdbc:mysql:" + parametrosBO.getServidorBancoDados(), parametrosBO.getUsuarioBanco(), parametrosBO.getSenhaBanco());
 			// conexao = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/mao_amiga", "maoamiga", "123456789");
 
 		} catch (SQLException eSQL) {

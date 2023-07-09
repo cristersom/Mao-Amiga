@@ -42,6 +42,7 @@ public class AbaAutorizados extends JPanel {
         gbl_pnlTop.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
         gbl_pnlTop.columnWeights = new double[]{0.0, 0.2, 0.0, 0.0, 0.2, 0.0, 0.0, 0.0};
         pnlTop.setLayout(gbl_pnlTop);
+        this.add(pnlTop, "South");
         
         JLabel lblNomeAutor = new JLabel("Nome:");
         GridBagConstraints gbc_lblNomeAutor = new GridBagConstraints();
@@ -61,40 +62,50 @@ public class AbaAutorizados extends JPanel {
         gbc_txtNomeAutor.gridy = 0;
         pnlTop.add(txtNomeAutor, gbc_txtNomeAutor);
         
-        JLabel lblTipo = new JLabel("Tipo:");
-        GridBagConstraints gbc_lblTipo = new GridBagConstraints();
-        gbc_lblTipo.insets = new Insets(5, 5, 5, 5);
-        gbc_lblTipo.anchor = GridBagConstraints.EAST;
-        gbc_lblTipo.gridx = 5;
-        gbc_lblTipo.gridy = 0;
-        pnlTop.add(lblTipo, gbc_lblTipo);
+        JLabel lblDataIni = new JLabel("Data Início:");
+        GridBagConstraints gbc_lblDataIni = new GridBagConstraints();
+        gbc_lblDataIni.insets = new Insets(5, 5, 5, 5);
+        gbc_lblDataIni.anchor = GridBagConstraints.EAST;
+        gbc_lblDataIni.gridx = 5;
+        gbc_lblDataIni.gridy = 0;
+        pnlTop.add(lblDataIni, gbc_lblDataIni);
         
-        (jcbTipo = new JComboBox<String>()).setToolTipText("Tipo");
-        jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.Busca.toString(), Utils.Tipo.Emêrgencia.toString() }));
-        GridBagConstraints gbc_jcbTipo = new GridBagConstraints();
-        gbc_jcbTipo.insets = new Insets(5, 5, 5, 5);
-        gbc_jcbTipo.anchor = GridBagConstraints.EAST;
-        gbc_jcbTipo.gridx = 6;
-        gbc_jcbTipo.gridy = 0;
-        pnlTop.add(jcbTipo, gbc_jcbTipo);
+        try {
+            txtDataIni = new JFormattedTextField(new MaskFormatter("##/##/####"));
+        }
+        catch (ParseException e2) {
+            e2.printStackTrace();
+        }
+        txtDataIni.setColumns(15);
+        GridBagConstraints gbc_txtDataIni = new GridBagConstraints();
+        gbc_txtDataIni.fill = GridBagConstraints.HORIZONTAL;
+        gbc_txtDataIni.insets = new Insets(5, 5, 5, 5);
+        gbc_txtDataIni.gridx = 6;
+        gbc_txtDataIni.gridy = 0;
+        pnlTop.add(txtDataIni, gbc_txtDataIni);
         
-        btnIncluir = new JButton("Incluir");
-        GridBagConstraints gbc_btnIncluir = new GridBagConstraints();
-        gbc_btnIncluir.insets = new Insets(5, 5, 5, 5);
-        gbc_btnIncluir.anchor = GridBagConstraints.EAST;
-        gbc_btnIncluir.gridx = 7;
-        gbc_btnIncluir.gridy = 0;
-        pnlTop.add(btnIncluir, gbc_btnIncluir);
+        JLabel lblDataFim = new JLabel("Data Fim:");
+        GridBagConstraints gbc_lblDataFim = new GridBagConstraints();
+        gbc_lblDataFim.insets = new Insets(5, 5, 5, 5);
+        gbc_lblDataFim.anchor = GridBagConstraints.EAST;
+        gbc_lblDataFim.gridx = 7;
+        gbc_lblDataFim.gridy = 0;
+        pnlTop.add(lblDataFim, gbc_lblDataFim);
         
-        btnExcluir = new JButton("Excluir");		
-        GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
-        gbc_btnExcluir.insets = new Insets(5, 5, 5, 0);
-        gbc_btnExcluir.anchor = GridBagConstraints.WEST;
-        gbc_btnExcluir.gridx = 8;
-        gbc_btnExcluir.gridy = 0;
-        pnlTop.add(btnExcluir, gbc_btnExcluir);
-        
-        
+        try {
+            txtDataFim = new JFormattedTextField(new MaskFormatter("##/##/####"));
+        }
+        catch (ParseException e2) {
+            e2.printStackTrace();
+        }
+        txtDataFim.setColumns(15);
+        GridBagConstraints gbc_txtDataFim = new GridBagConstraints();
+        gbc_txtDataFim.fill = GridBagConstraints.HORIZONTAL;
+        gbc_txtDataFim.insets = new Insets(5, 5, 0, 0);
+        gbc_txtDataFim.gridx = 8;
+        gbc_txtDataFim.gridy = 0;
+        pnlTop.add(txtDataFim, gbc_txtDataFim);
+                
         JLabel lblCelular = new JLabel("Celular:");
         GridBagConstraints gbc_lblCelular = new GridBagConstraints();
         gbc_lblCelular.insets = new Insets(5, 5, 5, 5);
@@ -116,9 +127,7 @@ public class AbaAutorizados extends JPanel {
         gbc_txtCelular.gridx = 1;
         gbc_txtCelular.gridy = 1;
         pnlTop.add(txtCelular, gbc_txtCelular);
-        
-        this.add(pnlTop, "North");
-        
+                
         JLabel lblFoneComercial = new JLabel("Telefone Comercial:");
         GridBagConstraints gbc_lblFoneComercial = new GridBagConstraints();
         gbc_lblFoneComercial.insets = new Insets(5, 5, 5, 5);
@@ -140,50 +149,41 @@ public class AbaAutorizados extends JPanel {
         gbc_txtFoneComercial.gridy = 1;
         pnlTop.add(txtFoneComercial, gbc_txtFoneComercial);
         
-        JLabel lblDataIni = new JLabel("Data Início:");
-        GridBagConstraints gbc_lblDataIni = new GridBagConstraints();
-        gbc_lblDataIni.insets = new Insets(5, 5, 5, 5);
-        gbc_lblDataIni.anchor = GridBagConstraints.EAST;
-        gbc_lblDataIni.gridx = 5;
-        gbc_lblDataIni.gridy = 1;
-        pnlTop.add(lblDataIni, gbc_lblDataIni);
         
-        try {
-            txtDataIni = new JFormattedTextField(new MaskFormatter("##/##/####"));
-        }
-        catch (ParseException e2) {
-            e2.printStackTrace();
-        }
-        txtDataIni.setColumns(15);
-        GridBagConstraints gbc_txtDataIni = new GridBagConstraints();
-        gbc_txtDataIni.fill = GridBagConstraints.HORIZONTAL;
-        gbc_txtDataIni.insets = new Insets(5, 5, 5, 5);
-        gbc_txtDataIni.gridx = 6;
-        gbc_txtDataIni.gridy = 1;
-        pnlTop.add(txtDataIni, gbc_txtDataIni);
-       
-        JLabel lblDataFim = new JLabel("Data Fim:");
-        GridBagConstraints gbc_lblDataFim = new GridBagConstraints();
-        gbc_lblDataFim.insets = new Insets(5, 5, 5, 5);
-        gbc_lblDataFim.anchor = GridBagConstraints.EAST;
-        gbc_lblDataFim.gridx = 7;
-        gbc_lblDataFim.gridy = 1;
-        pnlTop.add(lblDataFim, gbc_lblDataFim);
+        JLabel lblTipo = new JLabel("Tipo:");
+        GridBagConstraints gbc_lblTipo = new GridBagConstraints();
+        gbc_lblTipo.insets = new Insets(5, 5, 5, 5);
+        gbc_lblTipo.anchor = GridBagConstraints.EAST;
+        gbc_lblTipo.gridx = 5;
+        gbc_lblTipo.gridy = 1;
+        pnlTop.add(lblTipo, gbc_lblTipo);
         
-        try {
-            txtDataFim = new JFormattedTextField(new MaskFormatter("##/##/####"));
-        }
-        catch (ParseException e2) {
-            e2.printStackTrace();
-        }
-        txtDataFim.setColumns(15);
-        GridBagConstraints gbc_txtDataFim = new GridBagConstraints();
-        gbc_txtDataFim.fill = GridBagConstraints.HORIZONTAL;
-        gbc_txtDataFim.insets = new Insets(5, 5, 0, 0);
-        gbc_txtDataFim.gridx = 8;
-        gbc_txtDataFim.gridy = 1;
-        pnlTop.add(txtDataFim, gbc_txtDataFim);
         
+        (jcbTipo = new JComboBox<String>()).setToolTipText("Tipo");
+        jcbTipo.setModel(new DefaultComboBoxModel<String>(new String[] { Utils.Tipo.Busca.toString(), Utils.Tipo.Emêrgencia.toString() }));
+        GridBagConstraints gbc_jcbTipo = new GridBagConstraints();
+        gbc_jcbTipo.insets = new Insets(5, 5, 5, 5);
+        gbc_jcbTipo.anchor = GridBagConstraints.EAST;
+        gbc_jcbTipo.gridx = 6;
+        gbc_jcbTipo.gridy = 1;
+        pnlTop.add(jcbTipo, gbc_jcbTipo);
+        
+        btnIncluir = new JButton("Incluir");
+        GridBagConstraints gbc_btnIncluir = new GridBagConstraints();
+        gbc_btnIncluir.insets = new Insets(5, 5, 5, 5);
+        gbc_btnIncluir.anchor = GridBagConstraints.EAST;
+        gbc_btnIncluir.gridx = 7;
+        gbc_btnIncluir.gridy = 1;
+        pnlTop.add(btnIncluir, gbc_btnIncluir);
+        
+        btnExcluir = new JButton("Excluir");		
+        GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
+        gbc_btnExcluir.insets = new Insets(5, 5, 5, 0);
+        gbc_btnExcluir.anchor = GridBagConstraints.WEST;
+        gbc_btnExcluir.gridx = 8;
+        gbc_btnExcluir.gridy = 1;
+        pnlTop.add(btnExcluir, gbc_btnExcluir);
+            
         
         ArrayList dadosAutor = new ArrayList();
         String[] colunasAutor = { "Nome", "Celular", "Telefone", "Tipo", "Data Início", "Data Fim", "idAutorizado" };

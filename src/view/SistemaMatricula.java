@@ -102,7 +102,7 @@ public class SistemaMatricula extends JFrame
         
         ImageIcon imgResponsavel = new ImageIcon("responsavel.png");
         imgResponsavel.setImage(imgResponsavel.getImage().getScaledInstance(width, height, hints));
-        (itemConsultaResponsavel = new JMenuItem("Respons\u00e1vel")).setIcon(imgResponsavel);
+        (itemConsultaResponsavel = new JMenuItem("Responsável")).setIcon(imgResponsavel);
         menuConsulta.add(itemConsultaResponsavel);
         
         ImageIcon imgAutorizado = new ImageIcon("autorizado.png");

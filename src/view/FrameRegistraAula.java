@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -132,7 +133,7 @@ public class FrameRegistraAula extends FrameCadastro {
         
 		//Painel Central ##########################################################################################
 		JPanel pnlAlunos = new JPanel(new BorderLayout());
-        pnlAlunos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlAlunos.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         pnlCenter.add(pnlAlunos, BorderLayout.CENTER);
                 
         ArrayList dados = new ArrayList();
@@ -160,16 +161,35 @@ public class FrameRegistraAula extends FrameCadastro {
         pnlAlunos.add(rolagemTabela, BorderLayout.CENTER);
         
         //Painel inferior ###########################################################################
-        //Painel Superior
 		JPanel pnlBottom = new JPanel();
+       // pnlTop.setBorder(BorderFactory.createBevelBorder(1));
+        GridBagLayout gbl_pnlBottom = new GridBagLayout();
+        gbl_pnlBottom.columnWidths = new int[]{0, 0, 0, 0, 0};
+        gbl_pnlBottom.columnWeights = new double[]{0.0, 1.0};
+        pnlBottom.setLayout(gbl_pnlBottom);
 		pnlCenter.add(pnlBottom, BorderLayout.SOUTH);
-    
-		JLabel lblConteudo = new JLabel("Conteúdo Ministrado:");
-		pnlBottom.add(lblConteudo);
 		
-		txtConteudoMinistrado = new JTextArea(4,90);	
-		txtConteudoMinistrado.setLineWrap(true);
-		pnlBottom.add(txtConteudoMinistrado);
+		
+		JLabel lblConteudo = new JLabel("Conteúdo Ministrado:");
+		GridBagConstraints gbc_lblConteudo = new GridBagConstraints();
+		gbc_lblConteudo.insets = new Insets(5, 5, 5, 5);
+		gbc_lblConteudo.anchor = GridBagConstraints.WEST;
+		gbc_lblConteudo.gridheight = 5;
+		gbc_lblConteudo.gridx = 0;
+		gbc_lblConteudo.gridy = 0;
+		pnlBottom.add(lblConteudo,gbc_lblConteudo);
+        
+        		
+        		txtConteudoMinistrado = new JTextArea();	
+        		txtConteudoMinistrado.setRows(5);
+        		txtConteudoMinistrado.setLineWrap(true);
+        		GridBagConstraints gbc_txtConteudoMinistrado = new GridBagConstraints();
+        		gbc_txtConteudoMinistrado.insets = new Insets(5, 5, 5, 5);
+        		gbc_txtConteudoMinistrado.fill = GridBagConstraints.BOTH;
+        		gbc_txtConteudoMinistrado.gridx = 1;
+        		gbc_txtConteudoMinistrado.gridy = 0;
+        		pnlBottom.add(txtConteudoMinistrado, gbc_txtConteudoMinistrado);
+
         
         btnOk.setText("Registrar Aula");
         //Seta os listeners do formulário

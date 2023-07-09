@@ -94,13 +94,18 @@ public class FrameCadastroAluno extends FrameCadastro {
         tabbedPane.addTab("Autorizados", null, pnlAutorizados, null);
         btnOk.setText("Salvar");
         
+        //seta os listeners do formulário
         ListenerCadastroAluno listener = new ListenerCadastroAluno(this);
         btnOk.addActionListener((ActionListener)listener);
         btnCancelar.addActionListener((ActionListener)listener);
         pnlEndereco.btnBuscaCep.addActionListener((ActionListener)listener);
         pnlAluno.txtCpf.addKeyListener((KeyListener)listener);
+        pnlAnexos.btnAnexar.addActionListener((ActionListener)listener);
+        pnlAnexos.btnExcluir.addActionListener((ActionListener)listener);
+        pnlAnexos.btnAbrir.addActionListener((ActionListener)listener);
         pnlAutorizados.btnIncluir.addActionListener((ActionListener)listener);
         pnlAutorizados.btnExcluir.addActionListener((ActionListener)listener);
         tabbedPane.addChangeListener((ChangeListener)listener);
+                
     }
 }
