@@ -182,7 +182,7 @@ public class FrameCadastroTurma extends JInternalFrame
         gbc_textDataFim.gridy = 0;
         pnlCenter.add(txtDataFim, gbc_textDataFim);
         
-        lblTurma = new JLabel("Turma:");
+        lblTurma = new JLabel("Código:");
         GridBagConstraints gbc_lblTurma = new GridBagConstraints();
         gbc_lblTurma.anchor = 13;
         gbc_lblTurma.insets = new Insets(5, 5, 5, 5);

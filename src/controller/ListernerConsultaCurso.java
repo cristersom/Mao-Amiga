@@ -32,7 +32,7 @@ public class ListernerConsultaCurso implements ActionListener {
 			for (int i = pFormulario.modelo.getRowCount() - 1; i >= 0; i--)
 				pFormulario.modelo.removeRow(i);
 
-			if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Código")) {
+			if (pFormulario.jcbconsultaPor.getSelectedItem().equals("ID")) {
 				cursoBO = cursoDao.consultaPorCodigo(Integer.parseInt(pFormulario.txtConsulta.getText()));
 			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Curso")) {
 				cursoBO = cursoDao.consultaPorCurso(pFormulario.txtConsulta.getText());

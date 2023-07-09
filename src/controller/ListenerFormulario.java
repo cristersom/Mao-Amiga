@@ -11,6 +11,7 @@ import view.FrameCadastroCurso;
 import view.FrameCadastroResponsavel;
 import view.FrameCadastroTurma;
 import view.FrameConsultaAluno;
+import view.FrameConsultaAutorizado;
 import view.FrameCadastroAluno;
 import view.FrameConsultaCEP;
 import view.FrameConsultaCidade;
@@ -178,17 +179,8 @@ public class ListenerFormulario implements ActionListener {
 			} catch (PropertyVetoException exc) {
 			}
 			//fr.txtResponsavel.requestFocus();
-		} else if (origem == pFormulario.itemConsultaAula || origem == pFormulario.btnAula) {
-			FrameRegistraAula fr = new FrameRegistraAula();
-			fr.setVisible(true);
-			pFormulario.DPane.add(fr);
-			try {
-				fr.setSelected(true);
-			} catch (PropertyVetoException exc) {
-			}
-			fr.jcbTurma.requestFocus();
 
-		/*} else if (origem == pFormulario.itemCadastroAula) {
+		/*} else if (origem == pFormulario.itemConsultaAula) {
 			FrameCadastroColaborador fr = new FrameCadastroColaborador();
 			fr.setVisible(true);
 			pFormulario.DPane.add(fr);
@@ -198,6 +190,25 @@ public class ListenerFormulario implements ActionListener {
 			}
 			//fr.txtResponsavel.requestFocus();
 */
+		} else if (origem == pFormulario.itemRegistraAula || origem == pFormulario.btnAula) {
+			FrameRegistraAula fr = new FrameRegistraAula();
+			fr.setVisible(true);
+			pFormulario.DPane.add(fr);
+			try {
+				fr.setSelected(true);
+			} catch (PropertyVetoException exc) {
+			}
+			fr.jcbTurma.requestFocus();
+			
+		} else if (origem == pFormulario.itemConsultaAutorizado || origem == pFormulario.btnAutorizado) {
+			FrameConsultaAutorizado fr = new FrameConsultaAutorizado();
+			fr.setVisible(true);
+			pFormulario.DPane.add(fr);
+			try {
+				fr.setSelected(true);
+			} catch (PropertyVetoException exc) {
+			}
+			fr.txtConsulta.requestFocus();
 		} else {
 			if (JOptionPane.showConfirmDialog(this.pFormulario, "Deseja encerrar a aplicação?", "Confirmação",
 					JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)

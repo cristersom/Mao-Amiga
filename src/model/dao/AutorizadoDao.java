@@ -28,12 +28,17 @@ public class AutorizadoDao {
 	}
 
 	public ArrayList<AutorizadoBO> consultaPorIdAluno(int idAluno) {
-		ArrayList<AutorizadoBO> autorizadoBOList = consulta("idAluno =" + idAluno, "nome");
+		ArrayList<AutorizadoBO> autorizadoBOList = consulta("aut.idAluno =" + idAluno, "aut.nome");
 		return autorizadoBOList;
 	}
 	
 	public ArrayList<AutorizadoBO> consultaPorNome(String nome) {
-		ArrayList<AutorizadoBO> autorizadoBOList = consulta("nome = UPPER('" + nome + "') OR nome LIKE UPPER('%" + nome + "%')", "nome");
+		ArrayList<AutorizadoBO> autorizadoBOList = consulta("aut.nome = UPPER('" + nome + "') OR aut.nome LIKE UPPER('%" + nome + "%')", "aut.nome");
+		return autorizadoBOList;
+	}
+	
+	public ArrayList<AutorizadoBO> consultaPorNomeAluno(String nome) {
+		ArrayList<AutorizadoBO> autorizadoBOList = consulta("al.nome = UPPER('" + nome + "') OR al.nome LIKE UPPER('%" + nome + "%')", "al.nome, aut.nome");
 		return autorizadoBOList;
 	}
 
@@ -50,7 +55,9 @@ public class AutorizadoDao {
 			sentenca = con.createStatement();
 
 			// faz a consulta
-			registros = sentenca.executeQuery("SELECT * FROM aluno_autorizados WHERE " + sentencaSQL + " Order By " + ordem);
+			registros = sentenca.executeQuery("SELECT idAutorizado, aut.idAluno, aut.nome, al.nome, aut.celular, aut.foneComercial, aut.tipo, dataInicio, dataFim"
+					+ " FROM aluno_autorizados aut INNER JOIN aluno al ON aut.idAluno = al.idAluno"
+					+ " WHERE " + sentencaSQL + " Order By " + ordem);
 
 			if (registros.next()) {
 				ArrayList<AutorizadoBO> autorizadoBOList = new ArrayList<AutorizadoBO>();
@@ -59,7 +66,8 @@ public class AutorizadoDao {
 
 					autorizadoBO.setIdAutorizado(Integer.parseInt(registros.getString("idAutorizado")));
 					autorizadoBO.setIdAluno(Integer.parseInt(registros.getString("idAluno")));
-					autorizadoBO.setNome(registros.getString("nome"));
+					autorizadoBO.setNome(registros.getString("aut.nome"));
+					autorizadoBO.setNomeAluno(registros.getString("al.nome"));
 					autorizadoBO.setCelular(registros.getString("celular"));
 					autorizadoBO.setFoneComercial(registros.getString("foneComercial"));
 					autorizadoBO.setTipo(registros.getString("tipo"));

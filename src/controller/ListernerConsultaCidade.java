@@ -32,7 +32,7 @@ public class ListernerConsultaCidade implements ActionListener {
 			for (int i = pFormulario.modelo.getRowCount() - 1; i >= 0; i--)
 				pFormulario.modelo.removeRow(i);
 
-			if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Código")) {
+			if (pFormulario.jcbconsultaPor.getSelectedItem().equals("ID")) {
 				try {
 					cidBO = cidDao.consultaPorCodigo(Integer.parseInt(pFormulario.txtConsulta.getText()));
 				} catch (NumberFormatException e1) {

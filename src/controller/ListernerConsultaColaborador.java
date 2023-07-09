@@ -48,7 +48,7 @@ public class ListernerConsultaColaborador implements ActionListener {
 			for (int i = pFormulario.modelo.getRowCount() - 1; i >= 0; i--)
 				pFormulario.modelo.removeRow(i);
 
-			if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Código")) {
+			if (pFormulario.jcbconsultaPor.getSelectedItem().equals("ID")) {
 				try {
 					colaboradorBO = colaboradorDao.consultaPorCodigo(Integer.parseInt(pFormulario.txtConsulta.getText()));
 				} catch (NumberFormatException e1) {
@@ -62,7 +62,7 @@ public class ListernerConsultaColaborador implements ActionListener {
 				colaboradorBO = colaboradorDao.consultaPorCpf(pFormulario.txtConsulta.getText());
 			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Nome")) {
 				colaboradorBO = colaboradorDao.consultaPorNome(pFormulario.txtConsulta.getText());
-			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Código")) {
+			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("ID")) {
 				try {
 					colaboradorBO = colaboradorDao.consultaPorCodigo(Integer.parseInt(pFormulario.txtConsulta.getText()));
 				} catch (NumberFormatException e1) {

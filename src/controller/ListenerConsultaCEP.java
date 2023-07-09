@@ -37,7 +37,7 @@ public class ListenerConsultaCEP implements ActionListener {
 				cepBO = cepDao.consultaPorCep(pFormulario.txtConsulta.getText());
 			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Cidade")) {
 				cepBO = cepDao.consultaPorCidade(pFormulario.txtConsulta.getText());
-			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Endereço")) {
+			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Logradouro")) {
 				cepBO = cepDao.consultaPorLogradouro(pFormulario.txtConsulta.getText());
 			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Bairro")) {
 				cepBO = cepDao.consultaPorBairro(pFormulario.txtConsulta.getText());

@@ -43,7 +43,7 @@ public class FrameRegistraAula extends FrameCadastro {
 	
     public FrameRegistraAula() {
     	pnlCenter.setLayout(new BorderLayout(0, 0));
-        this.setTitle("Registro de Presença");
+        this.setTitle("Registro de Aula");
         
         //Painel Superior #######################################################################################
 		JPanel pnlTop = new JPanel();
@@ -138,7 +138,7 @@ public class FrameRegistraAula extends FrameCadastro {
                 
         ArrayList dados = new ArrayList();
         //dados = (ArrayList) Arrays.asList("","","","Boolean","Boolena","");
-        String[] colunas = { "Matricula", "ID", "Nomel do Aluno", "Presente Manhã?", "Presente Tarde?", "idTurma"};
+        String[] colunas = { "Matricula", "ID", "Nome do Aluno", "Presente Manhã?", "Presente Tarde?", "idTurma"};
         boolean[] edicao = { false, false, false, true, true, false };
         modelo = new ModeloTabela(dados, colunas, edicao);
         tabela = new JTable(modelo);

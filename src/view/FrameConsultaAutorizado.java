@@ -8,26 +8,26 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import controller.ListernerConsultaResponsavel;
-import model.bo.ResponsavelBO;
+import controller.ListernerConsultaAutorizado;
+import model.bo.AutorizadoBO;
 
-public class FrameConsultaResponsavel extends FrameConsulta {
+public class FrameConsultaAutorizado extends FrameConsulta {
 	public JTable tabela;
 	public ModeloTabela modelo;
-	public ResponsavelBO responsavelBO;
+	public AutorizadoBO autorizadoBO;
 	public FrameCadastroTurma cadTurma;
 	
-	public FrameConsultaResponsavel(FrameCadastroTurma cadTurma) {
+	public FrameConsultaAutorizado(FrameCadastroTurma cadTurma) {
 		this();
 		this.cadTurma = cadTurma;
 	}
 	
-	public FrameConsultaResponsavel() {
-		jcbconsultaPor.setModel(new DefaultComboBoxModel(new String[] { "Nome", "CPF", "ID" }));
+	public FrameConsultaAutorizado() {
+		jcbconsultaPor.setModel(new DefaultComboBoxModel(new String[] { "Nome Autorizado", "Nome Aluno"}));
 		setTitle("Consulta Responsável");
 		
 		ArrayList dados = new ArrayList();
-		String[] colunas = new String[] { "ID", "Nome", "Tipo", "CPF", "Endereço", "CEP" };
+		String[] colunas = new String[] { "Nome Aluno", "Nome Autorizado", "Celular", "Telefone", "Tipo", "Data Início", "Data Fim"};
 		boolean[] edicao = { false, false, false, false, false  };
 
 		modelo = new ModeloTabela(dados, colunas, edicao);
@@ -39,30 +39,33 @@ public class FrameConsultaResponsavel extends FrameConsulta {
 					btnAlterar.doClick();
 			}
 		});
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(100);
 		tabela.getColumnModel().getColumn(0).setResizable(true);
 		tabela.getColumnModel().getColumn(1).setPreferredWidth(100);
 		tabela.getColumnModel().getColumn(1).setResizable(true);
-		tabela.getColumnModel().getColumn(2).setPreferredWidth(80);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(50);
 		tabela.getColumnModel().getColumn(2).setResizable(true);
 		tabela.getColumnModel().getColumn(3).setPreferredWidth(50);
 		tabela.getColumnModel().getColumn(3).setResizable(true);
-		tabela.getColumnModel().getColumn(4).setPreferredWidth(300);
+		tabela.getColumnModel().getColumn(4).setPreferredWidth(10);
 		tabela.getColumnModel().getColumn(4).setResizable(true);
 		tabela.getColumnModel().getColumn(5).setPreferredWidth(40);
 		tabela.getColumnModel().getColumn(5).setResizable(true);
+		tabela.getColumnModel().getColumn(6).setPreferredWidth(40);
+		tabela.getColumnModel().getColumn(6).setResizable(true);
 		tabela.getTableHeader().setReorderingAllowed(false);
 		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane rolagemTabela = new JScrollPane(tabela);
 		pnlMain.add(rolagemTabela, BorderLayout.CENTER);
 
+		btnSelecionar.setVisible(false);
+		btnAlterar.setVisible(false);
+		btnIncluir.setVisible(false);
+		btnExlcuir.setVisible(false);
+		
 		// aqui é setado o controller desse frame
-		ListernerConsultaResponsavel listener = new ListernerConsultaResponsavel(this);
-		btnSelecionar.addActionListener(listener);
+		ListernerConsultaAutorizado listener = new ListernerConsultaAutorizado(this);
 		btnConsultar.addActionListener(listener);
-		btnAlterar.addActionListener(listener);
-		btnIncluir.addActionListener(listener);
-		btnExlcuir.addActionListener(listener);
 	}
 }

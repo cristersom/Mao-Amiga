@@ -132,7 +132,7 @@ public class SistemaMatricula extends JFrame
         
         (itemCadastroAluno = new JMenuItem("Aluno")).setIcon(imgAluno);
         menuCadastro.add(itemCadastroAluno);
-        (itemRegistraAula = new JMenuItem("Frequência")).setIcon(imgAula);
+        (itemRegistraAula = new JMenuItem("Registra Aula")).setIcon(imgAula);
         menuCadastro.add(itemRegistraAula);
         (itemCadastroTurma = new JMenuItem("Turma")).setIcon(imgTurma);
         menuCadastro.add(itemCadastroTurma);
@@ -156,7 +156,7 @@ public class SistemaMatricula extends JFrame
         (btnAluno = new JButton()).setToolTipText("Consulta Aluno");
         btnAluno.setIcon(new ImageIcon("aluno.png"));
         toolBar.add(btnAluno);
-        (btnAula = new JButton()).setToolTipText("Consulta Aula");
+        (btnAula = new JButton()).setToolTipText("Registra Aula");
         btnAula.setIcon(new ImageIcon("frequencia.png"));
         toolBar.add(btnAula);
         (btnTurma = new JButton()).setToolTipText("Consulta Turma");
@@ -165,7 +165,7 @@ public class SistemaMatricula extends JFrame
         (btnCurso = new JButton()).setToolTipText("Consulta Curso");
         btnCurso.setIcon(new ImageIcon("curso.png"));
         toolBar.add(btnCurso);
-        (btnResponsavel = new JButton()).setToolTipText("Consulta Respons\u00e1vel");
+        (btnResponsavel = new JButton()).setToolTipText("Consulta Responsável");
         btnResponsavel.setIcon(new ImageIcon("responsavel.png"));
         toolBar.add(btnResponsavel);
         (btnAutorizado = new JButton()).setToolTipText("Consulta Autorizado");

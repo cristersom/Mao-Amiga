@@ -45,11 +45,11 @@ public class ListernerConsultaAluno implements ActionListener {
 			for (int i = pFormulario.modelo.getRowCount() - 1; i >= 0; i--)
 				pFormulario.modelo.removeRow(i);
 
-			if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Código")) {
+			if (pFormulario.jcbconsultaPor.getSelectedItem().equals("ID")) {
 				try {
 					alunoBO = alunoDao.consultaPorCodigo(Integer.parseInt(pFormulario.txtConsulta.getText()));
 				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(pFormulario, "O código deve ser numérico", "Erro",
+					JOptionPane.showMessageDialog(pFormulario, "O ID deve ser numérico", "Erro",
 							JOptionPane.ERROR_MESSAGE);
 					pFormulario.txtConsulta.selectAll();
 					pFormulario.txtConsulta.requestFocus();
@@ -59,16 +59,6 @@ public class ListernerConsultaAluno implements ActionListener {
 				alunoBO = alunoDao.consultaPorCpf(pFormulario.txtConsulta.getText());
 			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Nome")) {
 				alunoBO = alunoDao.consultaPorNome(pFormulario.txtConsulta.getText());
-			} else if (pFormulario.jcbconsultaPor.getSelectedItem().equals("Código")) {
-				try {
-					alunoBO = alunoDao.consultaPorCodigo(Integer.parseInt(pFormulario.txtConsulta.getText()));
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(pFormulario, "O código deve ser numérico", "Erro",
-							JOptionPane.ERROR_MESSAGE);
-					pFormulario.txtConsulta.selectAll();
-					pFormulario.txtConsulta.requestFocus();
-					return;
-				}
 			}
 
 			int indice = 0;
