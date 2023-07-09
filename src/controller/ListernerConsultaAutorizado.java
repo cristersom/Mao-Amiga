@@ -1,9 +1,14 @@
 package controller;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import model.bo.AutorizadoBO;
 import model.dao.AutorizadoDao;
@@ -45,6 +50,31 @@ public class ListernerConsultaAutorizado implements ActionListener  {
 							, sdf.format(autorizadoBOList.get(indice).dataFim.getData().getTime())
 							, autorizadoBOList.get(indice).getIdAutorizado()
 					});
+					
+					if(indice== 1) {
+						pFormulario.tabela.isRowSelected(indice);
+						pFormulario.tabela.setSelectionBackground(Color.RED);
+						/*pFormulario.tabela.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+							
+							public Component getTableCellRendererComponent(JTable table, Object value,
+								boolean isSelected, boolean hasFocus, int row, int column) {
+								
+								super.getTableCellRendererComponent(table, value, isSelected,
+									hasFocus, row, column);
+								if (row == 2) {
+									setBackground(Color.RED);
+								} else {
+									setBackground(null);
+								}
+								return this;
+							}
+						});*/
+					}
+					
+
+						
+						
+					
 					indice++;
 				} while(indice < autorizadoBOList.size());
 			}

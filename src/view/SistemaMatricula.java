@@ -132,7 +132,7 @@ public class SistemaMatricula extends JFrame
         
         (itemCadastroAluno = new JMenuItem("Aluno")).setIcon(imgAluno);
         menuCadastro.add(itemCadastroAluno);
-        (itemRegistraAula = new JMenuItem("Registra Aula")).setIcon(imgAula);
+        (itemRegistraAula = new JMenuItem("Registro de Aula")).setIcon(imgAula);
         menuCadastro.add(itemRegistraAula);
         (itemCadastroTurma = new JMenuItem("Turma")).setIcon(imgTurma);
         menuCadastro.add(itemCadastroTurma);
@@ -156,7 +156,7 @@ public class SistemaMatricula extends JFrame
         (btnAluno = new JButton()).setToolTipText("Consulta Aluno");
         btnAluno.setIcon(new ImageIcon("aluno.png"));
         toolBar.add(btnAluno);
-        (btnAula = new JButton()).setToolTipText("Registra Aula");
+        (btnAula = new JButton()).setToolTipText("Registro de Aula");
         btnAula.setIcon(new ImageIcon("frequencia.png"));
         toolBar.add(btnAula);
         (btnTurma = new JButton()).setToolTipText("Consulta Turma");

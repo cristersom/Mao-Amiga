@@ -95,6 +95,7 @@ public class ListernerConsultaAluno implements ActionListener {
 					fr.setSelected(true);
 				} catch (PropertyVetoException exc) {
 				}
+				fr.pnlAluno.txtNome.requestFocus();
 			}
 
 		} else if (cmd.equals("Excluir")) {
