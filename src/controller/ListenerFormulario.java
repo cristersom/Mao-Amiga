@@ -17,6 +17,7 @@ import view.FrameConsultaCEP;
 import view.FrameConsultaCidade;
 import view.FrameConsultaColaborador;
 import view.FrameConsultaCurso;
+import view.FrameConsultaFrequencia;
 import view.FrameConsultaResponsavel;
 import view.FrameConsultaTurma;
 import view.FrameRegistraAula;
@@ -180,8 +181,8 @@ public class ListenerFormulario implements ActionListener {
 			}
 			//fr.txtResponsavel.requestFocus();
 
-		/*} else if (origem == pFormulario.itemConsultaAula) {
-			FrameCadastroColaborador fr = new FrameCadastroColaborador();
+		} else if (origem == pFormulario.itemConsultaAula) {
+			FrameConsultaFrequencia fr = new FrameConsultaFrequencia();
 			fr.setVisible(true);
 			pFormulario.DPane.add(fr);
 			try {
@@ -189,7 +190,7 @@ public class ListenerFormulario implements ActionListener {
 			} catch (PropertyVetoException exc) {
 			}
 			//fr.txtResponsavel.requestFocus();
-*/
+
 		} else if (origem == pFormulario.itemRegistraAula || origem == pFormulario.btnAula) {
 			FrameRegistraAula fr = new FrameRegistraAula();
 			fr.setVisible(true);

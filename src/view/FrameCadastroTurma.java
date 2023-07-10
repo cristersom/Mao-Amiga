@@ -157,7 +157,7 @@ public class FrameCadastroTurma extends JInternalFrame
             e2.printStackTrace();
         }
         GridBagConstraints gbc_textDataIni = new GridBagConstraints();
-        gbc_textDataIni.insets = new Insets(5, 5, 5, 0);
+        gbc_textDataIni.insets = new Insets(5, 5, 5, 5);
         gbc_textDataIni.fill = 2;
         gbc_textDataIni.gridx = 3;
         gbc_textDataIni.gridy = 0;

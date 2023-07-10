@@ -62,7 +62,7 @@ public class FrameRegistraAula extends FrameCadastro {
             for (int i = 0; i < anoList.size(); i++)
             	jcbAnoLetivo.addItem(anoList.get(i));
         } catch (NullPointerException e){
-        	//se não existir curso cadastrodo, não carrega nada no combobox
+        	//se não existir curso cadastrado, não carrega nada no combobox
         }
 		
 		JLabel lblTurma = new JLabel("Turma:");
@@ -76,7 +76,7 @@ public class FrameRegistraAula extends FrameCadastro {
             for (int i = 0; i < turmaList.size(); i++)
             	jcbTurma.addItem(turmaList.get(i));
         } catch (NullPointerException e1){
-        	//se não existir turma cadastroda, não carrega nada no combobox
+        	//se não existir turma cadastrada, não carrega nada no combobox
         }
 				
 		JLabel lblProfessor = new JLabel("Professor:");
@@ -93,7 +93,7 @@ public class FrameRegistraAula extends FrameCadastro {
             for (int i = 0; i < professorList.size(); i++)
             	jcbProfessor.addItem(professorList.get(i));
         } catch (NullPointerException e1){
-        	//se não existir turma cadastroda, não carrega nada no combobox
+        	//se não existir turma cadastrada, não carrega nada no combobox
         }
 		
 		JLabel lblData = new JLabel("Data:");

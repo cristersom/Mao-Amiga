@@ -1,0 +1,128 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
+import javax.swing.table.TableModel;
+
+import controller.ListenerConsultaFrequencia;
+import controller.ListenerRegistraAula;
+import model.bo.TurmaBO;
+import model.dao.TurmaDao;
+
+public class FrameConsultaFrequencia extends FrameCadastro {
+	public JComboBox<Integer> jcbAnoLetivo;
+	public JComboBox<TurmaBO> jcbTurma;
+	public JButton btnConsultar;
+	public JTabbedPane tabbedPane;
+    public JTable tabelaTurma;
+    public ModeloTabela modeloTurma;
+	
+	public FrameConsultaFrequencia() {
+        this.setTitle("Relatório de Frequência");
+        pnlCenter.setLayout(new BorderLayout(0, 0));
+              
+        //Painel Superior #######################################################################################
+		JPanel pnlTop = new JPanel();
+		pnlTop.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		pnlCenter.add(pnlTop, BorderLayout.NORTH);
+		
+		JLabel lblAnoLetivo = new JLabel("Ano Letivo:");
+        pnlTop.add(lblAnoLetivo);
+        jcbAnoLetivo = new JComboBox<Integer>();
+		pnlTop.add(jcbAnoLetivo);
+
+		TurmaDao turmaDao = new TurmaDao();
+		List<Integer> anoList;
+        try {
+        	anoList = turmaDao.consultaAnoTurmas();
+            for (int i = 0; i < anoList.size(); i++)
+            	jcbAnoLetivo.addItem(anoList.get(i));
+        } catch (NullPointerException e){
+        	//se não existir curso cadastrado, não carrega nada no combobox
+        }
+		
+		JLabel lblTurma = new JLabel("Turma:");
+        pnlTop.add(lblTurma);
+        jcbTurma = new JComboBox<TurmaBO>();
+		pnlTop.add(jcbTurma);
+		
+		List<TurmaBO> turmaList;
+        try {
+        	turmaList = turmaDao.consultaPorAno(Integer.parseInt(jcbAnoLetivo.getSelectedItem().toString()));
+            for (int i = 0; i < turmaList.size(); i++)
+            	jcbTurma.addItem(turmaList.get(i));
+        } catch (NullPointerException e1){
+        	//se não existir turma cadastrada, não carrega nada no combobox
+        }
+		
+        btnConsultar = new JButton("Consultar");
+		pnlTop.add(btnConsultar);
+        
+		//Painel com abas
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+		gbc_tabbedPane.fill = GridBagConstraints.CENTER;
+		gbc_tabbedPane.gridx = 0;
+		gbc_tabbedPane.gridy = 0;
+		pnlCenter.add(tabbedPane);
+        
+		//Aba Turma
+		JPanel pnlTurma = new JPanel();
+		pnlTurma.setLayout(new BorderLayout());
+        ArrayList dados = new ArrayList();
+        String[] colunas = {"ID Aluno", "Matrícula", "Nome do Aluno", "Faltas Manhã", "Faltas Tarde", "Total Faltas", "Total Aulas", "Frequência",};
+        boolean[] edicao = { false, false, false, false, false };
+        modeloTurma = new ModeloTabela(dados, colunas, edicao);
+        tabelaTurma = new JTable((TableModel)this.modeloTurma);
+        tabelaTurma.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tabelaTurma.getColumnModel().getColumn(0).setResizable(true);
+        tabelaTurma.getColumnModel().getColumn(1).setPreferredWidth(10);
+        tabelaTurma.getColumnModel().getColumn(1).setResizable(true);
+        tabelaTurma.getColumnModel().getColumn(2).setPreferredWidth(350);
+        tabelaTurma.getColumnModel().getColumn(2).setResizable(true);
+        tabelaTurma.getColumnModel().getColumn(3).setPreferredWidth(10);
+        tabelaTurma.getColumnModel().getColumn(3).setResizable(true);
+        tabelaTurma.getColumnModel().getColumn(4).setPreferredWidth(10);
+        tabelaTurma.getColumnModel().getColumn(4).setResizable(true);
+        tabelaTurma.getColumnModel().getColumn(5).setPreferredWidth(10);
+        tabelaTurma.getColumnModel().getColumn(5).setResizable(true);
+        tabelaTurma.getColumnModel().getColumn(6).setPreferredWidth(10);
+        tabelaTurma.getColumnModel().getColumn(6).setResizable(true);
+        tabelaTurma.getColumnModel().getColumn(7).setPreferredWidth(10);
+        tabelaTurma.getColumnModel().getColumn(7).setResizable(true);
+        tabelaTurma.getTableHeader().setReorderingAllowed(false);
+        tabelaTurma.setAutoResizeMode(4);
+        tabelaTurma.setSelectionMode(0);
+        JScrollPane rolagemTabela = new JScrollPane(this.tabelaTurma);
+        pnlTurma.add(rolagemTabela, "Center");
+        tabbedPane.addTab("Turma", null, pnlTurma, null);
+
+		//Aba Aluno
+		JPanel pnlAluno = new JPanel();
+		pnlAluno.setLayout(new BorderLayout());
+        ArrayList dadosAluno = new ArrayList();
+        String[] colunasAluno = {"ID", "Nome do Aluno", "Faltas Manhã", "Faltas Tarde", "Total de faltas", "Frequência",};
+        boolean[] edicaoAluno = { false, false, false, false, false };
+                
+        tabbedPane.addTab("Aluno", null, pnlAluno, null);
+
+        btnOk.setVisible(false);
+        btnCancelar.setText("Sair");
+        //Seta os listeners do formulário
+        ListenerConsultaFrequencia listener = new ListenerConsultaFrequencia(this);
+        jcbAnoLetivo.addActionListener((ActionListener)listener);
+        jcbTurma.addActionListener((ActionListener)listener);
+        btnConsultar.addActionListener((ActionListener)listener);
+	}
+}

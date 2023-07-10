@@ -215,61 +215,7 @@ public class ListenerRegistraAula implements ActionListener {
 						JOptionPane.WARNING_MESSAGE);
 				this.pFormulario.dispose();
 			}
-			
-			
-			
-			
-			
-			
-	/*		
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
-			
-			JOptionPane.showMessageDialog(pFormulario, "Selecione o Professor!"+sdf.format(dataAula.getTime()), "Mensagem",
-					JOptionPane.WARNING_MESSAGE);
-			
-			
 
-			try {
-				cidBO.setCidade(pFormulario.txtCidade.getText());
-			} catch (StringVaziaException e1) {
-				JOptionPane.showMessageDialog(pFormulario, "Cidade" + e1.toString(), "Mensagem",
-						JOptionPane.WARNING_MESSAGE);
-				pFormulario.txtCidade.selectAll();
-				pFormulario.txtCidade.requestFocus();
-				return;
-				// JOptionPane.showMessageDialog(pFormulario,"Esta é uma caixa de diálogo de
-				// Mensagem", "Mensagem", JOptionPane.WARNING_MESSAGE);
-			}
-
-			cidBO.setUf((String) pFormulario.jcbUf.getSelectedItem());
-			cidBO.setId(pFormulario.idCidade);
-
-			// acesso ao dao
-			// objetoDao.incluir(cidade);
-			if (cidBO.getId() > 0) { // Se for "0" é uma cidade nova
-				if (cidDao.alterar(cidBO)) {
-					cidBO = cidDao.consultaPorCodigoUnico(cidBO.getId());
-					int linha = pFormulario.consCid.tabela.getSelectedRow();
-					pFormulario.consCid.modelo.setValueAt(cidBO.getUf(), linha, 1);
-					pFormulario.consCid.modelo.setValueAt(cidBO.getCidade(), linha, 2);
-					JOptionPane.showMessageDialog(pFormulario, "Registro alterado!", "Mensagem",
-							JOptionPane.WARNING_MESSAGE);
-					if (this.pFormulario.consCid != null) //para chamar o frame de origem
-						try {
-							this.pFormulario.consCid.setSelected(true);
-						} catch (PropertyVetoException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-
-					this.pFormulario.dispose();
-				}
-			} else if (cidDao.incluir(cidBO)) {
-				JOptionPane.showMessageDialog(pFormulario, "Registro incluido!", "Mensagem",
-						JOptionPane.WARNING_MESSAGE);
-				this.pFormulario.dispose();
-			}
-*/
 		}
 	}
 }
