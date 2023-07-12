@@ -5,9 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import javax.swing.JOptionPane;
 import model.bo.FrequenciaBO;
 import model.exceptions.StringVaziaException;
+import view.Utils;
 
 public class FrequenciaDao {
 	Connection con;
@@ -25,14 +28,16 @@ public class FrequenciaDao {
 
 			// faz a consulta
 			registros = sentenca.executeQuery(
-					"SELECT al.idAluno, nome, m.idMatricula, au.idTurma, COUNT(au.idTurma)*2 totalAulas"
-					+ ", SUM(CASE WHEN presenteManha = 'SIM' THEN 0 ELSE 1 END) faltasManha"
-					+ ", SUM(CASE WHEN presenteTarde = 'SIM' THEN 0 ELSE 1 END) faltasTarde"
-					+ " FROM aula au INNER JOIN frequencia f ON au.idAula = f.idAula"
-					+ " INNER JOIN contrato_matricula m ON m.idMatricula = f.idMatricula and m.idTurma = au.idTurma"
+					"SELECT al.idAluno, nome, m.idMatricula, m.idTurma"
+					+ ", SUM(CASE WHEN presenteManha = 'Não' THEN 1 ELSE 0 END) faltasManha"
+					+ ", SUM(CASE WHEN presenteTarde = 'Não' THEN 1 ELSE 0 END) faltasTarde"
+					+ ", SUM(CASE WHEN f.idAula IS NULL THEN 0 ELSE 2 END) totalAulas"
+					+ " FROM contrato_matricula m"
 					+ " INNER JOIN aluno al ON al.idAluno = m.idAluno"
-					+ " WHERE au.idTurma = " + idTurma
-					+ " GROUP BY al.idAluno, nome, au.idTurma"
+					+ " LEFT JOIN aula au ON au.idTurma = m.idTurma"
+					+ " LEFT JOIN frequencia f ON au.idAula = f.idAula and f.idMatricula = m.idMatricula"
+					+ " WHERE m.idTurma = " + idTurma
+					+ " GROUP BY al.idAluno, nome, m.idTurma"
 					+ " ORDER BY nome");
 
 			if (registros.next()) {
@@ -54,6 +59,71 @@ public class FrequenciaDao {
 					frequenciaBOList.add(frequenciaBO);
 				} while (registros.next());
 				return frequenciaBOList;
+			}
+			sentenca.close();
+		} catch (SQLException eSQL) {
+			eSQL.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+					"Não foi possível carregar os dados!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return null;
+	}
+	
+	public Object[][][] getFrequenciaAluno(int idTurma, int idAluno) {
+		Statement sentenca;
+		ResultSet registros;
+
+		try {
+			sentenca = con.createStatement();
+
+			// faz a consulta
+			registros = sentenca.executeQuery(
+					"SELECT presenteManha, presenteTarde, dataAula"
+					+ " FROM contrato_matricula m"
+					+ " INNER JOIN aluno al ON al.idAluno = m.idAluno"
+					+ " LEFT JOIN aula au ON au.idTurma = m.idTurma"
+					+ " LEFT JOIN frequencia f ON au.idAula = f.idAula and f.idMatricula = m.idMatricula"
+					+ " WHERE m.idTurma = " + idTurma
+					+ " AND m.idAluno = " + idAluno
+					+ " ORDER BY dataAula");
+
+			if (registros.next()) {
+				String meses[] = {"Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outrubro","Novembro","Dezembro"};
+				
+		        Object[][][] vet = new Object[2][24][32];//turno;mes;dia
+		        for(int i=0;i<24;i++)
+		        	for(int j=1; j<32; j++) {
+		        		vet[0][i][j] = false;
+		        		vet[1][i][j] = false;
+		        	}
+		        for(int i=0; i<12; i++) {
+		        	vet[0][i][0] = meses[i]+"(M)";
+		        	vet[1][i][0] = meses[i]+"(T)";
+		        }
+		        
+				do {
+					
+					Calendar data = Calendar.getInstance();
+					data.setTime(registros.getDate("dataAula"));
+					
+					//Integer ano = data.get(Calendar.YEAR);
+					Integer mes = data.get(Calendar.MONTH);
+					Integer dia = data.get(Calendar.DAY_OF_MONTH);
+					try {
+						vet[0][mes][dia] = registros.getString("presenteManha").equals(Utils.Presente.Sim.toString()) ? true : false;
+					}catch(NullPointerException e) {
+						vet[0][mes][dia] = false;
+					}
+					
+					try {
+						vet[1][mes][dia] = registros.getString("presenteTarde").equals(Utils.Presente.Sim.toString()) ? true : false;
+					}catch(NullPointerException e) {
+						vet[1][mes][dia] = false;
+					}
+					
+				} while (registros.next());
+				return vet;
 			}
 			sentenca.close();
 		} catch (SQLException eSQL) {

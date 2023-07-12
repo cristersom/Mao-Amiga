@@ -5,6 +5,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import model.bo.AutorizadoBO;
 import model.bo.FrequenciaBO;
 import model.bo.TurmaBO;
@@ -12,7 +16,7 @@ import model.dao.FrequenciaDao;
 import model.dao.TurmaDao;
 import view.FrameConsultaFrequencia;
 
-public class ListenerConsultaFrequencia implements ActionListener {
+public class ListenerConsultaFrequencia implements ActionListener, ChangeListener {
 	private FrameConsultaFrequencia pFormulario;
 	
 	public ListenerConsultaFrequencia(FrameConsultaFrequencia pFormulario) {
@@ -69,6 +73,31 @@ public class ListenerConsultaFrequencia implements ActionListener {
 				} while(indice < frequenciaBOList.size());
 			
 			}
+		}
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		if (pFormulario.tabbedPane.getSelectedComponent() == pFormulario.pnlAluno) {
+			// apaga todas as linhas da tabela
+			for (int i = pFormulario.modeloAluno.getRowCount() - 1; i >= 0; i--)
+				pFormulario.modeloAluno.removeRow(i);
+			
+			if (pFormulario.tabelaTurma.getSelectedRow() < 0) {
+				JOptionPane.showMessageDialog(pFormulario, "Selecione um Aluno!", "Mensagem",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+						
+	        FrequenciaDao frequenciaDao = new FrequenciaDao();
+	        TurmaBO turmaBO = (TurmaBO)pFormulario.jcbTurma.getSelectedItem();
+	        Object[][][] vet = frequenciaDao.getFrequenciaAluno(turmaBO.getId()
+	        		,Integer.parseInt(pFormulario.modeloTurma.getValueAt(pFormulario.tabelaTurma.getSelectedRow(), 0).toString()));
+	        
+	        for(int i=0;i<12;i++) {
+	        	pFormulario.modeloAluno.addRow(vet[0][i]);
+	        	pFormulario.modeloAluno.addRow(vet[1][i]);
+	        }
 		}
 	}
 }

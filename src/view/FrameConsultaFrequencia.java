@@ -13,10 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.TableModel;
-
 import controller.ListenerConsultaFrequencia;
-import controller.ListenerRegistraAula;
 import model.bo.TurmaBO;
 import model.dao.TurmaDao;
 
@@ -25,8 +24,9 @@ public class FrameConsultaFrequencia extends FrameCadastro {
 	public JComboBox<TurmaBO> jcbTurma;
 	public JButton btnConsultar;
 	public JTabbedPane tabbedPane;
-    public JTable tabelaTurma;
-    public ModeloTabela modeloTurma;
+    public JTable tabelaTurma, tabelaAluno;
+    public ModeloTabela modeloTurma, modeloAluno;
+    public JPanel pnlAluno;
 	
 	public FrameConsultaFrequencia() {
         this.setTitle("Relatório de Frequência");
@@ -109,14 +109,26 @@ public class FrameConsultaFrequencia extends FrameCadastro {
         tabbedPane.addTab("Turma", null, pnlTurma, null);
 
 		//Aba Aluno
-		JPanel pnlAluno = new JPanel();
+		pnlAluno = new JPanel();
 		pnlAluno.setLayout(new BorderLayout());
         ArrayList dadosAluno = new ArrayList();
-        String[] colunasAluno = {"ID", "Nome do Aluno", "Faltas Manhã", "Faltas Tarde", "Total de faltas", "Frequência",};
+        String[] colunasAluno = {"","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
         boolean[] edicaoAluno = { false, false, false, false, false };
-                
+        modeloAluno = new ModeloTabela(dadosAluno, colunasAluno, edicaoAluno);
+        tabelaAluno = new JTable((TableModel)this.modeloAluno);
+        
+    	tabelaAluno.getColumnModel().getColumn(0).setPreferredWidth(70);
+        tabelaAluno.getColumnModel().getColumn(0).setResizable(true);
+        for(int i=1; i<=31; i++) {
+        	tabelaAluno.getColumnModel().getColumn(i).setPreferredWidth(2);
+            tabelaAluno.getColumnModel().getColumn(i).setResizable(true);
+        }
+        tabelaAluno.setAutoResizeMode(4);
+        tabelaAluno.setSelectionMode(0);
+        JScrollPane rolagemTabela2 = new JScrollPane(this.tabelaAluno);
+        pnlAluno.add(rolagemTabela2, "Center");        
         tabbedPane.addTab("Aluno", null, pnlAluno, null);
-
+  
         btnOk.setVisible(false);
         btnCancelar.setText("Sair");
         //Seta os listeners do formulário
@@ -124,5 +136,6 @@ public class FrameConsultaFrequencia extends FrameCadastro {
         jcbAnoLetivo.addActionListener((ActionListener)listener);
         jcbTurma.addActionListener((ActionListener)listener);
         btnConsultar.addActionListener((ActionListener)listener);
+        tabbedPane.addChangeListener((ChangeListener)listener);
 	}
 }

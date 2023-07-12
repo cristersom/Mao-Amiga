@@ -19,17 +19,16 @@ public class Conexao {
 			// Conexão MySql
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conexao = DriverManager.getConnection("jdbc:mysql:" + parametrosBO.getServidorBancoDados(), parametrosBO.getUsuarioBanco(), parametrosBO.getSenhaBanco());
-			// conexao = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/mao_amiga", "maoamiga", "123456789");
 
 		} catch (SQLException eSQL) {
 			// exceções de SQL
 			eSQL.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Falha na conexï¿½o com o banco!\n" + "Mensagem: " + eSQL.getMessage(),
+			JOptionPane.showMessageDialog(null, "Falha na conexão com o banco!\n" + "Mensagem: " + eSQL.getMessage(),
 					"Erro", JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e) {
 			// demais exceções
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Falha na conexï¿½o com o banco!\n" + "Mensagem: " + e.getMessage(),
+			JOptionPane.showMessageDialog(null, "Falha na conexão com o banco!\n" + "Mensagem: " + e.getMessage(),
 					"Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		return conexao;
@@ -42,7 +41,7 @@ public class Conexao {
 			// exceções de SQL
 			eSQL.printStackTrace();
 			JOptionPane.showMessageDialog(null,
-					"Nï¿½o foi possï¿½vel desconectar o banco!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
+					"Não foi possível desconectar o banco!\n" + "Mensagem: " + eSQL.getMessage(), "Erro",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
