@@ -44,7 +44,6 @@ public class AnexoDao {
 					anexoBO.setIdArquivo(Integer.parseInt(registros.getString("idArquivo")));
 					anexoBO.setIdAluno(Integer.parseInt(registros.getString("idAluno")));
 					anexoBO.setNome(registros.getString("nome"));
-					anexoBO.setDescricao(registros.getString("descricao"));
 					anexoBO.setDiretorio(registros.getString("diretorio"));
 								
 					Calendar data = Calendar.getInstance();
@@ -67,14 +66,12 @@ public class AnexoDao {
 
 	public boolean incluir(AnexoBO anexoBO) {
 		try {
-			String sql = "INSERT INTO arquivo (idAluno, nome, descricao, dataInclusao, diretorio" + 
-					") VALUES (?,?,?,?,?)";
+			String sql = "INSERT INTO arquivo (idAluno, nome, dataInclusao, diretorio) VALUES (?,?,?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setInt(1, anexoBO.getIdAluno());
 			stmt.setString(2, anexoBO.getNome());
-			stmt.setString(3, anexoBO.getDescricao());
-			stmt.setDate(4, new Date(anexoBO.dataInclusao.getData().getTimeInMillis()));
-			stmt.setString(5, anexoBO.getDiretorio());
+			stmt.setDate(3, new Date(anexoBO.dataInclusao.getData().getTimeInMillis()));
+			stmt.setString(4, anexoBO.getDiretorio());
 			stmt.execute();
 			// Conexao.desconectaBanco(con);
 			return true;
@@ -87,9 +84,9 @@ public class AnexoDao {
 		}
 	}
 
-	public boolean excluir(int idArquivo) {
+	public boolean excluir(int idArquivo, String diretorio) {
 		try {
-			String sql = "DELETE FROM arquivo WHERE idArquivo= " + idArquivo;
+			String sql = "DELETE FROM arquivo WHERE idArquivo = " + idArquivo + " or diretorio like'%" + diretorio + "%'";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.execute();
 		} catch (SQLException eSQL) {

@@ -88,12 +88,16 @@ public class ListenerConsultaFrequencia implements ActionListener, ChangeListene
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-						
+			
+			//busca o nome do aluno
+			pFormulario.txtNome.setText(pFormulario.modeloTurma.getValueAt(pFormulario.tabelaTurma.getSelectedRow(), 2).toString());
+			
 	        FrequenciaDao frequenciaDao = new FrequenciaDao();
 	        TurmaBO turmaBO = (TurmaBO)pFormulario.jcbTurma.getSelectedItem();
 	        Object[][][] vet = frequenciaDao.getFrequenciaAluno(turmaBO.getId()
 	        		,Integer.parseInt(pFormulario.modeloTurma.getValueAt(pFormulario.tabelaTurma.getSelectedRow(), 0).toString()));
 	        
+	     
 	        for(int i=0;i<12;i++) {
 	        	pFormulario.modeloAluno.addRow(vet[0][i]);
 	        	pFormulario.modeloAluno.addRow(vet[1][i]);

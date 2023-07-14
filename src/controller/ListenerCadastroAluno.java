@@ -70,7 +70,6 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener, Chang
 		    
 			String[] dirSeparado = dirArquivo.split("\\\\"); //separa o caminho para pegar o nome do arquivo
 			anexoBO.setNome(dirSeparado[dirSeparado.length-1]);	//pega o nome do arquivo
-			anexoBO.setDescricao(pFormulario.pnlAnexos.txtDescricao.getText());
 			anexoBO.dataInclusao.setData(Calendar.getInstance()); //obtém a data atual
 			anexoBO.setIdAluno(pFormulario.idAluno);
 			anexoBO.setDiretorio("/" + String.valueOf(pFormulario.idAluno) + "/" + anexoBO.getNome());
@@ -89,9 +88,8 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener, Chang
 			try {
 				if(anexoDao.incluir(anexoBO)) {
 					Utils.copyFile(source, dest);
-					pFormulario.pnlAnexos.txtDescricao.setText("");
 					 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-					pFormulario.pnlAnexos.modelo.addRow(new Object[] {anexoBO.getNome(), anexoBO.getDescricao()
+					pFormulario.pnlAnexos.modelo.addRow(new Object[] {anexoBO.getNome()
 							, sdf.format(anexoBO.dataInclusao.getData().getTime()), anexoBO.getIdArquivo(), anexoBO.getDiretorio()});										
 					JOptionPane.showMessageDialog(pFormulario, "Arquivo incluido!", "Mensagem",
 							JOptionPane.WARNING_MESSAGE);
@@ -107,10 +105,10 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener, Chang
 				if (JOptionPane.showConfirmDialog(pFormulario, "Confirma exclusão?", "Confirmacao",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					
-					anexoBO.setIdArquivo(Integer.parseInt(pFormulario.pnlAnexos.modelo.getValueAt(pFormulario.pnlAnexos.tabela.getSelectedRow(), 3).toString()));
-					anexoBO.setDiretorio(pFormulario.pnlAnexos.modelo.getValueAt(pFormulario.pnlAnexos.tabela.getSelectedRow(), 4).toString());
+					anexoBO.setIdArquivo(Integer.parseInt(pFormulario.pnlAnexos.modelo.getValueAt(pFormulario.pnlAnexos.tabela.getSelectedRow(), 2).toString()));
+					anexoBO.setDiretorio(pFormulario.pnlAnexos.modelo.getValueAt(pFormulario.pnlAnexos.tabela.getSelectedRow(), 3).toString());
 					
-					if(anexoDao.excluir(anexoBO.getIdArquivo())) {
+					if(anexoDao.excluir(anexoBO.getIdArquivo(), anexoBO.getDiretorio())) {
 						File file = new File(parametrosBO.getServidorArquivos()+anexoBO.getDiretorio());
 						file.delete();
 						pFormulario.pnlAnexos.modelo.removeRow(pFormulario.pnlAnexos.tabela.getSelectedRow());
@@ -122,7 +120,7 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener, Chang
 			
 		} else if (origem == pFormulario.pnlAnexos.btnAbrir) {//abre anexo
 			if (pFormulario.pnlAnexos.tabela.getSelectedRow() >= 0) {
-				anexoBO.setDiretorio(pFormulario.pnlAnexos.modelo.getValueAt(pFormulario.pnlAnexos.tabela.getSelectedRow(), 4).toString());
+				anexoBO.setDiretorio(pFormulario.pnlAnexos.modelo.getValueAt(pFormulario.pnlAnexos.tabela.getSelectedRow(), 3).toString());
 				File arquivo = new File(parametrosBO.getServidorArquivos() + anexoBO.getDiretorio());
 				
 					try {
@@ -379,7 +377,7 @@ public class ListenerCadastroAluno implements ActionListener, KeyListener, Chang
 			if(anexoBOList != null) {
 				indice = 0;
 				do {
-					pFormulario.pnlAnexos.modelo.addRow(new Object[] {anexoBOList.get(indice).getNome(), anexoBOList.get(indice).getDescricao()
+					pFormulario.pnlAnexos.modelo.addRow(new Object[] {anexoBOList.get(indice).getNome()
 							, sdf.format(anexoBOList.get(indice).dataInclusao.getData().getTime()), anexoBOList.get(indice).getIdArquivo()
 							, anexoBOList.get(indice).getDiretorio()});
 					indice++;

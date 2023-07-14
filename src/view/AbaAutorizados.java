@@ -187,7 +187,7 @@ public class AbaAutorizados extends JPanel {
         
         ArrayList dadosAutor = new ArrayList();
         String[] colunasAutor = { "Nome", "Celular", "Telefone", "Tipo", "Data Início", "Data Fim", "idAutorizado" };
-        boolean[] edicaoAutor = { true, true, true, false, true, true };
+        boolean[] edicaoAutor = { false, false, false, false, false, false };
         
         
         modelo = new ModeloTabela(dadosAutor, colunasAutor, edicaoAutor);

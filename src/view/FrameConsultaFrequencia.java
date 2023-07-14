@@ -2,6 +2,8 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.TableModel;
@@ -27,6 +30,7 @@ public class FrameConsultaFrequencia extends FrameCadastro {
     public JTable tabelaTurma, tabelaAluno;
     public ModeloTabela modeloTurma, modeloAluno;
     public JPanel pnlAluno;
+    public JTextField txtNome;
 	
 	public FrameConsultaFrequencia() {
         this.setTitle("Relatório de Frequência");
@@ -111,6 +115,35 @@ public class FrameConsultaFrequencia extends FrameCadastro {
 		//Aba Aluno
 		pnlAluno = new JPanel();
 		pnlAluno.setLayout(new BorderLayout());
+		
+        //Painel superior ###########################################################################
+		JPanel pnlTopIndividual = new JPanel();
+       // pnlTop.setBorder(BorderFactory.createBevelBorder(1));
+        GridBagLayout gbl_pnlTopIndividual = new GridBagLayout();
+        gbl_pnlTopIndividual.columnWidths = new int[]{0, 0, 0, 0, 0};
+        gbl_pnlTopIndividual.columnWeights = new double[]{0.0, 1.0};
+        pnlTopIndividual.setLayout(gbl_pnlTopIndividual);
+        pnlAluno.add(pnlTopIndividual, BorderLayout.NORTH);
+        
+		JLabel lblAluno = new JLabel("Aluno:");
+		GridBagConstraints gbc_lblAluno = new GridBagConstraints();
+		gbc_lblAluno.insets = new Insets(5, 5, 5, 5);
+		gbc_lblAluno.anchor = GridBagConstraints.WEST;
+		gbc_lblAluno.gridheight = 5;
+		gbc_lblAluno.gridx = 0;
+		gbc_lblAluno.gridy = 0;
+		pnlTopIndividual.add(lblAluno,gbc_lblAluno);
+		
+        txtNome = new JTextField();
+        GridBagConstraints gbc_txtNome = new GridBagConstraints();
+        gbc_txtNome.fill = 2;
+        gbc_txtNome.gridwidth = 4;
+        gbc_txtNome.insets = new Insets(5, 5, 5, 5);
+        gbc_txtNome.gridx = 1;
+        gbc_txtNome.gridy = 1;
+        txtNome.setEditable(false);
+        pnlTopIndividual.add(txtNome, gbc_txtNome);
+		
         ArrayList dadosAluno = new ArrayList();
         String[] colunasAluno = {"","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
         boolean[] edicaoAluno = { false, false, false, false, false };
@@ -126,7 +159,8 @@ public class FrameConsultaFrequencia extends FrameCadastro {
         tabelaAluno.setAutoResizeMode(4);
         tabelaAluno.setSelectionMode(0);
         JScrollPane rolagemTabela2 = new JScrollPane(this.tabelaAluno);
-        pnlAluno.add(rolagemTabela2, "Center");        
+        pnlAluno.add(rolagemTabela2, "Center");
+                
         tabbedPane.addTab("Aluno", null, pnlAluno, null);
   
         btnOk.setVisible(false);
