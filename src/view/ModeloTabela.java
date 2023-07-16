@@ -1,7 +1,12 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.util.*;
+
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class ModeloTabela extends AbstractTableModel {
 	private ArrayList linhas = null;
@@ -77,4 +82,14 @@ public class ModeloTabela extends AbstractTableModel {
 		Object[] linha = (Object[]) getLinhas().get(0);
 		return linha[numCol].getClass();
 	}
+	
+	public DefaultTableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+             Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+             comp.setForeground(Color.WHITE);
+             comp.setBackground(Color.BLACK);
+             return comp;
+        }
+    };
 }

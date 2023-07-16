@@ -4,17 +4,24 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
 
 import controller.ListenerCadastroAluno;
 import controller.ListenerCadastroTurma;
+import model.bo.DataBO;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -185,6 +192,34 @@ public class AbaAutorizados extends JPanel {
         pnlTop.add(btnExcluir, gbc_btnExcluir);
             
         
+        DefaultTableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                 Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                 comp.setForeground(Color.BLACK);
+                 
+                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                 Calendar dataAtual = Calendar.getInstance();
+                 DataBO dataIni = new DataBO();
+                 DataBO dataFim = new DataBO();
+                 try {
+                	 dataIni.setData(table.getValueAt(row, 4).toString());
+                	 dataFim.setData(table.getValueAt(row, 5).toString());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                 //se a dataIni for maior que a atual, deixa a linha azul
+                 if(dataIni.getData().compareTo(dataAtual) > 0)
+                	 comp.setBackground(Color.BLUE.brighter());
+                 else if(dataFim.getData().compareTo(dataAtual) < 0)
+                	 comp.setBackground(Color.RED.brighter());
+                 else comp.setBackground(null);
+                 
+                 return comp;
+            }
+        };
+        
         ArrayList dadosAutor = new ArrayList();
         String[] colunasAutor = { "Nome", "Celular", "Telefone", "Tipo", "Data Início", "Data Fim", "idAutorizado" };
         boolean[] edicaoAutor = { false, false, false, false, false, false };
@@ -209,6 +244,7 @@ public class AbaAutorizados extends JPanel {
         tabela.getTableHeader().setReorderingAllowed(false);
         tabela.setAutoResizeMode(3);
         tabela.setSelectionMode(0);
+        tabela.setDefaultRenderer(Object.class, tableCellRenderer);
         JScrollPane rolagemTabelaAutor = new JScrollPane(tabela);
         this.add(rolagemTabelaAutor, "Center");
 
